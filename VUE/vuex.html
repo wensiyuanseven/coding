@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app-1">
+        {{sharedState}}
+        <text-document></text-document>
+    </div>
+    <div id="app-2"> {{sharedState}} </div>
+
+    <script>
+        var store = {
+            debug: true,
+            state: {
+                message: 'Hello!'
+            },
+            setMessageAction(newValue) {
+                if (this.debug) console.log('setMessageAction triggered with', newValue)
+                this.state.message = newValue
+            },
+            clearMessageAction() {
+                if (this.debug) console.log('clearMessageAction triggered')
+                this.state.message = ''
+            }
+        }
+        Vue.component('text-document', {
+            template: `
+               <div><p>子组件{{$root.$data.sharedState}}</p></div>
+            `,
+            data() {
+                return {
+                    // sharedState: this.$root.$data.sharedState
+                    // sharedState: store.state
+                }
+            },
+            mounted() {
+                setTimeout(() => {
+                    store.setMessageAction('变更')
+                }, 1000)
+            }
+        })
+        // 子组件和此原理一样,也是引入 store.state
+        var vmA = new Vue({
+            el: '#app-1',
+            data: {
+                privateState: {},//私有状态
+                sharedState: store.state
+            },
+            mounted() {
+            }
+        })
+
+        var vmB = new Vue({
+            el: '#app-2',
+            data: {
+                privateState: {},
+                sharedState: store.state
+            }
+        })
+    </script>
+</body>
+
+</html>
