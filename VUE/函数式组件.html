@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .abc {
+            color: rebeccapurple;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app">
+
+        <smart-list :items='[]' title='函数式组件' @click='getSend'>
+            <p>点击</p>
+        </smart-list>
+
+    </div>
+
+    <script>
+        var EmptyList = {}
+        var TableList = {}
+        var OrderedList = {}
+        var UnorderedList = {
+            template: `<div>
+                <p>函数式组件</p>
+                <slot></slot>
+            </div>`
+        }
+        // 参考文章
+        // https://juejin.im/post/6844904191677186061
+        Vue.component('smart-list', {
+            functional: true,
+            props: {
+                items: {
+                    type: Array,
+                    required: true
+                }
+            },
+            render: function (createElement, context) {
+                return createElement(
+                    'div',
+                    {
+                        attrs: context.data.attrs,
+                        on: {
+                            click: context.listeners.click
+                        }
+                    },
+                    context.children
+                )
+            }
+        })
+
+        Vue.abc = 'hhhh'
+        const vm = new Vue({
+            el: '#app',
+            mounted() {
+                // console.log(Vue.abc)
+                console.log(this.$options.render)
+                this.$once('send', this.getSend)
+            },
+            methods: {
+                getSend(data) {
+                    console.log(data, 'data')
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

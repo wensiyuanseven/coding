@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .abc {
+            color: rebeccapurple;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app">
+
+        <text-document></text-document>
+    </div>
+
+    <script>
+        let myPlugin = {
+            install: function (Vue, options) {
+                console.log(Vue, '插件')
+            }
+        }
+        Vue.use(myPlugin)
+        Vue.component('text-document', {
+            template: `
+               <div><p @click="send">点击</p></div>
+            `,
+            methods: {
+                send() {
+                    // 注意是根实例上面提供的这几个方法，组件实例上并没有这几个方法
+                    this.$root.$emit('send', '数据')
+                }
+            }
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            mounted() {
+                this.$once('send', this.getSend)
+            },
+            methods: {
+                getSend(data) {
+                    alert(data)
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
