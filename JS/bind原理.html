@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <script>
+        Function.prototype.bind = function (...args) {
+            let self = this
+            let obj = args.shift()
+            return (...params) => {
+                self.apply(obj, [...args, ...params])
+            }
+        }
+        let obj = {
+            c: '123'
+        }
+
+        function example(a, b) {
+            console.log(this, a, b)
+        }
+        console.log(example.prototype)
+        let func = example.bind(obj, 'a')
+        func('b')
+    </script>
 </body>
+
 </html>

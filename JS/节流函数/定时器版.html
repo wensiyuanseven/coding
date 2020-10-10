@@ -9,7 +9,7 @@
 
 <body>
     <script>
-        function debounce(fun, time = 500) {
+        function throttle(fun, time = 500) {
             let isFirst = true
             let interval = null
             return (...args) => {
@@ -17,16 +17,20 @@
                     fun.apply(this, args)
                     return isFirst = false
                 }
-                clearTimeout(interval)
-                interval = setTimeout(() => {
-                    fun.apply(this, args)
-                }, time)
+                if (!interval) {
+                    interval = setTimeout(() => {
+                        clearTimeout(interval)
+                        interval = null
+                        fun.apply(this, args)
+                    }, time)
+                }
+
             }
         }
-        function fun(event) {
+        function resize(event) {
             console.log(event)
         }
-        window.onresize = debounce(fun, 3000)
+        window.onresize = throttle(resize, 3000)
     </script>
 </body>
 

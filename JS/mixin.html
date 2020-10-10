@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <script>
+        // notice:如果需要彻底切断与源对象的联系，需要一进来就深拷贝
+        Object.prototype.mixin = function (...args) {
+            args.forEach((everyObj, index) => {
+                for (let item in everyObj) {
+                    if (!(item in this)) {
+                        this[item] = everyObj[item]
+                    }
+                }
+            })
+            return this
+        }
+        let source = { a: '1' }
+        let obj1 = { b: 2 }
+        let obj2 = { c: 3 }
+        console.log(source.mixin(obj1, obj2))
+    </script>
 </body>
+
 </html>

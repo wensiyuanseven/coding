@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function mockNew(...args) {
+            let self = args.shift()
+            let obj = {}
+            obj.__proto__ = Object.create(self.prototype)
+            let result = self.apply(obj, args)
+            return result instanceof Object ? result : obj
+        }
+        function fun(...params) {
+            this.abc = '123'
+            console.log(params)
+        }
+        let getVal = mockNew(fun, '哺乳类', '两栖类')
+        console.log(getVal.abc)
+    </script>
+</body>
+
+</html>
