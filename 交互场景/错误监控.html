@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Js错误捕获</title>
+</head>
+
+<body>
+    <button id="btn">点击</button>
+    <!-- // 前端监控流程
+     数据采集 -- 数据上报 -- 服务端处理 -- 数据库存储 -- 数据监控可视化平台
+      window.onerror会全局的在JavaScript运行时未捕获的错误、语法错误发生时触发 -->
+    <script type="text/javascript">
+        btn.addEventListener('click', () => {
+            throw new Error("出错了！")
+        })
+        /**
+         * @param {String}  errorMessage   错误信息
+         * @param {String}  scriptURI      出错的文件
+         * @param {Long}    lineNumber     出错代码的行号
+         * @param {Long}    columnNumber   出错代码的列号
+         * @param {Object}  errorObj       错误的详细信息，Anything
+         */
+        window.onerror = function (errorMessage, scriptURI, lineNumber, columnNumber, errorObj) {
+            console.error("错误信息：", errorMessage);
+            console.error("出错文件：", scriptURI);
+            console.error("出错行号：", lineNumber);
+            console.error("出错列号：", columnNumber);
+            console.error("错误详情：", errorObj);
+            const img = new Image()
+            img.src = `https://pic4.zhimg.com/v2-c98399d5df06ee9a992dc98f88554b5b_b.png?errorMessage=${errorMessage}&scriptURI=${scriptURI}`
+            img.onload = function (info) {
+                console.log(this.width)
+            }
+            img.onerror = function () {
+                // 重新发送信标
+            }
+        }
+    </script>
+
+</body>
+
+</html>

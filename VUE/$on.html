@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app-1">
+        <button @click='click'>点击</button>
+        <p v-show='show'>哈哈哈</p>
+    </div>
+
+    <script>
+        var MyComponent = Vue.extend({
+            template: '<div>Hello!</div>'
+        })
+
+
+        // 同上
+        // new MyComponent({ el: '#app' })
+
+        // 或者，在文档之外渲染并且随后挂载
+        var component = new MyComponent().$mount()
+        console.log(component, '--')
+        document.body.appendChild(component.$el)
+        // 子组件和此原理一样,也是引入 store.state
+        var vmA = new Vue({
+            el: '#app-1',
+            data: { a: 1, show: true },
+            mounted() {
+                this.$on('abc', function (data) {
+                    alert(data)
+                })
+                console.log(this.$options)
+            },
+            methods: {
+                click() {
+                    this.show = !this.show
+                    // this.$emit('abc', '数据')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

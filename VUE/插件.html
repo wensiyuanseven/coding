@@ -15,11 +15,13 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <div id="app">
-
+        {{obj}}
         <text-document></text-document>
     </div>
 
     <script>
+
+
         let myPlugin = {
             install: function (Vue, options) {
                 console.log(Vue, '插件')
@@ -40,8 +42,20 @@
 
         const vm = new Vue({
             el: '#app',
+            data: {
+                obj: { a: '123' },
+                arr: [1,2]
+            },
             mounted() {
+                this.$set(this.obj, 'b', '456')
                 this.$once('send', this.getSend)
+                // setTimeout(() => {
+                //     this.obj.b = '567'
+                // }, 1000)
+                // delete this.obj.a
+                // this.$delete(this.obj,'a')
+                delete this.arr[1]
+                console.log(this.obj)
             },
             methods: {
                 getSend(data) {
@@ -49,7 +63,7 @@
                 }
             }
         });
-
+    //    vm.$set()
     </script>
 </body>
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app-1">
+        父组件
+        <text-document></text-document>
+    </div>
+
+    <script>
+
+        Vue.config.optionMergeStrategies._my_option = function (parent, child, vm) {
+            // parent指 mixin
+            console.log(parent, child)
+            return child + 1
+        }
+        let mixin = {
+            _my_option: 10
+        }
+        Vue.component('text-document', {
+            template: `
+               <div><p @click="aaa">子组件</p></div>
+            `,
+            data: vm => {
+                // 此时this指向window
+                console.log(this)
+                return {
+
+                }
+            },
+            // // _my_option: 1,
+            // mounted() {
+            //     console.log(this.$options)
+            // }
+        })
+        var data = { a: 1 }
+        // 子组件和此原理一样,也是引入 store.state
+        var vmA = new Vue({
+            mixins: [mixin],
+            el: '#app-1',
+            _my_option: 12,
+            data: data,
+            mounted() {
+                console.log(this.$options)
+            }
+        })
+        // var arguments = [1, 2, 3];
+        var arr = function () {
+            console.log(arguments)
+        }
+
+        arr(1, 2, 3); // 1
+    </script>
+</body>
+
+</html>

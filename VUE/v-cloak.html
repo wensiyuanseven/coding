@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!--参考文章 https://segmentfault.com/a/1190000008819667  -->
+    <!-- 为什么单文件组件中不会有{{}}闪烁情况？ -->
+    <!-- 因为单文件组件里每个vue文件都是模板 并不是html文件，
+        真正的html文件下只有一个<div id='app'></div>标签，
+        里面没有{{}}只有当render转换成为真正的dom后才会被替换掉 -->
+    <div id="app" v-cloak>
+        <span v-pre>{{exapmle}}</span>
+        <h1>父组件{{exapmle}}</h1>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            var vmA = new Vue({
+                el: '#app',
+                data: {
+                    exapmle: '我是父数据'
+                }
+            })
+        }, 1000)
+    </script>
+</body>
+
+</html>

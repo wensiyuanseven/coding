@@ -61,7 +61,7 @@
             el: '#app',
             mounted() {
                 // console.log(Vue.abc)
-                console.log(this.$options.render)
+                console.log(this.$data,'--')
                 this.$once('send', this.getSend)
             },
             methods: {

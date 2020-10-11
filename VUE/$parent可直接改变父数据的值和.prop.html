@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app-1" v-cloak>
+        <span v-pre>{{exapmle}}</span>
+        父组件{{exapmle}}
+        <!-- https://blog.csdn.net/weixin_34032827/article/details/88916925 -->
+        <!-- .prop 通过自定义属性存储变量，避免暴露数据
+        防止污染 HTML 结构 -->
+        <!-- Property Attribute -->
+        <p ref='p' v-bind:content.prop="'text'" v-bind="{ id: someProp, 'otherAttr': '哈哈哈哈' }" :abc='someProp'>aaa</p>
+        <text-document v-bind="{ id: someProp, 'other-attr': otherProp }" @click.native='abc'></text-document>
+    </div>
+
+    <script>
+
+        Vue.config.optionMergeStrategies._my_option = function (parent, child, vm) {
+            // parent指 mixin
+            console.log(parent, child)
+            return child + 1
+        }
+        let mixin = {
+            _my_option: 10
+        }
+        Vue.component('text-document', {
+            template: `
+               <div><p >子组件</p></div>
+            `,
+            data: vm => {
+                // 此时this指向window
+
+                return {
+
+                }
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.$parent.exapmle = '改变'
+                }, 2000)
+            }
+        })
+        var data = { a: 1 }
+        // 子组件和此原理一样,也是引入 store.state
+        setTimeout(() => {
+            var vmA = new Vue({
+                mixins: [mixin],
+                el: '#app-1',
+                _my_option: 12,
+                data: {
+                    someProp: '123',
+                    otherProp: true,
+                    exapmle: '我是父数据'
+                },
+                methods: {
+                    abc() {
+                        alert()
+                    }
+                },
+                mounted() {
+                    console.log(this.$refs.p.attributes)
+                    console.log(this.$refs.p.content)
+                    console.log(document.getElementsByTagName('p'))
+                    // for(let item in this.$refs.p){
+                    //     console.log(item)
+                    // }
+                }
+            })
+        }, 2000)
+    </script>
+</body>
+
+</html>
