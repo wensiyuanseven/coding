@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--  -->
+    <script>
+        // 格林威治时间  GMT
+        // 世界协调时间  UTC(更精准)
+        // 本地时间
+        let formatDateTime = function (date = new Date()) {
+            let y = date.getFullYear();
+            let m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            let d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            let h = date.getHours();
+            h = h < 10 ? ('0' + h) : h;
+            let minute = date.getMinutes();
+            minute = minute < 10 ? ('0' + minute) : minute;
+            let second = date.getSeconds();
+            second = second < 10 ? ('0' + second) : second;
+            const currentTime = y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+        }
+        setInterval(formatDateTime, 1000)
+
+    </script>
+    <script>
+        function example({ a: abc }) {
+            console.log(abc)
+        }
+        example({ a: '1111' })
+        // let { a: abc } = { a: '111' }
+        // console.log(abc)
+    </script>
+</body>
+
+</html>

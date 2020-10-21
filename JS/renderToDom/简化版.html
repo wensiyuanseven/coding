@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        const state = { count: 0 }
+        // children 其实就是标签的内容
+        const vnode = {
+            tag: 'div',
+            props: {
+                style: { color: 'red' }
+            },
+            children: [{
+                tag: 'p',
+                props: null,
+                children: `vue@3- 计数器 ${state.count}`
+            }, {
+                tag: 'button',
+                props: {
+                    onClick: () => alert(state.count)
+                },
+                children: '点我啊'
+            }]
+        }
+        // https://tool.oschina.net/uploads/apidocs/jquery/regexp.html 正则
+        // [^a-z] 负值字符范围。匹配任何不在指定范围内的任意字符。例如，“[^a-z]”可以匹配任何不在“a”到“z”范围内的任意字符 即on1click 也是true
+        const onRe = /^on[^a-z]/;
+        // dom操作增删改查
+        const nodeOps = {
+            insert: (child, parent, anchor) => {
+                if (anchor) {
+                    parent.insertBefore(child, anchor);
+                } else {
+                    parent.appendChild(child);
+                }
+            },
+            remove: (child) => {
+                const parent = child.parentNode;
+                if (parent) {
+                    parent.removeChild(child);
+                }
+            },
+            createElement: tag => document.createElement(tag),
+            setElementText: (el, text) => el.textContent = text,
+
+            hostPatchProps: (el, key, value) => {
+                const isOn = key => onRe.test(key);
+                if (isOn(key)) {  //事件添加
+                    const name = key.slice(2).toLowerCase();
+                    el.addEventListener(name, value);
+                } else {
+                    if (key === 'style') {  // 样式处理
+                        // 循环添加
+                        for (let key in value) {
+                            el.style[key] = value[key];
+                        }
+                    } else {
+                        el.setAttribute(key, value);
+                    }
+                }
+            }
+        }
+
+        function mountElement(vnode, container) {
+            const { tag, props, children } = vnode;
+            let el = vnode.el = nodeOps.createElement(tag);
+            if (props) {
+                // 循环所有属性添加属性
+                for (let key in props) {
+                    nodeOps.hostPatchProps(el, key, props[key]);
+                }
+            }
+            if (typeof children === 'string') {
+                nodeOps.setElementText(el, children);
+            } else if (Array.isArray(children)) {
+                mountChildren(children, el);
+            }
+            nodeOps.insert(el, container, null);
+        }
+
+        function render(vnode, container) {
+            // 不是string终止递归
+            if (typeof vnode.tag == 'string') {
+                // 将虚拟节点挂载到对应的容器中
+                mountElement(vnode, container);
+            }
+        }
+
+        // 循环挂载子元素
+        function mountChildren(children, container) {
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                render(child, container);
+            }
+        }
+
+        render(vnode, app);
+    </script>
+</body>
+
+</html>
