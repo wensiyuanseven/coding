@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vuex/3.0.0/vuex.js"></script>
+</head>
+
+<body>
+    <div id="app">{{$store.state.abc}} {{$store.state.b.b}}</div>
+    <script>
+        // 当root设置为true时 可以同时触发更改根和其他modules(不带命名空间时)中的mutations
+        // 如果都带命名空间 两个模块不能互相commit 除非把模块变成全局的(root:true)
+        const moduleA = {
+            namespaced: true,
+            state: {
+                a: 123
+            },
+            mutations: {
+                increment(state, data, rootState) {
+                    // console.log(state, data, rootState)
+                    this.state.abc = '根数据被修改'
+                    console.log(this)
+                    // 这里的 `state` 对象是模块的局部状态
+                    state.a++
+                }
+            },
+            actions: {
+                increment(event, data, abc) {
+                    console.log(event, data, abc)
+                    event.commit('increment', data)
+                    event.commit('rootPlay', data, { root: true })
+                    // event.commit('moduleBPlay', data, { root: true })
+                    event.dispatch('someAction', 'abc', { root: true })
+                }
+            },
+            getters: {}
+        }
+        // 不带命名空间
+        const moduleB = {
+            // namespaced: true,
+            state: {
+                b: 456
+            },
+            mutations: {
+                rootPlay(state) {
+                    state.b++
+                },
+                moduleBPlay() {
+                }
+            },
+            actions: {
+                // 此模块现在变成全局action 不需要再带命名空间（可在控制台实例中查看）
+                someAction: {
+                    root: true,
+                    handler(namespacedContext, payload) {
+                        console.log('触发')
+                    } // -> 'someAction'
+                }
+            }
+        }
+
+        const store = new Vuex.Store({
+            modules: {
+                a: moduleA,
+                b: moduleB
+            },
+            state: {
+                abc: '根数据'
+            },
+            mutations: {
+                rootPlay(state) {
+                    state.abc = '更改根数据'
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            store,
+            mounted() {
+                console.log(this.$store)
+                // 需要添加命名空间
+                this.$store.dispatch('a/increment', '数据')
+            }
+        })
+    </script>
+</body>
+
+</html>

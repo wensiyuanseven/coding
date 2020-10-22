@@ -8,16 +8,20 @@ typeScript 1天
 适配+图片 3天
 休息一天(爬长城)
 -----------------------
+文档整理（博客上线） 2天
 express 2天
 算法 2天
 canvas动画,数学 3天
 各种场景(树,日历,权限管理,table表格,展开收缩,上传下载,合成图片,幻灯片) 2天
-文档整理（博客上线） 2天
 开源库 8天
 
 期间把css世界看完
 
 //剩下一个月 准备面试
+
+
+
+//组件间通信 vuex emit attrs  props this.$parent/this.$childern  eventBus   provide/inject
 
 
 
