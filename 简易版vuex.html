@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>简易版vuex</title>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
 </head>
 
 <body>
-    <div id="app">{{$store.state.count}}</div>
+    <div id="app">{{$store.state.count}} {{$store.getters.newCount}}</div>
     <script>
         class Store {
             constructor(options) {
@@ -18,17 +18,22 @@
                 this.mutations = {};
                 this.actions = {}
                 // 什么样的属性 可以实现双向 有get 和set new vue({data:{}})
-                // vuex核心就是借用了vue的实例 因为vue的实例数据变化 会刷新视图 vdom更新 整个视图都会改变
+                // vuex核心就是借用了vue的实例 因为vue的实例数据变化 会刷新视图 vdom更新 整个视图都会改变[4种方法]
                 // this._state = new Vue({
                 //     data: {
                 //         state
                 //     }
                 // });
-                this._state = Vue.observable(state) //变成响应试数据
-                // Vue.util.defineReactive
+                this.state = Vue.observable(options.state) //变成响应试数据
+                // Vue.util.defineReactive(this, "_state", state);
+                // Vue.set(this, "_state", state)
+                // 重点
                 if (options.getters) {
                     let getters = options.getters; // {newCount:fn}
                     forEach(getters, (getterName, getterFn) => {
+                        //用到了闭包
+                        // 循环getters里面的每一项数据 给getters中的每一项添加响应式 并执行里面的函数
+                        // 只要在模板中取值时 以来的state改变 那么getter自然改变
                         Object.defineProperty(this.getters, getterName, {
                             get: () => {
                                 // vue.computed实现
@@ -37,19 +42,24 @@
                         })
                     });
                 }
-                let mutations = options.mutations;
-                forEach(mutations, (mutationName, mutationFn) => {
-                    // this.mutations.change = ()=>{ change(state)}
+                // 用bind试试
+                forEach(options.mutations, (mutationName, mutationFn) => {
+                    // 包裹函数 等待commit()函数调用
                     this.mutations[mutationName] = () => {
+                        // 改变this指向 使其store实例
                         mutationFn.call(this, state);
                     }
+                    // 或者
+                    // this.mutations[mutationName] =mutationFn.bind(this, state)
                 });
-                let actions = options.actions;
-                forEach(actions, (actionName, actionFn) => {
+                // 包裹函数 等待dispatch()函数调用函数调用
+                forEach(options.actions, (actionName, actionFn) => {
                     this.actions[actionName] = () => {
+                        // 改变this指向 使其store实例
                         actionFn.call(this, this);
                     }
                 });
+                //切片编程 先把原型上的方法存起来  然后再内部调用 防止action时this丢失
                 let { commit, dispatch } = this;
                 this.commit = (type) => {
                     commit.call(this, type);
@@ -58,17 +68,14 @@
                     dispatch.call(this, type);
                 }
             }
-            get state() { // Object.definefineProperty get
-                return this._state;
-            }
-            commit(type) { // undefine
-                this.mutations[type].forEach(fn => fn());
+            commit(type) {
+                this.mutations[type]()
             }
             dispatch(type) {
-                this.actions[type].forEach(fn => fn());
+                this.actions[type]()
             }
         }
-        function forEach(obj, callback) {
+        const forEach = (obj, callback) => {
             Object.keys(obj).forEach(item => callback(item, obj[item]));
         }
         const install = (Vue) => {
@@ -94,7 +101,7 @@
                 count: 100
             },
             getters: {
-                newCount(state) { // 200
+                newCount(state) {   //200
                     return state.count + 100;
                 }
             },
@@ -106,19 +113,20 @@
             actions: {
                 change({ commit }) {
                     setTimeout(() => {
+                        // 此时会去调用原型上的commit, 但是commit方法上会丢失this,this此时指向undefined
                         commit('change');
                     }, 1000);
                 }
             }
         })
-
-
-
         new Vue({
             el: '#app',
             store,
             mounted() {
-                console.log(this.$store.state.count)
+                window.addEventListener("load", () => {
+                });
+                console.log(this.$store)
+                this.$store.dispatch('change')
             }
         })
     </script>

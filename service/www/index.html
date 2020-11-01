@@ -37,6 +37,8 @@
     </ul>
 
     <script>
+        // 提交给后台的数据为什么会出现[object Object]？
+        // 因为后台要的都是对象的形式 对象强制转成字符串(String({}))会变成[object Object]
         // form表单提交数据
         let form = document.getElementById('form')
         form.addEventListener('submit', function (e) {
@@ -84,7 +86,7 @@
         document.cookie = "test1=Hello;expires=Sun, 01 Dec 2019 15:25:47 GM";
         buttom1.addEventListener('click', e => {
             fetch('/success', {
-                method: 'POST',
+                method: 'POST', //json字符串形式 如果不转换就会变成[object Object]
                 body: JSON.stringify({ a: 456, b: [1, 2, '111'] }), //'{"a":123,"b":456}' 或者 JSON.stringify({ a: 123, b: 456 })
                 // body: '{"a":123,"b":456}',
                 headers: {

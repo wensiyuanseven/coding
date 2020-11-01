@@ -14,7 +14,7 @@ class HistoryRoute {
 class MyRouter {
   constructor(options) {
     //默认是hash 模式
-    this.mode = options.mode || hash;
+    this.mode = options.mode || "hash";
     this.routes = options.routes || [];
     //传递过来的是一个路由表， 为了方便后期的处理，我们需要对这个数组做一个改造：{'/home':Home,'/main':Main}
     this.routesMap = this.createMap(this.routes);
@@ -33,12 +33,12 @@ class MyRouter {
       window.addEventListener("load", () => {
         this.history.current = location.hash.slice(1);
       });
-      //监听hash的变化
+      // 监听hash的变化
       window.addEventListener("hashchange", () => {
         this.history.current = location.hash.slice(1);
       });
     } else {
-      location.pathname ? "" : (location.pathname = "/");
+      location.pathname ? "" : (location.pathname = "/"); //可以更改状态栏中的url
       window.addEventListener("load", () => {
         this.history.current = location.hash.slice(1);
       });
@@ -52,7 +52,7 @@ class MyRouter {
     return routes.reduce((memo, current) => {
       memo[current.path] = current.component;
       return memo;
-    }, {}); //初始化 memo 为空对象
+    }, {}); // 初始化 memo 为空对象
   }
   go() {}
   back() {}
@@ -69,8 +69,8 @@ MyRouter.install = function(Vue, opts) {
       //mixin混合方法，会把这个方法和组件中的方法合成一个
       //定位跟组件 如果存在 $options 而且 $options 上存在 router ，则为根组件
       if (this.$options && this.$options.router) {
-        this._root = this; //把当前实例挂载到当前实例的_root属性上
         this._router = this.$options.router; //把 router 挂载到当前实例的 _router属性上
+        this._root = this; //把当前实例挂载到当前实例的_root属性上
 
         //observe方法 ,如果 history 中的 current 属性变化了，也会刷新视图
         //这里我们使用 defineReactive 来进行实现
@@ -80,7 +80,7 @@ MyRouter.install = function(Vue, opts) {
         // 向this添加一个响应式属性 xxx  今天
         // Vue.util.defineReactive(this, "xxx", this._router.history);
         // 也可以
-        Vue.observable(this._router.history);  //为了响应render
+        Vue.observable(this._router.history); //为了响应render组件 监听了路由
       } else {
         //如果不是根节点，那么就是子或者孙子节点,Vue 组件的渲染顺序是 父->子->孙
         this._root = this.$parent._root;
@@ -100,7 +100,7 @@ MyRouter.install = function(Vue, opts) {
         //$route 里面就应该有 curent 属性
         get() {
           //当前路由所在的状态
-          return this._root._router.history.current
+          return this._root._router.history.current;
         }
       });
     }
@@ -132,18 +132,18 @@ MyRouter.install = function(Vue, opts) {
   Vue.component("router-view", {
     //根据当前的 current 去路由表中获取相应的组件 {'/home':Home}
     render(h) {
+      // this._self 当前组件实例
+      console.log(this._self.$router.history.current) //也能拿到
       //render 里面的  this  是proxy
       // console.log('this',this);
       //获取当前路由
-
       /*
-            如何将 current 变成动态的 current ，currnet  变化应该会影响视图的刷新
-            Vue 的时间绑定使用的是 Object.defineProperty ,当进行 set 的时候，就会刷新视图，所以我们可以在这里做文章
-             */
-
+        如何将 current 变成动态的 current ，currnet  变化应该会影响视图的刷新
+        Vue 的时间绑定使用的是 Object.defineProperty ,当进行 set 的时候，就会刷新视图，所以我们可以在这里做文章
+      */
       let current = this._self._root._router.history.current;
       let routerMap = this._self._root._router.routesMap;
-      //根据路由表和对应的路径获取对应的组件，然后对组件进行渲染
+      // 根据路由表和对应的路径获取对应的组件，然后对组件进行渲染
       return h(routerMap[current]);
     }
   });
