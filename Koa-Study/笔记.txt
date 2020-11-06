@@ -1,0 +1,80 @@
+异步上传逻辑  upload-async文件
+
+  前端逻辑
+     点击按钮->创建一个input节点(click激活)->监听input的onchange()事件->
+     new formData()传入参数->发送ajax->xhr.upload.onprogress()监听上传进度->实现上传
+
+   Koa逻辑
+    获取到post请求 使用busboy处理上传文件(监听file字段事件，监听写入事件，监听解析事件，完成之后返回给前端url和状态标识)
+
+项目启动  project文件
+https://chenshenhai.github.io/koa2-note/note/project/framework.html
+    安装依赖
+    npm install
+   1.系统偏好设置中开启mysql
+   2.在终端中操作数据库
+     source .bash_profile
+     mysql -u root -p
+     输入密码 123456
+   3.创建一个名为koa_demo的数据库
+     create database koa_demo;
+     查看数据库
+     show databases;
+    4. 数据建库初始化
+     npm run init_sql
+    5. 编译react.js源码
+    npm run start_static
+    6.启动服务
+    npm run start_server
+
+大致原理:
+    koa-static中间件监static目录
+    koa-view引入ejs模板
+    webpack把打包好的前端代码放入dist目录
+    在ejs模板中手动引入打包好的前端代码(css,js),vdom动态生成dom插入到#app节点中
+    使用mysql库获取mysql表中的数据供router使用
+    前端页面ajax调用的API是Koa中的router生成的 而router中返回的数据是从mysql中查找的(api.js文件)
+    前端状态栏中访问的路径是也是koa-router生成的 不过当访问到路径http://localhost:3018/work后会通过ejs模板(render)渲染出来的
+
+
+常用包
+
+koa-router  处理路由
+
+koa-static 加载静态资源
+
+koa-views  使用模板引擎 比如ejx
+
+koa-bodyparser  对于POST请求的处理，koa-bodyparser中间件可以把koa2上下文的formData数据解析到ctx.request.body中
+
+
+busboy  处理上传文件的解析与监听
+
+koa-session-minimal  koa-mysql-session   koa2原生功能只提供了cookie的操作，但是没有提供session操作。session就只用自己实现或者通过第三方中间件实现
+
+mysql  在nodejs环境下对数据库进行增删改查操作
+
+koa-jsonp  处理jsonp默认会调用前端传过来的callback参数
+
+
+
+Koa与Express的异同
+
+不同点：
+Koa2中只能使用async await
+Express 使用的回调
+
+Koa很多功能都拆解开了 Express相对比较重(提供的功能较多)
+
+Koa的context上能直接访问或这只request/response 也能直接访问或设置原生node上带的属性
+而express需要再传入两个参数(req,res)才能访问到请求与响应
+共同点:
+express自带模板引擎 不需要像koa-view
+一样的团队
+都有中间件 静态目录  模板引擎相关的插件
+
+
+
+
+
+

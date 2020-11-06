@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>jsonp测试</h1>
+
+    <script type="text/javascript">
+        function fun(data) {
+            console.log(data)
+        }
+        var url = "http://localhost:3034/getData.jsonp?callback=fun&abc=456";
+        var script = document.createElement("script");
+        script.src = url;
+        document.getElementsByTagName('head')[0].appendChild(script);
+    </script>
+</body>
+
+</html>

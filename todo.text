@@ -1,18 +1,17 @@
-vue2 源码(复习) 1天 10月26日
-SSR 2天 24 25
-vue3文档 1天 27
-vue3 源码 2天 28 29
-promise+issue提交 1天 30
-typeScript 1天  31
-适配+图片 2天
+express 1天 4 vue3文档 1天 6
+用户登陆以后，将他重定向到登陆前的页面  方案 vue-router
+vue2 源码(复习) 1天 5
+vue3 源码 2天 8 9
+promise+issue提交 1天 10
+适配+图片 3天 12 13 14
+各种场景(树,日历,权限管理,table表格,展开收缩,上传下载,合成图片,幻灯片,FormData,File, Blob,URL) 15 16
 休息一天(爬长城)
 -----------------------
-文档整理（博客上线） 2天
-express 2天
-算法 2天
-canvas动画,数学 3天
-各种场景(树,日历,权限管理,table表格,展开收缩,上传下载,合成图片,幻灯片,FormData,File, Blob,URL) 2天
-开源库 8天
+文档整理（博客上线） 18 19
+typeScript 1天  11
+算法 20 21
+canvas动画,数学 22 23 24
+开源库 6
 
 期间把css世界看完
 
@@ -22,9 +21,4 @@ canvas动画,数学 3天
 
 
 
-//组件间通信 vuex emit attrs  props this.$parent/this.$childern  eventBus   provide/inject
-
-
-
-
-
+//组件间通信 vuex emit attrs  props this.$parent/this.$childern  eventBus   provide/inject  v-model sync

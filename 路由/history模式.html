@@ -20,6 +20,8 @@
         // 为什么服务器上打开不会报错？
         // mdn说 新网址必须与当前网址相同 origin； 否则，pushState()将引发异常 ,所以在服务器上切换时是遵循同源策略的，不会报错。
         // 但是再切换路由之后再刷新浏览器就会报错，因为服务器并没有此/about路径,会报404，如果是vue-cli(会直接回到首页)
+        // 为什么webpack项目打开此文件不会报错？
+        //  因为 webpack-dev-server内部帮你处理过了 当你访问时对应的路由会去找对应的组件
         function go(pathname) {
             const state = { 'id_1': 1, 'id_2': 5 } //传给popstate参数
             const title = ''

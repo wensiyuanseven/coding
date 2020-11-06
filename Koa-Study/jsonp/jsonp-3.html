@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <h1>jsonp</h1>
+    <script>
+        function jsonp(setting) {
+            setting.data = setting.data || {}
+            setting.key = setting.key || 'callback'
+            setting.callback = setting.callback || function () { } //默认参数
+            setting.data[setting.key] = '__onGetData__'
+            window.__onGetData__ = function (data) {
+                // 调用回调函数
+                setting.callback(data);
+            }
+            var script = document.createElement('script')
+            var query = []
+            for (var key in setting.data) {
+                query.push(key + '=' + encodeURIComponent(setting.data[key]))
+            }
+            script.src = setting.url + '?' + query.join('&')
+            document.head.appendChild(script)
+            document.head.removeChild(script)
+        }
+
+        jsonp({
+            url: 'http://localhost:3034/getData.jsonp',
+            key: 'callback',//回调名字
+            data: { page: 1, cate: 'recommend' },
+            callback: function (data) {
+                console.log(data)
+            }
+        })
+    </script>
+</body>
+
+</html>
