@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // koa express执行顺序一样
+        let app = {
+            arr: [],
+            use(fn) {
+                this.arr.push(fn)
+            }
+        }
+        app.use(next => {
+            console.log(1)
+            next()
+            console.log(6)
+        })
+        app.use(next => {
+            console.log(2)
+            next()
+            console.log(5)
+        })
+        app.use(next => {
+            console.log(3)
+            next()
+            console.log(4)
+        })
+        function dispatch(index) {
+            if (index === app.arr.length) return
+            const fn = app.arr[index]
+            fn(dispatch.bind(null, index + 1))
+        }
+        dispatch(0)
+    </script>
+</body>
+
+</html>
