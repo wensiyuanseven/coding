@@ -59,7 +59,7 @@
                         actionFn.call(this, this);
                     }
                 });
-                //切片编程 先把原型上的方法存起来  然后再内部调用 防止action时this丢失
+                // 切片编程 先把原型上的方法存起来  然后再内部调用 防止action时this丢失
                 let { commit, dispatch } = this;
                 this.commit = (type) => {
                     commit.call(this, type);
@@ -67,6 +67,9 @@
                 this.dispatch = (type) => {
                     dispatch.call(this, type);
                 }
+                // 或者  bind内部用的其实也是call/apply
+                // this.commit = this.commit.bind(this)
+                // this.dispatch = this.dispatch.bind(this)
             }
             commit(type) {
                 this.mutations[type]()

@@ -1,0 +1,38 @@
+$ue-width: 375; /* ue图的宽度 */
+
+// 假设1rem相当于屏幕尺寸的1%
+// 那么px换算成rem
+// 即:1rem/100=px/当前尺寸
+// 当前宽度占总宽度的的比例*100
+
+// 这一步就相当于根据设计图来设置rem
+@function px2rem($px) {
+  @return #{$px/$ue-width*10}rem;
+}
+
+//转换成vw不用在head引入s
+@function px2vw($px) {
+  @return #{$px/$ue-width*10}vw;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#box {
+  background: gray;
+  width: px2rem(375);
+  height: px2rem(50);
+  // font-size: 30px;
+  // width: px2vw(375);
+  // height: px2vw(50);
+}
+
+// 流程分析
+
+// 1.px2rem()中传入px尺寸 换算成rem尺寸(也就是如何把px换算成rem)   【根据设计图手动设置rem 转换为 根据px自动设置rem】
+// 2.在html中设置html尺寸【根据屏幕尺寸变化】  html.style.fontSize = width / 100 + "px"
+// rem根据html设置的基本尺寸来处理比例关系
+
+// 在其它设备上是等比缩放

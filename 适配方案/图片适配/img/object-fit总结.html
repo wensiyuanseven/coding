@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            height: 400px;
+            border: 1px solid salmon;
+            /* width: 200px; */
+        }
+
+        img {
+            width: 100%;
+            height: 300px;
+            border: 5px solid seagreen;
+            object-fit: cover;
+            /* object-position: 50% 50%; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 200*124 -->
+    <div>
+        <img src="./img.jpg" alt="">
+        <!-- 总结
+             object-fit也可用于object/video
+         object-fit生效的前提是必须设置图片的宽高(一般可以设置成和容器的宽高一样)
+        fill默认属性 会拉伸图片
+        cover,contain实行和background-size原理一模一样
+        none/scale-down最终都会使图片居中【所以如果设置了none/scale-down object-position就会无效 】
+        none 采用图片固有大小,然后居中图片
+        scale-down 会从contain或none中选一个 哪个计算的结果小就用哪一个！！！然后居中图片
+        object-position和background-position类似可以改变图片位置
+        -->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scss和rem的结合</title>
+    <script>
+        (
+            function () {
+                var html = document.querySelector("html");
+                var width = html.getBoundingClientRect().width;
+                html.style.fontSize = width / 100 + "px";
+            }
+        )()
+        // 由于设置了根元素字体的大小，会影响所有没有设置字体大小的元素，因为字体大小是会继承的
+    </script>
+    <style>
+        /* 或者直接 不用js */
+        /* html {
+            font-size: 1vw;
+        } */
+        /* 1vw = width / 100 */
+
+        p {
+            font-size: 10rem
+        }
+    </style>
+    <link rel="stylesheet" href="./rem.css">
+</head>
+
+<body>
+    <div id="box">
+        <p>我试试</p>
+    </div>
+</body>
+
+</html>

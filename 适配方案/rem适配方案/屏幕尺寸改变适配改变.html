@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function setFont() {
+            let window_width = window.innerWidth;
+            var html = document.querySelector("html");
+            html.style.fontSize = window_width / 100 + "px";
+        }
+        setFont()
+        window.addEventListener("resize", setFont)
+    </script>
+</body>
+
+</html>

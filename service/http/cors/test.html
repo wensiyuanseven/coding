@@ -16,10 +16,11 @@
   xhr.send()
 </script> -->
 <script>
-  fetch('http://localhost:8887', {
-    method: 'POST',
+  fetch('http://localhost:8890', {
+    method: 'get',
     headers: {
-      'X-Test-Cors': '123'
+      'X-Test-Cors': '123',
+      'Content-Type':'text/plain'
     }
   })
 </script>

@@ -1,0 +1,16 @@
+规范规定只有等待态时才可以改变状态
+1.异步
+先执行then函数 此时状态为pending
+ if (that.state === PENDING) {
+    that.resolvedCallbacks.push(onFulfilled)
+    that.rejectedCallbacks.push(onRejected)
+}
+
+ setTimeout(() => {
+    reject(2) //调用时
+ }, 2000)
+
+
+ reject(2) //调用时
+
+ 执行 that.rejectedCallbacks.map(cb => cb(that.value))

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scss和rem的结合</title>
+    <script>
+        //问题，就是分成100份的话，假设屏幕宽度320，此时html大小是3.2px，但浏览器支持最小字体大小是12px，怎么办？
+        // 那就分成10份呗，只要把上面的100都换成10就好了
+        // 其实这种做法也是不对的
+        // 因为 1.font-size小于12px时 浏览器默认会把font-zize设置为12px
+        // 2.如果不考虑等比缩放的话字体不用rem/vw,也就无关紧要了
+
+        function callback() {
+            // var html = document.querySelector("html");
+            // var width = html.getBoundingClientRect().width;
+            // html.style.fontSize = width / 10 + "px";
+            // 如果用户在PC端浏览，页面过宽怎么办？一般我们都会设置一个最大宽度，大于这个宽度的话页面居中，两边留白
+            var clientWidth = document.documentElement.clientWidth;
+            clientWidth = clientWidth < 780 ? clientWidth : 780;
+            document.documentElement.style.fontSize = clientWidth / 10 + 'px';
+        }
+
+        document.addEventListener('DOMContentLoaded', callback);
+        // orientationchange事件在设备的纵横方向改变时触发
+        // resize 改变设备方向也会触发
+        // 逻辑pc端会控制台 'orientationchange' in window 恒为false
+        // 在真实手机端'orientationchange' in window为true (手机端不会触发resize事件)
+        window.addEventListener('orientationchange' in window ? 'orientationchange' : 'resize', callback);
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+        /*  由于设置了根元素字体的大小，会影响所有没有设置字体大小的元素，会字体大小是会继承的 */
+        body {
+            /* 为没有设置字体的元素指定默认字体,否则会使用html字体(这种方式不对) 当然会下方的媒体查询所覆盖掉  */
+            font-size: 16px;
+            /* 设置body的宽度为10rem,相当于body===html。并水平居中 */
+            margin: 0 auto;
+            width: 10rem;
+        }
+
+
+        @media screen and (min-width: 320px) {
+
+            /* js被禁止的回退方案 */
+            html {
+                /* 分成100份 */
+                font-size: 3.2px;
+            }
+
+            /* 实现字体大小的响应 */
+            body {
+                font-size: 16px
+            }
+        }
+
+        @media screen and (min-width: 481px) and (max-width:640px) {
+
+            /* js被禁止的回退方案 */
+            html {
+                font-size: 4.8px
+            }
+
+            /* 实现字体大小的响应 */
+            body {
+                font-size: 18px
+            }
+        }
+
+        @media screen and (min-width: 641px) {
+
+            /* js被禁止的回退方案 */
+            html {
+                font-size: 64px
+            }
+
+            body {
+                font-size: 20px
+            }
+        }
+
+        noscript {
+            display: block;
+            border: 1px solid #d6e9c6;
+            padding: 3px 5px;
+            background: #dff0d8;
+            color: #3c763d;
+        }
+
+        /* 计算时相对比较麻烦 */
+        /* 字体如果用rem就会相当于根元素，就变成等比缩放了,不可取 */
+        /* 也可以直接使用px */
+        p {
+            font-size: 1em
+        }
+
+        p a {
+            font-size: 2em;
+            margin: 2em;
+        }
+    </style>
+    <link rel="stylesheet" href="./rem.css">
+</head>
+
+<body>
+    <noscript>开启JavaScript，获得更好的体验</noscript>
+    <div id="box">
+        <p>我试试<a>我是a</a></p>
+    </div>
+</body>
+
+</html>

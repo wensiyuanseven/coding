@@ -1,0 +1,40 @@
+参考:https://www.cnblogs.com/wangpenghui522/p/5467560.html
+1.less不支持自定义函数 但是有许多内置函数 scss并没有内置函数,需要自定义
+2.less和scss都支持mixin 只不过用法不同。
+
+less写法:
+.name{
+    color:red;
+}
+.abc{
+    .name();
+}
+
+scss写法:
+@mixin firefox-message($selector) {
+  body.firefox #{$selector}:before {
+    content: "Hi, Firefox users!";
+  }
+}
+@include firefox-message(".header");
+
+
+
+3.less在代码中可以使用Javascript(比如es6语法``)  scss不行
+3.  webpack安装包不同
+4. 定义变量方式不同
+less @abc=10
+scss $abc=10px
+
+5.scss更丰富 less有点鸡肋
+
+6.sass支持条件语句，可以使用if{}else{},for{}循环等等。而less不支持。
+
+7编译Sass要安装Ruby,而Ruby官网在国内访问不了[node-scss]
+
+Sass的安装需要Ruby环境，是在服务端处理的，而Less是需要引入less.js来处理Less代码输出css到浏览器，
+也可以在开发环节使用Less，然后编译成css文件，直接放到项目中
+
+less 用js编译 less less-loader
+
+scss用Ruby编译 node-scss  scss-loader

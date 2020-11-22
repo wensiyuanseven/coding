@@ -1,0 +1,16 @@
+设计图
+倍图
+显示像素 逻辑像素  排版容器 可是容器 dpr PPI
+less scss
+1px
+
+适配
+媒体查询 rem em vw vh wmin vmax
+postcss postcss-pxtorem  postcss-to-viewport
+flexible适配方案原理
+图片适配
+背景图适配
+picture source
+
+字体适配
+

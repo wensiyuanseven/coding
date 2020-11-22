@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 方案-
+        Promise.prototype.race = function (promiseArr) {
+            return new Promise((resolve, reject) => {
+                for (let promise of promiseArr) {
+                    if (typeof promise === 'object' && typeof promise.then === 'function') {
+                        // 数组传进来的项是一个Promise实例，执行then方法。
+                        // resolve只有一个，哪个实例对象最先执行完就会使用这个resolve
+                        promise.then(resolve, reject);
+                    } else {
+                        // 不是Promise实例对象直接返回当前值
+                        resolve(promise);
+                    }
+                }
+            })
+        }
+        // 方案二
+        Promise.race = function (promiseArr) {
+            return new Promise((resolve, reject) => {
+                // 每一个Promise都会有一个隐形的闭包在里面
+                for (let i = 0; i < promiseArr.length; i++) {
+                    // 这里判断是否为promise也可以
+                    Promise.resolve(promiseArr[i]).then((res) => {
+                        resolve(res) // 和promise.all的主要差别
+                    }, (err) => {
+                        reject(err)
+                    })
+                }
+            })
+        }
+
+        let a = new Promise(resolve => {
+            setTimeout(() => {
+                resolve('a')
+            }, 3000);
+        })
+        let b = new Promise(resolve => {
+            setTimeout(() => {
+                resolve('b')
+            }, 500);
+        })
+        let c = new Promise(resolve => {
+            setTimeout(() => {
+                resolve('c')
+            }, 1000);
+        })
+
+        Promise.race([a, b, c]).then(res => {
+            console.log(res)
+        })
+
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                console.log(i)
+            }, 1000*i)
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            height: 248px;
+            border: 1px solid salmon;
+            /* width: 200px; */
+        }
+
+        /* 图片会随着包含它的容器缩小而缩小，但容器变大时，不会超过自身的固有尺寸 */
+        img {
+            /* 防止ie8下未设置width而不生效的问题 */
+            width: auto;
+            max-width: 100%;
+            /* 返回值height被覆盖 */
+            height: auto !important;
+            /* height: 248px; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 200*124 -->
+    <div>
+        <img src="./img.jpg">
+    </div>
+</body>
+
+</html>

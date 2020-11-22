@@ -1,9 +1,7 @@
-express 1天 4 vue3文档 1天 6
-用户登陆以后，将他重定向到登陆前的页面  方案 vue-router
+vue3文档 1天 7,8
 vue2 源码(复习) 1天 5
-vue3 源码 2天 8 9
-promise+issue提交 1天 10
 适配+图片 3天 12 13 14
+promise+issue提交 1天 10
 各种场景(树,日历,权限管理,table表格,展开收缩,上传下载,合成图片,幻灯片,FormData,File, Blob,URL) 15 16
 休息一天(爬长城)
 -----------------------
@@ -22,3 +20,14 @@ canvas动画,数学 22 23 24
 
 
 //组件间通信 vuex emit attrs  props this.$parent/this.$childern  eventBus   provide/inject  v-model sync
+
+
+
+function abc(callback){
+    callback(123)
+}
+
+
+abc((123)=>{
+    console.log()
+})

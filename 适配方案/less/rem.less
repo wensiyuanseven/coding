@@ -1,0 +1,33 @@
+// Less 的函数全是内置的并不能自定义，
+// 所以只能迁就一下使用混合（Mixins）来实现转换逻辑的复用。
+// https://juejin.im/post/6844903520441729037#heading-1  变量拼串
+// 因为 Less 是由 JS 编写，所以 Less 有一得天独厚的特性：代码中使用 Javascript 。
+
+// scss和less的区别
+// https://www.cnblogs.com/wangpenghui522/p/5467560.html
+
+.pxToVW (@px, @attr: width) {
+  @vw: (@px / 375) * 100;
+  @{attr}: ~"@{vw}vw"; // ~"字符@{变量}字符";变量拼串
+}
+
+
+
+.box {
+  .pxToVW(123);
+  .pxToVW(150, height);
+}
+
+// 或者
+
+// 定义一个变量
+@baseFontSize: 375;
+// rem转换函数
+.pxToRem(@name, @px) {
+  @{name}: @px / @baseFontSize*100vw;
+}
+
+// 使用示例
+.container {
+  .pxToRem(font-size, 3.75);
+}

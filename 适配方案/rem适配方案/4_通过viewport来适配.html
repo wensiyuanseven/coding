@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<!--
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=0.5,minimum-scale=0.5,maximum-scale=0.5" />-->
+	<script>
+		// 此时逻辑像素很等于320
+		var width = window.screen.width;
+		// let clientWidth = document.documentElement.clientWidth;
+		var targetW = 375;
+		var scale = width / targetW;
+		// 1 / dpr 也可以
+		// html宽度算法 逻辑分辨率/scal=html尺寸=新的逻辑分辨率  (scale如果小于1相当于双指捏合，scale大于1相当于双指外扩)
+		// 解释 假设此时逻辑像素为200px 那么改变scale后会放大到320px 双指捏合  缩小
+		// 假设逻辑像素为300px 那么改变scale后会缩小到320px  双指外扩   变大
+		// 此原理和设置<meta name="viewport" content="width=375">一模一样  固定视窗  不管怎么设备变逻辑分辨率都是375px
+		var meta = document.createElement('meta');
+		meta.setAttribute('name', 'viewport');
+		// 不能添加 width=device-width
+		meta.setAttribute('content', "user-scalable=no,initial-scale=" + scale + ",minimum-scale=" + scale + ",maximum-scale=" + scale);
+		document.head.appendChild(meta);
+	   /*
+		  设置了 viewport 默认就是 device-width 不用设置
+		  */
+	</script>
+	<!--scale改变 导致逻辑像素的改变-->
+	<!-- 通过缩放视口来适配直接写px单位即可 -->
+	<title>无标题文档</title>
+	<style>
+		body {
+			margin: 0;
+		}
+
+		#box {
+			width: 200px;
+			height: 200px;
+			margin: 0 auto;
+			background: gray;
+			font-size: 20px;
+		}
+
+		/*
+	1. 页面宽度定死 -- 320
+	2. 动态的设置 viewport 把可视区的宽度设置成 320
+        width = [pixel_value | device-width ] ,
+        initial-scale = float_value ,
+        minimum-scale = float_value ,
+        maximum-scale = float_value ,
+        user-scalable = [yes | no] ,
+*/
+	</style>
+</head>
+
+<body>
+	<!-- 相当于页面的尺寸一直是是320,只在各种设备上放大缩小 -->
+	<div id="box">我是适配</div>
+</body>
+
+</html>

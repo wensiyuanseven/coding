@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>1px question</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <style>
+        div {
+            width: 400px;
+            height: 400px;
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        // 缺点，这方法适全新项目，如果老项目想用这种方法，改动量估计会比较大
+        var viewport = document.querySelector("meta[name=viewport]");
+        //下面是根据设备像素设置viewport
+        if (window.devicePixelRatio == 1) {
+            viewport.setAttribute('content', 'width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no');
+        }
+        if (window.devicePixelRatio == 2) {
+            // 相当于更改了逻辑像素
+            // 之前一个逻辑像素=4个显示像素(2*2) 宽两个 高两个   两倍屏的物理像素密度(ppi)是一倍屏的两倍 一个css像素对应4个物理像素
+            // 现在一个逻辑像素=1个显示像素
+            // 要解决1px问题，本质就是让高清屏用一个物理像素去展示一个css像素。
+            viewport.setAttribute('content', 'width=device-width,initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no');
+        }
+        if (window.devicePixelRatio == 3) {
+            // 缩放0.5也行
+            viewport.setAttribute('content', 'width=device-width,initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no');
+        }
+    </script>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

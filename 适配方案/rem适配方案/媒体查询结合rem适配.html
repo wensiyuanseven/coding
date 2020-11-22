@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- https://yanhaijing.com/css/2017/09/29/principle-of-rem-layout/ -->
+    <style>
+        /* 这种声明方式并不规范 */
+
+        /* 100px = 1rem */
+        /* screen 声明 是为了打印时有衬线字体 */
+        /* 320px/7.5=42.67
+           480/7.5=64
+        */
+
+        @media only screen and (min-width: 320px) and (max-width: 479px) {
+            html {
+                font-size: 42.67px !important;
+            }
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 639px) {
+            html {
+                font-size: 64px !important;
+            }
+        }
+
+        @media only screen and (min-width: 640px) and (max-width: 749px) {
+            html {
+                font-size: 85.34px !important;
+            }
+        }
+
+        @media only screen and (min-width: 750px) and (max-width: 959px) {
+            html {
+                font-size: 100px !important;
+            }
+        }
+
+        /*  */
+        @media only screen and (min-width: 960px) and (max-width: 1241px) {
+            html {
+                font-size: 128px !important;
+            }
+        }
+
+        @media only screen and (min-width: 1242px) {
+            html {
+                font-size: 165.6px !important;
+            }
+        }
+
+        body {
+            margin: 0;
+        }
+
+        #box {
+            width: 5rem;
+            height: 5rem;
+            background: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 网易移动端css meida screen下的rem设置 -->
+    <div id="box"></div>
+</body>
+
+</html>

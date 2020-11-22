@@ -33,6 +33,6 @@ http.createServer(function (request, response) {
       response.end('console.log("script loaded twice")')
     }
   }
-}).listen(8888)
+}).listen(8800)
 
 console.log('server listening on 8888')

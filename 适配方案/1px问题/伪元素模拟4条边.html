@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+        }
+
+        div {
+            position: relative;
+        }
+
+        div:after {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            transform: scale(0.5);
+            /* 如果不设置此值，则以中心点缩放 */
+            transform-origin: left top;
+            /* 如果不设置,则伪元素的尺寸为102px */
+            box-sizing: border-box;
+            /* scale(0.5)的目的就是缩放边框 */
+            border: 1px solid red;
+            /* 可设置圆角 */
+            border-radius: 4px;
+        }
+
+        /*
+        原理
+           1.为伪元素设置绝对定位，并且和父元素左上角对齐
+           2.将伪元素的长和宽根据父元素放大2倍，然后再设置一个边框
+           3.以左上角为中心，缩放到原来的0.5倍
+         优点：
+          全机型兼容，实现了真正的1px，而且可以圆角。
+         */
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

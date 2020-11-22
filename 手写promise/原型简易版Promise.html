@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+    <script>
+        const PENDING = 'pending'
+        const RESOLVED = 'resolved'
+        const REJECTED = 'rejected'
+
+        function MyPromise(fn) {
+            const that = this
+            that.state = PENDING
+            that.value = null
+            that.resolvedCallbacks = []
+            that.rejectedCallbacks = []
+            //resolve(1)  执行此函数
+            function resolve(value) {
+                if (that.state === PENDING) {
+                    that.state = RESOLVED
+                    that.value = value
+                    that.resolvedCallbacks.map(cb => cb(that.value))
+                }
+            }
+            function reject(value) {
+                if (that.state === PENDING) {
+                    that.state = REJECTED
+                    that.value = value //加入同步执行 那么then里面需要爱拿到此结果 所以说需要赋值
+                    that.rejectedCallbacks.map(cb => cb(that.value))
+                }
+            }
+            try {
+                fn(resolve, reject)
+            } catch (e) {
+                reject(e)
+            }
+        }
+        // 函数new出来之后 立马调用此函数把then放进去
+        MyPromise.prototype.then = function (onFulfilled, onRejected) {
+            const that = this
+            onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v  // 为了实现了透传.then().then(()=>{}）
+            onRejected = typeof onRejected === 'function' ? onRejected : r => r
+            // 意味着异步执行此函数
+            // 为什么要有多个push 因为会有多个then 需要依次执行
+            if (that.state === PENDING) {
+                that.resolvedCallbacks.push(onFulfilled)
+                that.rejectedCallbacks.push(onRejected)
+            }
+            console.log(that.resolvedCallbacks)
+            // 当new Promise()里面是同步代码时会执行此函数
+            if (that.state === RESOLVED) {
+                onFulfilled(that.value)
+            }
+            if (that.state === REJECTED) {
+                onRejected(that.value)
+            }
+            return this // 链式调用
+        }
+        new MyPromise((resolve, reject) => {
+            setTimeout(() => {
+                throw ('我去')
+            }, 2000)
+        }).then().then().then(value => {
+            console.log(value, '我知道了')
+        }, err => {
+            console.log(err, 'err')
+        })
+
+
+        //  异步 错误真正的promise也不能传给下一个then
+        // new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         throw('我去')
+        //     }, 2000)
+        // }).then(res => {
+        // },err=>{
+        // })
+
+    </script>
+</body>
+
+</html>
