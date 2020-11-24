@@ -1,0 +1,35 @@
+总结
+
+对于路由的权限
+
+1. 后端返会给我们的数据都是扁平化的，需要根据字段之间的关系(比如是否是根组件,是否是父子组件关系)重新处理成渲染路由时需要的数据格式
+并且需要标识出陈渲染组件时路由的name,如果有name就渲染，没有就不渲染
+2.处理好数据格式之后，和前端配置的路由做对比，根据路由名称过滤出消除要渲染的路由。(判断子路由可能需要递归)。
+3.再beforeEach()中添加需要渲染的路由。【注意是添加到主路由上，比如 localhost:8080/】 这一坨数据是添加到当前根路由下/
+router.addRoutes()
+next({ ...to, replace: true }); // replaceState
+
+4.根据需要渲染的路由数据【里面有菜单名称】，渲染出侧边菜单。【子菜单需要用到递归组件】
+
+最后一个子路由肯定是侧边栏需要看到的信息 即通过<router-view></router-view>渲染出来的
+
+那么开发时配置好路由名称，和正确的引入路径，就可以直接新建.vue文件开发了
+
+ 按钮/上传/下载/预览权限
+
+ 使用指令来处理权限
+
+    <el-button v-has="'edit'">编辑</el-button>
+    <el-button v-has="'add'">添加</el-button>
+
+  directives: {
+    has: {
+      // inserted：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+      inserted(el, bindings, vnode) {
+        // 拿到当前实例
+        let flag = vnode.context.$store.state.btnPermission[bindings['value']]
+        // 如果没有 移除当前元素
+        !flag && el.parentNode && el.parentNode.removeChild(el)
+      },
+    },
+  },
