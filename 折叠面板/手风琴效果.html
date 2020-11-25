@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手风琴效果</title>
+    <style>
+        h1 {
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        div {
+            height: 0;
+            overflow: hidden;
+        }
+
+        span {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1.布局
+         2.初始化状态[false,false]
+         3.点击时通过索引查找当前项目的状态，false展开 true收缩
+         4.添加动画
+    -->
+    <ul>
+        <li>
+            <h1>第一个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第二个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第三个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第四个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第五个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+    </ul>
+    <script>
+        let liList = document.getElementsByTagName('li')
+        let divList = document.getElementsByTagName('div')
+        let h1List = document.getElementsByTagName('h1')
+        let statusList = Array.from(liList, () => false) //初始化展开收缩的状态
+
+        for (let i = 0; i < h1List.length; i++) {
+            h1List[i].onclick = e => {
+                // 收缩
+                if (statusList[i]) {
+                    statusList[i] = false
+                    startMove(divList[i], { height: 0 })
+                } else {
+                    // 展开
+                    statusList[i] = true
+                    startMove(divList[i], { height: divList[i].scrollHeight })
+                    let openIndex = statusList.findIndex((ststus, index) => index !== i && ststus === true)
+                    if (openIndex !== -1) {
+                        statusList[openIndex] = false
+                        startMove(divList[openIndex], { height: 0 })
+                    }
+                }
+                console.log(statusList)
+            }
+        }
+
+
+
+        /**
+        * @param {Object}   当前运动物体的实例
+        * @param {Object}   运动物体的属性值
+        * @param {Function} 运动完成时的回调
+        * @example  startMove(this,{top:20},function(){})
+        */
+        function startMove(obj, json, complete) {
+            clearInterval(obj.iTimer);
+            var iCur = 0;
+            var iSpeed = 0;
+            obj.iTimer = setInterval(function () {
+                var iBtn = true;
+                for (var attr in json) {
+                    var iTarget = json[attr];
+                    if (attr == 'opacity') {
+                        iCur = Math.round(css(obj, 'opacity') * 100);
+                    } else {
+                        iCur = parseInt(css(obj, attr));
+                    }
+                    iSpeed = (iTarget - iCur) / 8;
+                    iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                    if (iCur != iTarget) {
+                        iBtn = false;
+                        if (attr == 'opacity') {
+                            obj.style.opacity = (iCur + iSpeed) / 100;
+                            obj.style.filter = 'alpha(opacity=' + (iCur + iSpeed) + ')';
+                        } else {
+                            obj.style[attr] = iCur + iSpeed + 'px';
+                        }
+                    }
+                }
+                if (iBtn) {
+                    clearInterval(obj.iTimer);
+                    complete && complete.call(obj);
+                }
+            }, 20);
+        }
+        function css(obj, attr) {
+            if (obj.currentStyle) {
+                return obj.currentStyle[attr];
+            } else {
+                return getComputedStyle(obj, false)[attr];
+            }
+        }
+    </script>
+</body>
+
+</html>

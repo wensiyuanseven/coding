@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>折叠面板</title>
+    <style>
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        div {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(0, 0, 0.25, 1);
+        }
+
+        .active {
+            max-height: 300px;
+        }
+
+        span {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1.布局
+         2.初始化状态[false,false]
+         3.点击时通过索引查找当前项目的状态，false展开 true收缩
+         4.添加动画
+    -->
+    <ul>
+        <li>
+            <h1>第一个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第二个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第三个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第四个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <h1>第五个</h1>
+            <div>
+                <p>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                </p>
+            </div>
+        </li>
+    </ul>
+    <script>
+        let liList = document.getElementsByTagName('li')
+        let divList = document.getElementsByTagName('div')
+        let h1List = document.getElementsByTagName('h1')
+        let statusList = Array.from(liList, () => false)
+        for (let i = 0; i < h1List.length; i++) {
+            h1List[i].onclick = () => {
+                // 收缩
+                if (statusList[i]) {
+                    divList[i].classList.remove('active')
+                    statusList[i] = false
+                } else {
+                    divList[i].classList.add('active')
+                    statusList[i] = true
+                }
+            }
+        }
+        console.log(statusList)
+    </script>
+</body>
+
+</html>

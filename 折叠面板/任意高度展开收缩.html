@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任意高度展开收缩动画</title>
+    <style>
+        div {
+            max-height: 0px;
+            transition: max-height 0.5s ease-out;
+            overflow: hidden;
+            margin-top: 20px;
+            background: cadetblue;
+        }
+
+        div.active {
+            max-height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>展开</button>
+    <div>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+        <p>任意高度展开收缩动画</p>
+    </div>
+    <script>
+        let active = false
+        let button = document.getElementsByTagName('button')[0]
+        let div = document.getElementsByTagName('div')[0]
+        button.addEventListener('click', () => {
+            if (active) {
+                active = false
+                button.innerHTML = '收缩'
+                div.classList.remove('active')
+            } else {
+                active = true
+                button.innerHTML = '展开'
+                div.classList.add('active')
+            }
+        })
+    </script>
+</body>
+
+</html>
