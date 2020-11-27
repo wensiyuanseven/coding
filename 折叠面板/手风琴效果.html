@@ -72,6 +72,16 @@
                     <span>内容内容内容内容内容</span>
                     <span>内容内容内容内容内容</span>
                     <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
+                    <span>内容内容内容内容内容</span>
                 </p>
             </div>
         </li>
@@ -119,13 +129,12 @@
                     let openIndex = statusList.findIndex((ststus, index) => index !== i && ststus === true)
                     if (openIndex !== -1) {
                         statusList[openIndex] = false
+                        // 展开的同时进行收缩
                         startMove(divList[openIndex], { height: 0 })
                     }
                 }
-                console.log(statusList)
             }
         }
-
 
 
         /**
@@ -157,13 +166,14 @@
                         } else {
                             obj.style[attr] = iCur + iSpeed + 'px';
                         }
+                        console.log(1)
                     }
                 }
                 if (iBtn) {
                     clearInterval(obj.iTimer);
                     complete && complete.call(obj);
                 }
-            }, 20);
+            }, 17);
         }
         function css(obj, attr) {
             if (obj.currentStyle) {
@@ -172,6 +182,9 @@
                 return getComputedStyle(obj, false)[attr];
             }
         }
+        setInterval(() => {
+            console.log(11111)
+        }, 200)
     </script>
 </body>
 

@@ -1,0 +1,47 @@
+需要安装的包
+less less-loader  lodash
+
+原型快速度启动
+
+vue serve -o index.vue
+
+出现的问题
+
+table中的td设置固定宽度，没有效果?
+
+置了table中td的宽度的百分比，但是并没有起作用，这是因为table-layout行的宽度默认是automatic（列宽度由单元格内容设定。）
+这时只需要设置table如下样式即可：
+table{
+table-layout:fixed
+}
+table-layout 有三个属性：
+automatic（列宽度由单元格内容设定。）
+fixed（列宽由表格宽度和列宽度设定。）
+inherit（规定应该从父元素继承 table-layout 属性的值）
+https://blog.csdn.net/qq_26212731/article/details/73243350
+https://segmentfault.com/q/1010000004489477
+
+
+<colgroup> 标签用于对表格中的列进行组合，以便对其进行格式化。
+通过使用 <colgroup> 标签，可以向整个列应用样式，而不需要重复为每个单元格或每一行设置样式。
+https://www.runoob.com/tags/tag-colgroup.html
+
+如何固定表头?
+
+因为同一个table里面的表头不能实现固定  所以需要把原来的thead剪切到一个新的table里面
+人后这个table再相对于父元素定位，就能实现表头固定
+两个侧边固定也是同样的原理
+todo
+此时就会出现thead和tbody不对齐的问题  那么就需要传入一个宽度(可以看element的做法) 并且tablke设置  table-layout: fixed;
+并添加colgroup,
+动态计算每一列的宽度和table的总宽度
+
+
+
+
+
+
+
+
+
+

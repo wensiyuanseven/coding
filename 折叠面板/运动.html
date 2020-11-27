@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 400px;
+            top: 50px;
+            background: #787878;
+        }
+    </style>
+
+</head>
+
+<body>
+    <button id="btn" type="button">点击</button>
+    <div id="abc"></div>
+    <script>
+        let timer = null
+        document.querySelector('#btn').onclick = function () {
+            let obj = document.getElementById('abc')
+            startMove(obj)
+        }
+        function startMove(obj) {
+            cancelAnimationFrame(timer)
+            let _run = function () {
+                if (obj.offsetLeft === 0) {
+                    cancelAnimationFrame(timer)
+                } else {
+                    // 速度公式
+                    let speed = (0 - obj.offsetLeft) / 8
+                    // 不判断方向也可也
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                    obj.style.left = obj.offsetLeft + speed + 'px'
+                    timer = requestAnimationFrame(_run)
+                }
+            }
+            _run()
+        }
+    </script>
+</body>
+
+</html>

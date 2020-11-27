@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        .abc {
+            position: relative;
+            background: saddlebrown;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            /* absolote固定方案 */
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            var oDiv = document.getElementById('div1');
+            var iTimer = null;
+            setTop();
+            window.onscroll = function () {
+                setTop();
+            }
+            oDiv.onclick = function () {
+                clearInterval(iTimer);
+                var iCur = 0
+                var iSpeed = 0
+                iTimer = setInterval(function () {
+                    iCur = document.documentElement.scrollTop || document.body.scrollTop;
+                    //起始位置(scrollTop)大于目标点(0)用Math.floor()
+                    iSpeed = Math.floor((0 - iCur) / 4)
+                    if (iCur == 0) {
+                        clearInterval(iTimer);
+                    } else {
+                        document.documentElement.scrollTop = document.body.scrollTop = iCur + iSpeed;
+                    }
+                }, 30);
+            }
+            function setTop() {
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                // 固定到底部=可视区的高-自身的高度+滚动的高度
+                oDiv.style.top = document.documentElement.clientHeight - oDiv.offsetHeight + scrollTop + 'px';
+            }
+
+        }
+    </script>
+</head>
+
+<body style="height: 2000px;">
+    <div class="abc" style="height: 2000px;">
+        <div id="div1"></div>
+    </div>
+</body>
+
+</html>

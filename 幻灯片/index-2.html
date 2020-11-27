@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            position: relative;
+            width: 700px;
+            height: 500px;
+            border: 1px solid sienna;
+        }
+
+        div>img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 比喻：透明塑料袋能看到里面的东西-->
+    <div>
+        <img src="./img/img-1.jpeg">
+        <img src="./img/img-2.jpeg">
+        <img src="./img/img-4.jpeg">
+        <img src="./img/img-3.jpeg">
+    </div>
+    <button id="prev">上一张</button>
+    <button id="next">下一张</button>
+    <script>
+        let imgArr = document.getElementsByTagName('img')
+        let prev = document.getElementById('prev')
+        let next = document.getElementById('next')
+        let currentIndex = 0
+        handleStyle(currentIndex)
+        prev.addEventListener('click', () => {
+            if (currentIndex <= 0) {
+                currentIndex = imgArr.length - 1
+            } else {
+                currentIndex--
+            }
+            handleStyle(currentIndex)
+        })
+        next.addEventListener('click', () => {
+            if (currentIndex === imgArr.length - 1) {
+                currentIndex = 0
+            } else {
+                currentIndex++
+            }
+            handleStyle(currentIndex)
+        })
+
+        function handleStyle(currentIndex) {
+            for (let i = 0; i < imgArr.length; i++) {
+                if (currentIndex === i) {
+                    imgArr[i].style.opacity = 1
+                } else {
+                    imgArr[i].style.opacity = 0
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

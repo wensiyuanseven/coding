@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .table-responsive {
+            max-width: 375px;
+            overflow: auto;
+            margin: 50px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #999;
+            /* 必须要设置为fixed，这样列宽就可以由表格宽度和列宽度设定了 */
+            table-layout: fixed;
+        }
+
+        th,
+        td {
+            border: 1px solid #999;
+        }
+
+        td {
+            padding: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="table-responsive">
+        <table>
+            <!-- 关键代码 start -->
+            <colgroup>
+                <col width="150">
+                <col width="150">
+                <col width="150">
+            </colgroup>
+            <!-- 关键代码 end -->
+            <thead>
+                <tr>
+                    <th>语文</th>
+                    <th>数学</th>
+                    <th>英语</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>89</td>
+                    <td>95</td>
+                    <td>86</td>
+                </tr>
+                <tr>
+                    <td>74</td>
+                    <td>63</td>
+                    <td>99</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
