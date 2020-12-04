@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .model {
+            width: 600px;
+            height: 600px;
+            border: 1px solid skyblue;
+            background: slategrey;
+            opacity: 0;
+            transform: scale3d(1, 1, 0);
+            transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+
+        }
+
+        .active {
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
+        }
+
+        .content {
+            width: 300px;
+            height: 200px;
+            margin: auto;
+            border: 1px solid sienna;
+            display: none;
+        }
+
+        /* 这里相当于小程序的v-if */
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">点击</button>
+    <!--后隐藏 有显隐动画 -->
+    <div class="model" id="model">
+        <!-- 先隐藏且没有动画 -->
+        <div class="content">
+            内容
+        </div>
+    </div>
+    <div>我是下边框</div>
+    <script>
+        btn.addEventListener('click', () => {
+            model.classList.toggle('active')
+            console.log(document.querySelector('.content'))
+            document.querySelector('.content').classList.toggle('show')
+        })
+    </script>
+</body>
+
+</html>

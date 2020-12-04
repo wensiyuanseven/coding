@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <a href="https://siyuanseven.cn/usr/uploads/2020/11/3914656696.jpeg" download="下载">下载</a>
+    <!-- or -->
+    <button onclick="createDownload('abc')">下载</button>
+    <script>
+        function createDownload(fileName) { 
+            var blob = new Blob(['./a.jpg']);
+            var link = document.createElement("a");
+            link.download = fileName;
+            console.log(URL.createObjectURL(blob))
+            link.href = URL.createObjectURL(blob); //可以直接当作image的src属性来显示图片
+            link.click()
+        }
+    </script>
+</body>
+
+</html>

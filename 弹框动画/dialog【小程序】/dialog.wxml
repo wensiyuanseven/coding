@@ -1,0 +1,12 @@
+<view class="dialogMask {{show?'showMask':''}}" catch:tap="closeMask" catch:touchmove="disableCatchTouch">
+    <view wx:if="{{show}}" class="dialogWrap">
+        <view class="title">{{title}}</view>
+        <view class="slot">
+            <slot></slot>
+        </view>
+        <view class="bottonWrap">
+            <view bind:tap="leftButton" class="leftButton">{{leftButtonText}}</view>
+            <view bind:tap="rightButton" class="rightButton">{{rightButtonText}}</view>
+        </view>
+    </view>
+</view>

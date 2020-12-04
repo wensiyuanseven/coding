@@ -1,0 +1,63 @@
+.dialogMask {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale3d(1, 1, 0);
+    display: flex;
+    transition: all .3s ease-in;
+}
+
+.dialogMask.showMask {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+}
+
+.dialogWrap {
+    /* 直接居中 */
+    margin: auto;
+    box-sizing: border-box;
+    width: 555rpx;
+    height: 361rpx;
+    background: rgba(255, 255, 255, 1);
+    padding: 50rpx;
+    border-radius: 6rpx;
+}
+
+.title {
+    text-align: center;
+    font-size: 30rpx;
+    color: #333333;
+}
+
+.slot {
+    padding-top: 20rpx;
+    padding-bottom: 40rpx;
+}
+
+.bottonWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftButton, .rightButton {
+    width: 202rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+    font-size: 32rpx;
+}
+
+.leftButton {
+    color: #333333;
+    border: 1px solid rgba(153, 153, 153, 1);
+}
+
+.rightButton {
+    color: #FFFFFF;
+    background-color: rgba(51, 51, 51, 1);
+}

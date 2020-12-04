@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <div id="abc">点击</div>
     <script>
         Function.prototype.bind = function (...args) {
             let self = this
@@ -19,13 +20,16 @@
         let obj = {
             c: '123'
         }
-
+        // 是返回了一个新的函数
         function example(a, b) {
             console.log(this, a, b)
         }
-        console.log(example.prototype)
         let func = example.bind(obj, 'a')
         func('b')
+        function fun(a, b) {
+            console.log(a, b)
+        }
+        abc.addEventListener('click', fun.bind(this, 'abc'))
     </script>
 </body>
 

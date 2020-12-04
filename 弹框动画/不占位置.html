@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显示隐藏动画</title>
+    <style>
+        .model {
+            width: 100px;
+            height: 100px;
+            background: #787878;
+            margin: 0 auto;
+            transition: all .3s;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick='dianji()'>点击</button>
+    <div class="model">
+        内容
+    </div>
+    <div>我是下边框</div>
+    <script>
+        let model = document.querySelector('.model')
+        function dianji() {
+            if (model.style.display === 'none') {
+                model.style.display = 'block'
+                // 宏任务特性
+                setTimeout(() => {
+                    model.style.opacity = 1
+                }, 0)
+            } else {
+                model.style.opacity = 0
+                setTimeout(() => {
+                    model.style.display = 'none'
+                }, 300);
+            }
+        }
+
+    </script>
+</body>
+</html>

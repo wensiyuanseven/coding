@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .model {
+            width: 300px;
+            height: 200px;
+            margin: 30px;
+            border: 1px solid sienna;
+            background: slategrey;
+            opacity: 0;
+            transform: scale3d(1, 1, 0);
+            /* visibility: hidden; */
+            transition: all 0.3s ease-in;
+        }
+
+        .active {
+            opacity: 1;
+            /* visibility: visible; */
+            transform: scale3d(1, 1, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">点击</button>
+    <div class="model" id="model">
+        <p>我是弹框</p>
+    </div>
+    <div>我是下边框</div>
+    <script>
+        btn.addEventListener('click', () => {
+            model.classList.toggle('active')
+        })
+    </script>
+</body>
+
+</html>
