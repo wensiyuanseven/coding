@@ -1,0 +1,27 @@
+jsx语法
+用jsx语法扩展树组件
+prop传入函数等待调用
+数据扁平化通过reduce处理
+
+主要逻辑
+    transferData() { // 数据格式化操作
+            // 首先要对数据进行克隆 => 因为在子组件内不能修改父组件的数据
+            let AllData = _.cloneDeep(this.data);
+            let treeList =  AllData.reduce((memo, current) => { // 树的映射列表
+                current.label = current.name; // el-tree的数据格式
+                memo[current.id] = current;
+                return memo;
+            }, {});
+            let result = AllData.reduce((arr, current) => {
+                let pid = current.pid;
+                let parent = treeList[pid];
+                if (parent) { // 有父文件时，也就不是根文件
+                    // 若这个节点还有子文件，则对其进行添加操作，反之，就相当于数组等同
+                    parent.children ? parent.children.push(current) : parent.children = [current];
+                } else if (pid === 0) { // 这是根文件夹
+                    arr.push(current);
+                }
+                return arr;
+            }, []);
+            this.allData = result;
+    }

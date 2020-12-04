@@ -1,0 +1,7 @@
+  进制eslint
+  devServer: {
+    overlay: {
+      warnings: false,
+      errors: false
+    }
+  }
