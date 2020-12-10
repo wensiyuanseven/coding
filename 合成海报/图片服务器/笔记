@@ -1,0 +1,26 @@
+参考
+https://github.com/amandakelake/blog/issues/72
+https://www.zhangxinxu.com/wordpress/2018/02/crossorigin-canvas-getimagedata-cors/
+
+为什么会出现跨域问题？
+
+由于在 <canvas> 位图中的像素可能来自多种来源，
+包括从其他主机检索的图像或视频，因此不可避免的会出现安全问题。
+尽管不通过 CORS 就可以在 <canvas> 中使用其他来源的图片，但是这会污染画布，
+并且不再认为是安全的画布，这将可能在 <canvas> 检索数据过程中引发异常
+
+drawImage()跨域问题
+需要图片服务器配置
+app.use(async (ctx, next) => {
+  ctx.set({ "Access-Control-Allow-Origin": "*" });
+  await next();
+})
+
+canvas.toDataURL('image/png',1) 报错解决方案
+
+ img.crossOrigin = 'Anonymous';  //元素的跨域资源请求不需要凭证标志设置
+
+
+ 在HTML5中，有些元素提供了支持CORS(Cross-Origin Resource Sharing)（跨域资源共享）的属性
+ 这些元素包括<img>，<video>，<script>等，而提供的属性名就是crossOrigin属性。
+ 默认会设置  crossOrigin = 'Anonymous'

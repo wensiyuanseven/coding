@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      margin: 30px;
+      border: 1px solid;
+      height: 60px;
+      width: 100px;
+      box-sizing: border-box;
+
+    }
+
+    .wrap {
+      /* 为了居中 */
+      width: 100px;
+      height: 60px;
+      /* 设置 display: table-cell;
+      1.之后margin会失效
+      2.父元素也必须指定高度
+       */
+       display: table-cell;
+      display: table-cell;
+      vertical-align: middle;
+      word-break: break-all;
+      /* overflow-wrap: break-word; */
+    }
+
+    #content {
+      overflow: hidden;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="wrap">
+      <p id="content">拿到字体总长度根据滚动高度和实际高度判断是否溢出循环字体总长度</p>
+    </div>
+
+  </div>
+  <script>
+    /**
+    原理:
+     拿到字体总长度
+     根据滚动高度和实际高度判断是否溢出
+     循环字体总长度 依次截取
+     当滚动高度大于实际高度时把终止循环
+    */
+    var container = document.getElementById('container')
+    var content = container.firstElementChild
+    var str = content.innerHTML
+    if (content.scrollHeight > container.offsetHeight) {
+      for (var i = 0; i <= str.length; i++) {
+        content.innerHTML = str.slice(0, i)
+        if (content.scrollHeight > container.offsetHeight) {
+          // content.style.overflow = 'hidden';
+          content.innerHTML = str.slice(0, i - 3) + '...'
+          break
+        }
+      }
+
+    }
+
+  </script>
+</body>
+
+</html>

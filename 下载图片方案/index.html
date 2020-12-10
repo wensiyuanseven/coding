@@ -15,7 +15,7 @@
     <!-- or -->
     <button onclick="createDownload('abc')">下载</button>
     <script>
-        function createDownload(fileName) { 
+        function createDownload(fileName) {
             var blob = new Blob(['./a.jpg']);
             var link = document.createElement("a");
             link.download = fileName;

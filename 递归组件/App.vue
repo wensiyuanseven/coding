@@ -6,7 +6,7 @@
            <template v-for="menu in menuList" >
                <MenuItem :key="menu.title" v-if="!menu.children">{{menu.title}}</MenuItem>
                <!-- 把重复的部分 先去抽离出去 -->
-                <ReSubMenu :key="menu.title" v-else :data="menu"></ReSubMenu>
+               <ReSubMenu :key="menu.title" v-else :data="menu"></ReSubMenu>
            </template>
        </Menu>
    </div>

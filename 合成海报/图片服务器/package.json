@@ -1,0 +1,13 @@
+{
+    "name": "my-ssr-example",
+    "version": "1.0.0",
+    "description": "base-ssr",
+    "main": "main.js",
+    "author": "wensiyuan",
+    "license": "ISC",
+    "dependencies": {
+        "koa": "^2.13.0",
+        "koa-router": "^9.4.0",
+        "koa-static": "^5.0.0"
+    }
+}

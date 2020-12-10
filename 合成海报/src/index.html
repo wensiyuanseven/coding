@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img id="img">
+    <script>
+        // 2、用户选择图片的时候，加载过的url
+        // 后面canvas绘制同一张图片的url时，因为缓存，不会重新load，会导致绘制失败，解决办法是绘制时给图片链接加时间戳，破坏缓存
+        function getImgToBase64(url, callback) {
+            var canvas = document.createElement('canvas')
+            var ctx = canvas.getContext('2d')
+
+            var img = new Image
+            img.crossOrigin = 'Anonymous';//元素的跨域资源请求不需要凭证标志设置
+            // 加时间戳  破坏缓存
+            img.src = `${url}?time=${new Date().getTime()}`;
+            img.onload = function () {
+                canvas.height = img.height;
+                canvas.width = img.width;
+                // 字体---------start--------------
+                ctx.textBaseline = 'top';  //middle bottom
+                ctx.font = '60px impact';
+                var w = ctx.measureText('妙味课堂').width;
+                ctx.fillText('妙味课堂', (canvas.width - w) / 2, (canvas.height - 60) / 2);
+                ctx.globalCompositeOperation = 'destination-over'; //把字体在源图像上方显示目标图像。
+                // 字体---------end--------------
+                ctx.drawImage(img, 0, 0);
+
+                var dataURL = canvas.toDataURL('image/png', 1); //base64格式
+                callback(dataURL);
+                canvas = null;
+            };
+        }
+        getImgToBase64('http://localhost:8088/img.jpeg', data => {
+            console.log(data)
+            img.src = data
+        })
+    </script>
+</body>
+
+</html>

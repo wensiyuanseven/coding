@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="demo">这是一段很长的文本这是一段很长的文本这是一段很长的文本这是一段很长的文本这是一段很长的文本</div>
+  <script type="text/javascript">
+     /**
+    原理:
+     根据容器宽度和字体大小计算出每一行可容纳的字数
+     乘以一个行数 计算出多航能容纳的总字数
+     容纳的字数与实际的字数比较
+     如果超出了容纳字数
+     把超出的字数替换成省略号
+    */
+    const formatStr = () => {
+      const ele = document.getElementsByClassName('demo')[0]
+      const text = ele.innerHTML
+      const totalTextLen = text.length //总字数
+      const lineNum = 2
+      const baseWidth = parseInt(getComputedStyle(ele).width) //容器宽度
+      const baseFontSize = parseInt(getComputedStyle(ele).fontSize) //字体大小 16
+      // 所计算的strNum为元素内部一行可容纳的字数(不区分中英文)
+      const strNum = Math.floor(baseWidth / baseFontSize) // 一行可容纳的字数
+      let content = ''
+      // 多行可容纳总字数
+      const totalStrNum = Math.floor(strNum * lineNum)
+      const lastIndex = totalStrNum - totalTextLen
+      console.log(lastIndex, 'lastIndex')
+      // 字数溢出
+      if (lastIndex < 0) {
+        // 从后往前查
+        content = text.slice(0, lastIndex - 3).concat('...')
+      } else {
+        content = text
+      }
+      ele.innerHTML = content
+    }
+
+    formatStr()
+
+    window.onresize = () => {
+      formatStr()
+    }
+  </script>
+</body>
+
+</html>
