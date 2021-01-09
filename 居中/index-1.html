@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .wrap {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 1px solid sienna;
+    }
+
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+        width: 50px;
+        height: 50px;
+        background: skyblue;
+    }
+</style>
+
+<body>
+    <!-- 固定的宽度和高度水平垂直居中1 -->
+    <div class="wrap">
+        <div class="content"></div>
+    </div>
+    <!-- 绝对定位通常不是一个很好的选择，因为它对整体的布局影响相当的大。
+如果垂直居中元素的内容比视窗高度更高的话，它的顶部会被裁剪掉，但是这个问题可以解决，只不过需要使用一些Hack手段。
+在一些浏览器中，可能会导致元素出现略微的模糊，那是因为元素有可能被放置在半个像素位置上。我们可以通过transform-style:preserve-3d来解决，尽管这是一个Hack手段，不能保证它不会过时 -->
+</body>
+
+</html>

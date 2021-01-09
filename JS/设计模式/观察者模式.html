@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // vue核心原理
+
+        // 目标（订阅者）
+        class Subject {
+            constructor() {
+                this.observers = []
+            }
+            //注册
+            reject(observer) {
+                // 传入的是观察者实例
+                this.observers.push(observer)
+            }
+            // 派发
+            dispatch(args) {
+                for (let i = 0; i < this.observers.length; i++) {
+                    this.observers[i].update(args)
+                }
+            }
+        }
+        // 观察者
+        class Observer {
+            update(args) {
+                console.log(args)
+            }
+        }
+
+        let ob1 = new Observer()
+        let ob2 = new Observer()
+        let subject = new Subject()
+
+        // 观察者需要在目标中主动注册  观察和目标才能建立依赖关系
+        subject.reject(ob1)
+        subject.reject(ob2)
+
+        // 目标亲自通知观察者
+
+        subject.dispatch('abc')
+
+
+    </script>
+</body>
+
+</html>

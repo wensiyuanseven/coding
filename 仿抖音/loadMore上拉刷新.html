@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <link rel="stylesheet" href="./swiper.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            height: 100px;
+            line-height: 100px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .refresh {
+            position: absolute;
+            line-height: 100px;
+            bottom: 100%;
+            text-align: center;
+            width: 100%;
+        }
+
+        .loadmore {
+            position: absolute;
+            line-height: 20px;
+            top: 100%;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Swiper -->
+    <div class="swiper-container">
+
+        <div class="swiper-wrapper">
+            <div class="refresh">释放刷新</div>
+            <div class="loadmore">加载更多</div>
+        </div>
+        <!-- 自定义滚动条 -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+
+    <script src="./swiper.js"></script>
+
+    <script>
+        refreshEnd = false;
+        times = 0;//加载次数
+        oriSpeed = 300
+        var swiper = new Swiper('.swiper-container', {
+            speed: oriSpeed,
+            // slidesPerView: 'auto',
+            // freeMode: true,
+            direction: 'vertical',
+            setWrapperSize: true,
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+            virtual: {
+                addSlidesBefore: 2,
+                addSlidesAfter: 2,
+                slides: function () {
+                    var slides = [];
+                    for (var i = 0; i < 10; i += 1) {
+                        slides.push('Slide ' + (i + 1));
+                    }
+                    return slides;
+                }(),
+                renderSlide: function (slide, index) {
+                    return '<div class="swiper-slide">索引是' + index + '+内容是' + slide + '</div>';
+                },
+
+            },
+            on: {
+                //下拉释放刷新
+                touchEnd: function () {
+                    swiper = this
+                    refreshText = swiper.$el.find('.refresh')
+                    if (this.translate > 100) {
+                        swiper.setTransition(this.params.speed); //设置过渡动画
+                        swiper.setTranslate(100);//设置位移
+                        swiper.touchEventsData.isTouched = false;//跳过touchEnd事件后面的跳转(4.0.5)
+                        refreshText.html('刷新中')
+                        swiper.allowTouchMove = false;  //不允许触摸
+                        setTimeout(function () {   // 模仿AJAX
+                            refreshText.html('刷新完成');
+                            swiper.setTranslate(0);//先设置位移
+                            swiper.virtual.removeAllSlides();
+                            for (i = 0; i < 40; i++) {
+                                swiper.virtual.appendSlide('Slide ' + Math.round(Math.random() * 10));
+                            }
+                            refreshEnd = true;
+                            swiper.allowTouchMove = true;
+                        }, 1000)
+                    }
+
+                },
+                touchStart: function () {
+                    if (refreshEnd == true) {
+                        this.$el.find('.refresh').html('释放刷新');
+                        refreshEnd = false;
+                    }
+                },
+                //加载更多
+                momentumBounce: function () {//非正式反弹回调函数，上拉释放加载更多可参考上例
+                    swiper = this
+                    //slidesheight=0;
+                    //for(h=0;h<swiper.slides.length;h++){
+                    //	slidesheight+=swiper.slides[h].offsetHeight;
+                    //}
+                    //endTranslate=this.height-slidesheight-20
+                    //if(this.translate < endTranslate){}
+                    if (swiper.translate < -100) {
+
+                        swiper.allowTouchMove = false;//禁止触摸
+                        swiper.params.virtualTranslate = true;//定住不给回弹
+                        setTimeout(function () {//模仿AJAX
+                            for (m = 0; m < 20; m++) {
+                                swiper.appendSlide('<div class="swiper-slide">moreSlide' + (times * 20 + m + 1) + '</div>');
+                            }
+                            swiper.params.virtualTranslate = false;
+                            swiper.allowTouchMove = true;
+                            times++
+                        }, 1000)
+
+                    }
+                },
+            }
+        });
+
+    </script>
+</body>
+
+</html>

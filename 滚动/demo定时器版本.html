@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            background: #787878;
+        }
+
+        section {
+            height: 100%;
+
+        }
+
+        ul {
+            list-style: none;
+            position: fixed;
+            right: 15px;
+            top: 300px;
+        }
+
+        ul li {
+            width: 50px;
+            height: 50px;
+            border: 1px solid sienna;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        li.active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ul">
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+    </ul>
+    <section id="section">
+        <div class="content">
+            <h1 id="A">A</h1>
+        </div>
+        <div class="content">
+            <h1 id="B">B</h1>
+        </div>
+        <div class="content">
+            <h1 id="C">C</h1>
+        </div>
+        <div class="content">
+            <h1 id="D">D</h1>
+        </div>
+    </section>
+    <script>
+        let timer = null;
+        let b = 0; // 区分是onscroll还是click
+        let ID = ['A', 'B', 'C', 'D']
+        let content = document.querySelectorAll('.content')
+        // 随机数
+        const rp = function (arr, int) {
+            const max = Math.max(...arr);
+            const min = Math.min(...arr);
+            const num = Math.random() * (max - min) + min;
+            return int ? Math.round(num) : num;
+        }
+        content.forEach(ele => {
+            ele.style.width = document.documentElement.clientWidth + 'px'
+            ele.style.height = document.documentElement.clientHeight + 'px'
+            ele.style.borderBottom = `5px solid rgb(${rp([55, 255], true)}, ${rp([55, 255], true)}, ${rp([55, 255])}`
+        });
+
+        let ulList = [...ul.children];
+        ulList[0].className = 'active';
+        ulList.forEach((current, index) => {
+            current.onclick = () => {
+                console.log(document.getElementById(ID[index]).offsetTop)
+                // 目标点 点击之后要运动到的那一点
+                move(document.getElementById(ID[index]).offsetTop, () => {
+                    window.location.hash = `${ID[index]}`
+                })
+            }
+        })
+        // scroll会被触发
+        window.onscroll = () => {
+            console.log(b)
+            if (b != 1) {
+                //如果b=1那么，当前的scroll事件是被定时器所触发，如果不等于1，
+                // 那么就是非定时器的其他任何一个操作触发该事件 比如人去拖动或者键盘事件触发 去清除定时器
+                clearInterval(timer)
+                timer = null
+            }
+            b = 2;
+            content.forEach((ele, index) => {
+                if (ele.getBoundingClientRect().top >= 0 && ele.getBoundingClientRect().top <= 200) {
+                    //改变点击状态
+                    ulList.forEach(ele => {
+                        ele.className = ''
+                    })
+                    ulList[index].className = 'active';
+                    // window.location.hash = `${ID[index]}`
+                }
+            })
+        }
+
+        // move(document.getElementById(window.location.hash.slice(1)).offsetTop);
+
+
+        function move(target, callBack) {
+            console.log(timer, '--')
+            if (timer) return
+            let iSpeed = 0;
+            timer = setInterval(() => {
+                if (Math.abs(document.documentElement.scrollTop) == Math.abs(target)) {
+                    clearInterval(timer)
+                    callBack && callBack()
+                    timer = null
+                } else {
+                    b = 1;
+                    // timer = requestAnimationFrame(animation);
+                    iSpeed = (target - document.documentElement.scrollTop) / 20;
+                    iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                    document.documentElement.scrollTop += iSpeed;
+                }
+            }, 30)
+            // (function animation() {
+
+            // })()
+        }
+
+    </script>
+</body>
+
+</html>

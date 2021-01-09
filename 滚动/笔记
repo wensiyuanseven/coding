@@ -1,0 +1,20 @@
+https://game.bilibili.com/cyberpunk2077/?msource=1&source=trackadf_a6d88a9c6650446083e149448bc12b61&gameID=4079#scroll-top
+
+用户主动上拉暂停问题
+定时器
+ 因为是用#来定位的 所以当重置#号时会触发onscroll事件 所以会发生冲突
+
+ requestAnimationFrame()问题
+
+如果用requestAnimationRequest()会太快 使手动触发无效
+
+
+也可以使用query的方式来处理动画
+
+如果想直接定位锚点时就出现滚动效果  也可以使用query来实现 不要使用锚点
+
+
+不要使用距离版实现运动，因为最后停止时会有误差，造成清除不了定时器的情况出现
+
+
+

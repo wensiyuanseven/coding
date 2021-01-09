@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            background: #787878;
+        }
+
+        section {
+            height: 100%;
+            /* overflow: scroll; */
+
+        }
+
+        ul {
+            list-style: none;
+            position: fixed;
+            right: 15px;
+            top: 300px;
+        }
+
+        ul li {
+            width: 50px;
+            height: 50px;
+            border: 1px solid sienna;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        li.active {
+            background: red;
+        }
+
+        div {
+            height: 100vh;
+        }
+
+        /* 为了不让hash定位到id */
+        /* h1 {
+            display: none;
+        } */
+    </style>
+</head>
+
+<body>
+    <ul id="ul">
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+    </ul>
+    <section id="section">
+        <!-- 不要用id id会出现一系列问题 -->
+        <div class="content">
+            <h1 target="A">A</h1>
+        </div>
+        <div class="content">
+            <h1 target="B">B</h1>
+        </div>
+        <div class="content">
+            <h1 target="C">C</h1>
+        </div>
+        <div class="content">
+            <h1 target="D">D</h1>
+        </div>
+    </section>
+    <script>
+        let b = 0
+        let timer = null;
+        let isChangeHash = false;
+        let isClick = false;
+        let ID = ['A', 'B', 'C', 'D']
+        let currentHash = null
+        let content = document.querySelectorAll('.content')
+        // 随机数
+        const rp = function (arr, int) {
+            const max = Math.max(...arr);
+            const min = Math.min(...arr);
+            const num = Math.random() * (max - min) + min;
+            return int ? Math.round(num) : num;
+        }
+        content.forEach(ele => {
+            ele.style.height = '100vh'
+            ele.style.borderBottom = `5px solid rgb(${rp([55, 255], true)}, ${rp([55, 255], true)}, ${rp([55, 255])}`
+        });
+
+        let ulList = [...ul.children];
+        ulList[0].className = 'active';
+        ulList.forEach((current, index) => {
+            current.onclick = () => {
+                isClick = true
+                window.location.hash = `${ID[index]}`
+            }
+        })
+        // scroll会被触发
+        window.onscroll = () => {
+            content.forEach((ele, index) => {
+                if (ele.getBoundingClientRect().top >= 0 && ele.getBoundingClientRect().top <= 100) {
+                    isChangeHash = true
+                    // 改变点击状态
+                    ulList.forEach(ele => {
+                        ele.className = ''
+                    })
+                    ulList[index].className = 'active'
+                    if (!timer) {
+                        currentHash = ID[index]
+                        window.location.hash = `${ID[index]}`
+
+                    }
+                }
+            })
+        }
+        // hash改变
+        window.addEventListener('hashchange', (e) => {
+            //  currentHash !== window.location.hash.slice(1) 为了解决,
+            // 当手动滚动后触发边界改变了hash,然后在浏览器地址栏再改变hash 此时不会触发滚动。
+            if (currentHash !== window.location.hash.slice(1) || isClick || !isChangeHash) {
+                let scrollTop = document.documentElement.scrollTop
+                let diffDestance = document.querySelectorAll(`h1[target='${window.location.hash.slice(1)}']`)[0].offsetTop - scrollTop
+                animation(scrollTop, diffDestance, 300)
+            }
+        });
+
+        // 初始化滚动到指定位置
+        window.addEventListener('load', () => {
+            // 处理加载  为什么加定时器？ 不知道 经验问题 否则滚动的时候位置不对
+            setTimeout(() => {
+                let target = document.querySelectorAll(`h1[target='${window.location.hash.slice(1)}']`)[0].offsetTop
+                animation(0, target - 0, 300)
+            }, 10)
+        })
+
+
+
+        function animation(startValue, diffValue, time, success) {
+            // 此16.7并无任何意义 与帧率无关 它可以是任何其它常量  这还是一个在单位事件内运动的次数而已
+            let d = Math.ceil(time / 16.7)
+            let t = 0;
+            (function move() {
+                // 边界需要>=0
+                if (t >= d) {
+                    cancelAnimationFrame(timer)
+                    timer = null
+                    isClick = false
+                    isChangeHash = false
+                    move = null
+                    success && success()
+                } else {
+                    t++;
+                    let val = Tween.easeIn(t, startValue, diffValue, d);
+                    document.documentElement.scrollTop = val;
+                    timer = requestAnimationFrame(move)
+                }
+            })()
+        }
+
+
+
+        const Tween = {
+            linear: function (t, b, c, d) {  //匀速
+                return c * t / d + b;
+            },
+            easeIn: function (t, b, c, d) {  //加速曲线
+                return c * (t /= d) * t + b;
+            },
+            easeOut: function (t, b, c, d) {  //减速曲线
+                return -c * (t /= d) * (t - 2) + b;
+            },
+            easeBoth: function (t, b, c, d) {  //加速减速曲线
+                if ((t /= d / 2) < 1) {
+                    return c / 2 * t * t + b;
+                }
+                return -c / 2 * ((--t) * (t - 2) - 1) + b;
+            },
+            easeInStrong: function (t, b, c, d) {  //加加速曲线
+                return c * (t /= d) * t * t * t + b;
+            },
+            easeOutStrong: function (t, b, c, d) {  //减减速曲线
+                return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+            },
+            easeBothStrong: function (t, b, c, d) {  //加加速减减速曲线
+                if ((t /= d / 2) < 1) {
+                    return c / 2 * t * t * t * t + b;
+                }
+                return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+            },
+            elasticIn: function (t, b, c, d, a, p) {  //正弦衰减曲线（弹动渐入）
+                if (t === 0) {
+                    return b;
+                }
+                if ((t /= d) == 1) {
+                    return b + c;
+                }
+                if (!p) {
+                    p = d * 0.3;
+                }
+                if (!a || a < Math.abs(c)) {
+                    a = c;
+                    var s = p / 4;
+                } else {
+                    var s = p / (2 * Math.PI) * Math.asin(c / a);
+                }
+                return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+            },
+            elasticOut: function (t, b, c, d, a, p) {    //正弦增强曲线（弹动渐出）
+                if (t === 0) {
+                    return b;
+                }
+                if ((t /= d) == 1) {
+                    return b + c;
+                }
+                if (!p) {
+                    p = d * 0.3;
+                }
+                if (!a || a < Math.abs(c)) {
+                    a = c;
+                    var s = p / 4;
+                } else {
+                    var s = p / (2 * Math.PI) * Math.asin(c / a);
+                }
+                return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+            },
+            elasticBoth: function (t, b, c, d, a, p) {
+                if (t === 0) {
+                    return b;
+                }
+                if ((t /= d / 2) == 2) {
+                    return b + c;
+                }
+                if (!p) {
+                    p = d * (0.3 * 1.5);
+                }
+                if (!a || a < Math.abs(c)) {
+                    a = c;
+                    var s = p / 4;
+                }
+                else {
+                    var s = p / (2 * Math.PI) * Math.asin(c / a);
+                }
+                if (t < 1) {
+                    return - 0.5 * (a * Math.pow(2, 10 * (t -= 1)) *
+                        Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+                }
+                return a * Math.pow(2, -10 * (t -= 1)) *
+                    Math.sin((t * d - s) * (2 * Math.PI) / p) * 0.5 + c + b;
+            },
+            backIn: function (t, b, c, d, s) {     //回退加速（回退渐入）
+                if (typeof s == 'undefined') {
+                    s = 1.70158;
+                }
+                return c * (t /= d) * t * ((s + 1) * t - s) + b;
+            },
+            backOut: function (t, b, c, d, s) {
+                if (typeof s == 'undefined') {
+                    s = 3.70158;  //回缩的距离
+                }
+                return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+            },
+            backBoth: function (t, b, c, d, s) {
+                if (typeof s == 'undefined') {
+                    s = 1.70158;
+                }
+                if ((t /= d / 2) < 1) {
+                    return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
+                }
+                return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
+            },
+            bounceIn: function (t, b, c, d) {    //弹球减振（弹球渐出）
+                return c - Tween['bounceOut'](d - t, 0, c, d) + b;
+            },
+            bounceOut: function (t, b, c, d) {
+                if ((t /= d) < (1 / 2.75)) {
+                    return c * (7.5625 * t * t) + b;
+                } else if (t < (2 / 2.75)) {
+                    return c * (7.5625 * (t -= (1.5 / 2.75)) * t + 0.75) + b;
+                } else if (t < (2.5 / 2.75)) {
+                    return c * (7.5625 * (t -= (2.25 / 2.75)) * t + 0.9375) + b;
+                }
+                return c * (7.5625 * (t -= (2.625 / 2.75)) * t + 0.984375) + b;
+            },
+            bounceBoth: function (t, b, c, d) {
+                if (t < d / 2) {
+                    return Tween['bounceIn'](t * 2, 0, c, d) * 0.5 + b;
+                }
+                return Tween['bounceOut'](t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

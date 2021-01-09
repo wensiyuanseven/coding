@@ -50,7 +50,7 @@ export default {
       bind(el, binding, vnode) {
         //把事件绑定给doucument上，看一下点击的是否是当前这个元素
         let handler = (e) => {
-          //判断当前上下文是否包含该元素
+          // 判断当前上下文是否包含该元素
           if (el.contains(e.target)) {
             //判断是否当前面板已经显示出来
             if (!vnode.context.isVisible) {

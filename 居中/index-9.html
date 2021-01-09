@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .parent {
+        width: 500px;
+        height: 500px;
+        background: slategray;
+        text-align: center;
+        display: table;
+    }
+
+
+    .son {
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>
+
+<body>
+
+    <!-- 行内块级元素/元素高度不固定 -->
+    <div class="parent">
+        <span class="son">行内块级元素水平垂直居中</span>
+        <!-- <img class="son" src="./img/example.png"> -->
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="./swiper.css">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <!-- Demo styles -->
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app {
+            width: 100%;
+            height: 100%;
+            background: rosybrown;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+            background: steelblue;
+        }
+
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            border: 2px red solid;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Swiper -->
+    <div class="app">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="refresh">释放刷新</div>
+            </div>
+        </div>
+        <!-- <p>aaaa</p> -->
+    </div>
+    <!-- Swiper JS -->
+    <script src="./swiper.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        let timer
+        let ajaxSuccess = true
+        var swiper = new Swiper('.swiper-container', {
+            direction: 'vertical',
+            // slidesOffsetAfter: 200,
+            cache: true, //开启缓存
+            // freeMode: true,
+            noSwipingSelector: 'input',//设置不可触摸的滑动元素
+            virtual: {
+                addSlidesBefore: 2,
+                addSlidesAfter: 2,
+                slides: function () {
+                    var slides = [];
+                    for (var i = 0; i < 10; i += 1) {
+                        slides.push('Slide ' + (i + 1));
+                    }
+                    return slides;
+                }(),
+                renderSlide: function (slide, index) {
+                    return '<div class="swiper-slide">索引是' + index + '+内容是' + slide + '</div>';
+                },
+
+            },
+            // observer: true,//修改swiper自己或子元素时，自动初始化swiper
+            // observeParents: true,//修改swiper的父元素时，自动初始化swiper
+            on: {
+                transitionStart: function (e) {
+                    // console.log(e, 'e')
+                },
+                // touchEnd: function (event) {
+                //     // console.log(swiper.virtual.to);
+                //     // console.log(swiper.virtual.slides)
+                // },
+                //下拉释放刷新
+                touchEnd: function () {
+                    swiper = this
+                    refreshText = swiper.$el.find('.refresh')
+                    if (this.translate > 100) {
+                        swiper.setTransition(this.params.speed); //设置过渡动画
+                        swiper.setTranslate(100);//设置位移
+                        swiper.touchEventsData.isTouched = false;//跳过touchEnd事件后面的跳转(4.0.5)
+                        refreshText.html('刷新中')
+                        swiper.allowTouchMove = false;//不允许触摸
+
+                        setTimeout(function () {//模仿AJAX
+                            swiper.removeAllSlides();
+                            for (i = 0; i < 20; i++) {
+                                swiper.appendSlide('<div class="swiper-slide">New Slide' + (i + 1) + '</div>');
+                                refreshText.html('刷新完成');
+                                refreshEnd = true;
+                                swiper.allowTouchMove = true;
+                            }
+                        }, 1000)
+
+                    }
+                },
+                slideChange: function (event) {
+                    // 在倒数第四屏时开始渲染
+                    if (ajaxSuccess && swiper.virtual.slides.length - swiper.virtual.to < 3) {
+                        ajaxSuccess = false
+                        clearInterval(timer)
+                        timer = setTimeout(() => {
+                            ajaxSuccess = true
+                            swiper.virtual.appendSlide(['My Slide', 'My Slide', 'My Slide']);  //插入Slide 数组
+                        }, 2000)
+                    }
+                    console.log(swiper.virtual.slides)
+                    console.log(swiper.virtual.to, 'event')
+                },
+                tap: function (event) {
+                    // alert('你碰了Swiper');
+                },
+                // 渲染最后一个时触发
+                reachEnd: function () {
+                    // alert('到了最后一个slide');
+                    // setTimeout(() => {
+                    // swiper.virtual.appendSlide(['My Slide 1', 'My Slide 2', 'My Slide 3']);  //插入Slide 数组
+                    // }, 3000)
+                },
+            }
+            // mySwiper.destroy(false);
+            // mySwiper.virtual.removeAllSlides(); //移除全部
+        });
+
+    </script>
+</body>
+
+</html>

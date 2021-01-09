@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="position-outer" style="position: relative;">
+        <div class="position" style="position: relative;">
+            <div class="not-position">
+                <div class="box">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        console.log(document.querySelector('.box').offsetParent)
+        // documentElement是文档根元素
+        console.log(document.documentElement)
+        //能获取到offsetParent的条件
+        // 1自身的position属性不为fixed
+        // 2自身的position不为fixed
+        // 3祖先元素中，获取的是层级最近的定位元素 如果没有则是根元素
+    </script>
+</body>
+
+</html>

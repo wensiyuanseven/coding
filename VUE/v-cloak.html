@@ -18,10 +18,15 @@
     <!-- 为什么单文件组件中不会有{{}}闪烁情况？ -->
     <!-- 因为单文件组件里每个vue文件都是模板 并不是html文件，
         真正的html文件下只有一个<div id='app'></div>标签，
+        而一般webpack种都是用render函数渲染的 并不是用模板这种机制
+        而在webpack中打包之vue-loader会直接把模板变成render函数 省去了模板编译成render函数这一步骤
         里面没有{{}}只有当render转换成为真正的dom后才会被替换掉 -->
     <div id="app" v-cloak>
         <span v-pre>{{exapmle}}</span>
-        <h1>父组件{{exapmle}}</h1>
+        <div @click='change'>
+            点击
+        </div>
+        <h1 v-show='active'>父组件{{exapmle}}</h1>
     </div>
 
     <script>
@@ -29,7 +34,13 @@
             var vmA = new Vue({
                 el: '#app',
                 data: {
-                    exapmle: '我是父数据'
+                    exapmle: '我是父数据',
+                    active: true
+                },
+                methods: {
+                    change() {
+                        this.active = !this.active
+                    }
                 }
             })
         }, 1000)

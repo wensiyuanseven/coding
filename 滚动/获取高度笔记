@@ -1,0 +1,42 @@
+offsetTop
+1.元素的offsetTop是根据父元素时offsetParent 计算的，父元素必须是一个定位值(固定，绝对，相对)都行。如果找不到是父元素的定位，
+那么相对于body来定位。
+2.offsetTop是一个定值 不会随着滚动改变 注意与 e.getBoundingClientRect().top区分 getBoundingClientRect是相对于视口来说的
+3.如果要获取到body的距离 可以使用如下代码
+    function getTop(obj) {
+        var iTop = 0;
+        while (obj) {
+            console.log(obj.offsetTop,obj.offsetParent, 'obj.offsetTop')
+            iTop += obj.offsetTop;
+            obj = obj.offsetParent;
+        }
+        return iTop;
+    }
+
+4.计算方式
+
+不设置top
+<body>
+   <div>
+      <div border=1  padding=10 margin=20 relative>
+         <p>我的高度</p>
+      </div>
+   </div>
+</body>
+
+p.offsetTop=1+10=11  不包含父元素的margin
+
+设置top
+<body>
+   <div relative>
+      <div border=1  padding=10 margin=20 >
+         <p relative top=9>我的高度</p>
+      </div>
+   </div>
+</body>
+
+p.offsetTop=9    之余设置的top有关
+
+
+
+

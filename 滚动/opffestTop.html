@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        section {
+            position: relative;
+            margin-top: 200px;
+            border: 1px solid slateblue;
+        }
+
+        div {
+            padding-top: 300px;
+            height: 300px;
+            border: 1px solid sienna;
+        }
+
+        p {
+            position: absolute;
+            top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div>
+            <p id="p">
+                我是你爸爸
+            </p>
+        </div>
+    </section>
+    <script>
+        // console.log(p.offsetParent)
+        // console.log(p.offsetTop)
+        function getTop(obj) {
+            var iTop = 0;
+            while (obj) {
+                console.log(obj.offsetTop, obj.offsetParent, 'obj.offsetTop')
+                iTop += obj.offsetTop;
+                obj = obj.offsetParent;
+            }
+            return iTop;
+        }
+        console.log(getTop(p))
+
+    </script>
+</body>
+
+</html>

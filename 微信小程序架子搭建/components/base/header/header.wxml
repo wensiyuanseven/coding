@@ -1,0 +1,18 @@
+<!-- 页面顶部及返回按钮 -->
+<view style='height:{{titleHeight}}rpx' >
+  <view class='header_w' style='background-color:{{backgroundColor}}'>
+    <!-- 设备状态栏高 -->
+    <view style="height:{{statusBarHeight}}rpx;"></view>
+    <view class="navigation_w" 
+          style="height:{{capsuleHeight}}rpx;line-height:{{capsuleHeight}}rpx;">
+      <!-- 取消返回 -->
+      <view class="navigateBack" wx:if="{{showBack}}" 
+      catchtap='navigateBack' data-type='{{openType}}'> 
+        <icon class='iconfont icon-gengduo {{iconShadow ? "shadow" : ""}}' style='color:{{color}}'></icon>
+      </view>
+      <!-- 导航标题 -->
+      <view class='navigationBarTitle' style='color:{{color}}'
+      bindtap='navigateBack' data-type='{{titleOpenType}}'>{{barTitle}}</view>
+    </view>
+  </view>
+</view>

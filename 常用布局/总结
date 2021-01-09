@@ -1,0 +1,21 @@
+display:flex
+flex-direction:row|column
+just-content:center |space-between|arount
+align-content
+align-item
+flex-flow
+flex
+flex-shrink
+flex-grow
+flex:1
+flex:none
+flex:auto
+order
+flex-basis
+flex-wrap
+align-self
+
+
+
+
+

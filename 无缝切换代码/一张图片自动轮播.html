@@ -1,0 +1,196 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>无标题文档</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		li {
+			list-style: none;
+		}
+
+		#div1 {
+			width: 80px;
+			height: 60px;
+			border: 1px red solid;
+			position: relative;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		#div1 ul {
+			position: absolute;
+			left: 0;
+		}
+
+		#div1 ul li {
+			width: 80px;
+			height: 60px;
+			/* margin-right: 10px; */
+			float: left;
+		}
+
+		#dotUl {
+			transform: translateY(100px);
+			width: 350px;
+			margin: 0 auto;
+		}
+
+		#dotUl .lia {
+			display: inline-block;
+			margin-right: 20px;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			cursor: pointer;
+			background: #787878;
+		}
+	</style>
+	<script type="text/javascript" src="move.js"></script>
+	<script>
+		window.onload = function () {
+			var oInputLeft = document.getElementById('input1');
+			var oInputRight = document.getElementById('input2');
+			var oUl = document.getElementById('ul1');
+			var aLi = oUl.getElementsByTagName('li');
+			var dotUl = document.getElementById('dotUl');
+			// + 10
+			var oneSize = aLi[0].offsetWidth;
+			var iNum = 1;
+			var bBtn = true;
+			var interval = null
+			var currentIndex = 0
+			for (var i = 0; i < aLi.length; i++) {
+				var ele = document.createElement("li")
+				ele.setAttribute('class', 'lia')
+				dotUl.appendChild(ele)
+			}
+			var dotLi = dotUl.getElementsByTagName('li')
+			// todo
+			for (var i = 0; i < dotLi.length; i++) {
+				(function (n) {
+					dotLi[n].onmouseover = function () {
+						console.log(n)
+					}
+				})(i)
+			}
+			dotLi[0].style.background = 'red'
+			index = 1
+			function getWidth() {
+				oUl.style.width = aLi.length * oneSize + 'px';
+			}
+			// 自动轮播
+			autoMove()
+			function autoMove() {
+				clearTimeout(interval)
+				interval = null
+				interval = setTimeout(() => {
+					handleNode(() => {
+						autoMove()
+					})
+				}, 2000)
+			}
+			// 处理节点
+			function handleNode(callback) {
+				bBtn = false
+				for (var i = 0; i < iNum; i++) {
+					//克隆最后一个 添加到首节点
+					var oLi = aLi[aLi.length - (i + 1)].cloneNode(true);
+					// 当前节点 只轮播一个
+					// if(iNum==1){
+
+					// }
+					oUl.insertBefore(oLi, aLi[0])
+					// 初始位置为item之和的负值
+					oUl.style.left = -iNum * oneSize + 'px';
+					getWidth();
+				}
+				startMove(oUl, { left: 0 }, function () {
+					for (var i = 0; i < iNum; i++) {
+						// 移除最后一个节点
+						oUl.removeChild(aLi[aLi.length - 1])
+					}
+					if (typeof callback === 'function') {
+						currentIndex = currentIndex + 1
+						if (currentIndex == aLi.length) {
+							currentIndex = 0
+						}
+						for (var i = 0; i < dotLi.length; i++) {
+							dotLi[i].style.background = ''
+						}
+						dotLi[currentIndex].style.background = 'red'
+						bBtn = true
+						callback()
+					}
+				})
+			}
+			// 右切换
+			oInputRight.onclick = function () {
+				// 当正在轮播的时候不能点击切换
+				if (bBtn) {
+					bBtn = false
+					clearTimeout(interval)
+					interval = null
+					handleNode(() => {
+						bBtn = true
+						autoMove()
+					})
+				}
+			}
+			getWidth();
+			// 左切换
+			oInputLeft.onclick = function () {
+				if (bBtn) {
+					bBtn = false;
+					clearTimeout(interval)
+					interval = null
+					for (var i = 0; i < iNum; i++) {
+						var oLi = aLi[i].cloneNode(true);
+						oUl.appendChild(oLi);
+						getWidth();
+					}
+					startMove(oUl, { left: - iNum * oneSize }, function () {
+						for (var i = 0; i < iNum; i++) {
+							oUl.removeChild(aLi[0]);
+							oUl.style.left = 0;
+						}
+						currentIndex = currentIndex - 1
+						if(currentIndex<0){
+							currentIndex= aLi.length-1
+						}
+						for (var i = 0; i < dotLi.length; i++) {
+							dotLi[i].style.background = ''
+						}
+						dotLi[currentIndex].style.background = 'red'
+						bBtn = true
+						autoMove()
+					})
+				}
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<input type="button" value="左切换" id="input1" />
+	<input type="button" value="右切换" id="input2" />
+	<div id="div1">
+		<ul id="ul1">
+			<li><img src="img/1.jpg" /></li>
+			<li><img src="img/2.jpg" /></li>
+			<li><img src="img/3.jpg" /></li>
+			<li><img src="img/4.jpg" /></li>
+			<li><img src="img/5.jpg" /></li>
+		</ul>
+	</div>
+	<ul id="dotUl">
+	</ul>
+</body>
+
+</html>

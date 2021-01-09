@@ -1,0 +1,4 @@
+<header slot="header" barTitle="发现" showBack="{{false}}"></header>
+<view class="container" catchtap="example">
+  计算属性{{sum}}
+</view>

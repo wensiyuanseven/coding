@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        .abc {
+            position: relative;
+            background: saddlebrown;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            var oDiv = document.getElementById('div1');
+            var iTimer = null;
+            // 执行顺序  先执行定时器===>再执行onscroll--->再执行定时器--->在执行onscroll
+            //   手动触发时直接执行onscroll  触发 b=2
+            // 如果用requestAnimationRequest()会太快 使手动触发无效
+            var b = 0; //区分是onscroll还是click
+            setTop();
+            window.onscroll = function () {
+                console.log(b);
+                if (b != 1) {
+                    console.log('触发')
+                    //如果b=1那么，当前的scroll事件是被定时器所触发，如果不等于1，那么就是非定时器的其他任何一个操作触发该事件 比如人去拖动或者键盘事件触发 去清除定时器
+                    clearInterval(iTimer);
+                }
+                b = 2;
+                console.log(b)
+                setTop();
+            }
+            oDiv.onclick = function () {
+                clearInterval(iTimer);
+                var iCur = 0
+                var iSpeed = 0
+                iTimer = setInterval(function () {
+                    iCur = document.documentElement.scrollTop || document.body.scrollTop;
+                    //起始位置(scrollTop)大于目标点(0)用Math.floor()
+                    iSpeed = Math.floor((0 - iCur) / 40)
+                    if (iCur == 0) {
+                        clearInterval(iTimer);
+                    } else {
+                        document.documentElement.scrollTop = document.body.scrollTop = iCur + iSpeed;
+                    }
+                    console.log('定时器')
+                    b = 1;
+                }, 30);
+            }
+            function setTop() {
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                // 固定到底部=可视区的高-自身的高度+滚动条滚动的高度
+                oDiv.style.top = document.documentElement.clientHeight - oDiv.offsetHeight + scrollTop + 'px';
+            }
+
+        }
+    </script>
+</head>
+
+<body style="height: 2000px;">
+    <div class="abc" style="height: 2000px;">
+        <div id="div1"></div>
+    </div>
+</body>
+
+</html>

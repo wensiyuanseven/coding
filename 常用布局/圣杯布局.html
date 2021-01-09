@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function toFixed(num, s) {
+            var times = Math.pow(10, s)
+            debugger
+            var des = num * times + 0.5
+            debugger
+            des = parseInt(des, 10) / times
+            debugger
+            return des + ''
+        }
+        console.log(toFixed(1.34,2))
+    </script>
+</body>
+
+</html>

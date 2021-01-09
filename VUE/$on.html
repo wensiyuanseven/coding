@@ -36,8 +36,9 @@
                 this.$on('abc', function (data) {
                     alert(data)
                 })
-                console.log(this.$options)
+                console.log(this, 'options')
             },
+            abc: 'abc',
             methods: {
                 click() {
                     this.show = !this.show

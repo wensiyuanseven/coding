@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            background: #787878;
+        }
+
+        section {
+            height: 100%;
+            /* overflow: scroll; */
+
+        }
+
+        ul {
+            list-style: none;
+            position: fixed;
+            right: 15px;
+            top: 300px;
+        }
+
+        ul li {
+            width: 50px;
+            height: 50px;
+            border: 1px solid sienna;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        li.active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ul">
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+    </ul>
+    <section id="section">
+        <div class="content">
+            <h1 id="A">A</h1>
+        </div>
+        <div class="content">
+            <h1 id="B">B</h1>
+        </div>
+        <div class="content">
+            <h1 id="C">C</h1>
+        </div>
+        <div class="content">
+            <h1 id="D">D</h1>
+        </div>
+    </section>
+    <script>
+
+        let timer = null;
+        let ID = ['A', 'B', 'C', 'D']
+        let content = document.querySelectorAll('.content')
+        // 随机数
+        const rp = function (arr, int) {
+            const max = Math.max(...arr);
+            const min = Math.min(...arr);
+            const num = Math.random() * (max - min) + min;
+            return int ? Math.round(num) : num;
+        }
+        content.forEach(ele => {
+            ele.style.width = document.documentElement.clientWidth + 'px'
+            ele.style.height = document.documentElement.clientHeight + 'px'
+            ele.style.borderBottom = `5px solid rgb(${rp([55, 255], true)}, ${rp([55, 255], true)}, ${rp([55, 255])}`
+        });
+
+        let ulList = [...ul.children];
+        ulList[0].className = 'active';
+        ulList.forEach((current, index) => {
+            current.onclick = () => {
+                console.log(document.getElementById(ID[index]).offsetTop, '距离顶部的位置')
+                let scrollTop = document.documentElement.scrollTop
+                let diffDestance = document.getElementById(ID[index]).offsetTop - scrollTop
+                animation(scrollTop, diffDestance, 300, () => {
+                    // window.location.hash = `${ID[index]}`
+                })
+            }
+        })
+        // scroll会被触发
+        window.onscroll = () => {
+            content.forEach((ele, index) => {
+                if (ele.getBoundingClientRect().top >= 0 && ele.getBoundingClientRect().top <= 200) {
+                    //改变点击状态
+                    ulList.forEach(ele => {
+                        ele.className = ''
+                    })
+
+                    ulList[index].className = 'active'
+                    // 这个不能加!!! 加了之后初始化滚动会失效
+                    window.location.hash = `${ID[index]}`
+                }
+            })
+        }
+        // 初始化滚动效果
+        // window.addEventListener('load', () => {
+        //     move(document.getElementById(window.location.hash.slice(1)).offsetTop);
+        // })
+        //hash改变
+        // window.addEventListener('hashchange', () => {
+        //     // move(document.getElementById(window.location.hash.slice(1)).offsetTop);
+        // });
+
+        function animation(startValue, diffValue, time, success) {
+            let d = Math.ceil(time / 16.7)
+            let t = 0
+            let timer = null
+            let move = () => {
+                if (t > d || d == 0) {
+                    cancelAnimationFrame(timer)
+                    move = null
+                    t = 0
+                    success && success()
+                } else {
+                    t++
+                    let val = easeOutStrong(t, startValue, diffValue, d)
+                    document.documentElement.scrollTop = val;
+                    timer = requestAnimationFrame(move)
+                }
+            }
+            move()
+        }
+        function easeOutStrong(t, b, c, d) {
+            return -c * ((t = t / d - 1) * t * t * t - 1) + b
+        }
+
+    </script>
+</body>
+
+</html>

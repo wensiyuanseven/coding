@@ -1,0 +1,35 @@
+@import '/assets/css/iconfont.wxss';
+.header_w{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  clear: both;
+  z-index: 100;
+}
+.navigation_w{
+  font-size: 36rpx;
+  text-align: center;
+}
+.navigateBack{
+  position: absolute;
+  left:0;
+  color:#333;
+  padding:0 20rpx;
+}
+.navigateBack icon{
+  transform:rotate(180deg);
+  font-size:35rpx;
+  color:#333;
+}
+.navigateBack icon.shadow{
+  text-shadow: 2px 0px 10px #8c8b8c;
+}
+.navigationBarTitle{
+    font-weight: bold;
+    /* padding-left: 60rpx; */
+    /* padding: 0 200rpx 0 200rpx; */
+    margin: 0 30% 0 30%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
