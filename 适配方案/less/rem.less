@@ -8,7 +8,7 @@
 
 .pxToVW (@px, @attr: width) {
   @vw: (@px / 375) * 100;
-  @{attr}: ~"@{vw}vw"; // ~"字符@{变量}字符";变量拼串
+  @{attr}: ~"@{vw}vw"; // ~"字符@{变量}字符"; 变量拼串
 }
 
 
@@ -22,6 +22,7 @@
 
 // 定义一个变量
 @baseFontSize: 375;
+
 // rem转换函数
 .pxToRem(@name, @px) {
   @{name}: @px / @baseFontSize*100vw;

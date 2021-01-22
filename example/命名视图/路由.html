@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>uuuuuuuuu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        .router-link-active {
+            font-size: 20px;
+            color: #f60;
+        }
+    </style>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <div>
+            <router-link to="/home">主页</router-link>
+            <router-link to="/user">用户</router-link>
+        </div>
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+
+    <script>
+        //组件
+        var Home = {
+            template: '<h3>我是主页</h3>'
+        };
+        var User = {
+            template: `
+                <div>
+                    <h3>我是用户信息</h3>
+                    <ul>
+                        <li>
+                            <router-link to="/user/username">Blue</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/user/userold">user</router-link>
+                        </li>
+                    </ul>
+                    <div>
+                        <router-view></router-view>
+                    </div>
+                </div>
+            `,
+            methods: {
+                tiaozhuan() {
+                    console.log(this.$router)
+                    //   this.$router.push('/username')
+                    this.$router.push({
+                        path: '/user/username'
+                    })
+                }
+            }
+        };
+        var UserDetail = {
+            template: '<div>我是XX用户</div>'
+        };
+        const UserOld = {
+            template: '<div>今年100岁</div>'
+        }
+        //配置路由
+        const routes = [
+            { path: '/home', component: Home },
+            {
+                path: '/user',
+                component: User,
+                //子路由
+                children: [
+                    //子路由写子路由的组件
+                    { path: 'username', component: UserDetail },
+                    { path: 'userold', component: UserOld }
+                ]
+            },
+            // { path: '*', redirect: '/home' }
+        ];
+
+        //生成路由实例
+        const router = new VueRouter({
+            routes: routes
+        });
+
+
+        //最后挂到vue上
+        new Vue({
+            router,
+            el: '#box'
+        });
+    </script>
+</body>
+
+</html>

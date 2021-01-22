@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .abc {
+        display: none;
+    }
+</style>
+
+<body>
+    <img id="img" onchange="imgchange()" on onload="imgload()" src="http://dummyimage.com/236x354/79cdf2" alt="">
+    <script>
+        function imgchange() {
+            alert('change')
+        }
+        function imgload() {
+            alert('load')
+        }
+        setTimeout(() => {
+            img.src = 'http://dummyimage.com/314x294/8a79f2'
+        }, 2000)
+        setTimeout(() => {
+            img.src = 'http://dummyimage.com/236x354/79cdf2'
+        }, 4000)
+    </script>
+</body>
+
+</html>

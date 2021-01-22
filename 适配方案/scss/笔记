@@ -1,5 +1,5 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        chrome浏览器设置字体(小,中，大)
- 参考: https://yanhaijing.com/css/2017/09/29/principle-of-rem-layout/
+参考: https://yanhaijing.com/css/2017/09/29/principle-of-rem-layout/
 对于em或rem来说
 假如没有设置html的font-size大小 那么中号字体font-zie默认为16px,大号字体为24px
 而可设置的最小字体为12px
@@ -24,8 +24,6 @@ em总结
 em作用于font-size时是相对于父元素的font-size计算的
 em作用于盒模型尺寸时是相对于自身font-size大小计算的代替
 em设置的值可以用百分比来替换
-
-
 浏览器默认的font-zize的大小(也就是根元素html字体的大小)与chrome浏览器设置字体(小,中，大)的大小有关，默认为16px ,大号字体为24px
 
 em兼容性比rem好
@@ -35,7 +33,7 @@ em兼容性比rem好
 当设置的font-size大小不足12px时 会默认以12px显示
 
 
-当跟元素设置的font-size大小不足12px时 浏览器会默认以12px显示 那如果只用rem计算之后去布局那就会有问题
+当根元素设置的font-size大小不足12px时 浏览器会默认以12px显示 那如果只用rem计算之后去布局那就会有问题
 比如
  html{
   font-size:375/100px  // 3.75px
@@ -54,10 +52,7 @@ p {
 
 vw尺寸有着与上述一样的问题
 
-淘宝方案时把html的font-ziz设置为比12px大的一个值才解决的此问题
-
-
-
+淘宝方案是把html的font-size设置为比12px大的一个值才解决的此问题
 
 
 em场景总结
@@ -70,7 +65,7 @@ em场景总结
 1.字体使用哪个尺寸都行
 em是是相对于父元素,rem是相对于根元素 , px不变，vw相对于尺寸大小 看如何权衡利弊了。
 
-2.专属于em的场景。
+2.专属于em的场景
 
 margin/padding/行高 想根据字体元素大小而缩放时,margin/padding/行高可以使用em
 
@@ -84,9 +79,8 @@ html font-size基准值做单位方案:
 2.em/px尺寸都行
 
 
-
 流程
-scss===>pr2rem(px)===>转换成rem===>更改html的font-size
+scss==>px2rem(px)==>转换成rem==>更改html的font-size
 
 
 

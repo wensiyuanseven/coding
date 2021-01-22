@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <child @click="handleClick"></child>
+    </div>
+    <script>
+        Vue.component('child', {
+            // 原生事件的绑定
+            template: '<div >miya</div>',
+            methods: {
+                // handleChildClick: function () {
+                //     this.$emit('click')  //触发自定义事件
+                // }
+            }
+        })
+
+        var vm = new Vue({
+            el: "#root",
+            methods: {
+                handleClick: function () {
+                    alert("click")  //注意括号里要双引号
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

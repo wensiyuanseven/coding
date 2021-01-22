@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手势</title>
+    <script src="./abc.js"></script>
+</head>
+
+<body>
+    <div id="example">内容hahah</div>
+    <script>
+        new BetterGesture(document.getElementById('example'), {
+            // 拖拽
+            pressMove(e) {
+                console.log(e.deltaX)
+                console.log(e.deltaY)
+            },
+            // 双击
+            doubleTap() {
+                console.log('双击')
+            }
+        })
+    </script>
+</body>
+
+</html>

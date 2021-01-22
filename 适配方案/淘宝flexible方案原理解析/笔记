@@ -4,26 +4,26 @@ demo页面:http://huodong.m.taobao.com/act/yibo.html  【控制台查看】
 //分析.png
 图片分析:
 
-1. 通过设备像素比dpr来更改是视口的缩放值
+1. 通过设备像素比dpr来更改视口的缩放值
     假如此时逻辑像素为375 那么dpr为2时
     initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no
     视口缩小0.5倍之后逻辑像素值变为750
-
+    也就是此时逻辑像素和显示像素为1.1关系 正好能还原设计稿
 2.通过dpr,给html设置font-size
   假如:dpr=>=2时  font-size计算规则为
   2*设备宽度/基准值
-  比如逻辑像素375px  基准值为100【他们一般把基准值作为10】
+  比如逻辑像素375px  基准值为10【他们一般把基准值作为10】
   则
   目的是为了方便书写rem
   html {
-   font-size:7.5px; // 2*375/100
+   font-size:75px; // 2*375/10
   }
   当dpr==1时直接(为了适应pc端)
    html{
       font-size:54px;
    }
 
-3. 根据原始逻辑像素宽度给body设置font-size
+3. 根据原始逻辑像素宽度给body设置font-size="12px"
    目的: 为了给没有设置字体的元素设置默认字体(因为一般字体不需要等比缩放),
    也方便用em来设置字体
 

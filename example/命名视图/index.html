@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>嵌套命名视图</title>
+</head>
+<style>
+    .div-style {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .span-style {
+        border: 1px solid saddlebrown;
+    }
+
+    .abc {
+        display: flex;
+        justify-content: flex-start;
+    }
+</style>
+
+<body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <div id="app">
+        <div class="div-style">
+            <!-- 切换 -->
+            <router-link to="/top-1" tag='span' class="span-style">top-1</router-link>
+            <router-link to="/top-2" tag='span' class="span-style">top-2</router-link>
+        </div>
+        <!-- 渲染多个组件 -->
+        <router-view></router-view>
+        <router-view name="a"></router-view>
+        <router-view name="b"></router-view>
+    </div>
+    <script>
+        const Foo = {
+            //指定路由  渲染组件
+            template:
+                `<div class='abc'>
+                    <router-link to="/top-1/item-1">item1----</router-link>
+                    <div class="abc">
+                        <router-view/>
+                    </div>
+                </div>`
+        }
+
+        const Bar = {
+            template:
+                `<div class='abc'>
+                    <router-link to="/top-1/item-2">item2</router-link>
+                </div>`
+        }
+        const item1 = {
+            template:
+                `<div>哈哈哈哈哈哈</div>`
+        }
+        const item2 = {
+            template:
+                `<div>噗噗噗</div>`
+        }
+        const router = new VueRouter({
+            mode: 'history',
+            routes: [
+                {
+                    path: '/top-1',
+                    // 初始化渲染多个组件
+                    components: {
+                        default: Foo,
+                        a: Bar
+                    },
+                    children: [{
+                        path: 'item-1',
+                        component: item1
+                    },
+                    {
+                        path: 'item-2',
+                        component: item2
+                    }
+                    ]
+                },
+                {
+                    path: '/top-2',
+                    components: {
+                        default: Bar,
+                        b: Foo
+                    }
+                }
+            ]
+        })
+
+        new Vue({
+            router,
+            el: '#app',
+            mounted() {
+                this.$router.push({
+                    path: '/top-1/item-1'
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

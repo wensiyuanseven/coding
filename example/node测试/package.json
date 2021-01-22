@@ -1,0 +1,11 @@
+{
+  "name": "siyuan",
+  "version": "1.0.0",
+  "description": "a",
+  "main": "a/b/index.js",
+  "scripts": {
+    "test": "example=abc node a/b/index.js --  --example=123"
+  },
+  "author": "",
+  "license": "ISC"
+}

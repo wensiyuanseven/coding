@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../dist/vue.js"></script>
+</body>
+
+</html>
+
+<li key="j">橘子哈哈哈</li>
+<li key="x">香蕉</li>
+<li key="p">苹果</li>
+
+
+<li key="j">橘子</li>
+<li key="x">香蕉</li>
+<li key="p">苹果</li>
+<div id="app"><span style="color:red">123</span> hello {{msg}} {{msg}} {{msg}}
+    {{age}}
+</div>
+<script>
+    debugger
+    let vm = new Vue({
+        el: '#app',
+        data() {
+            return { msg: 'zf', age: 11, arr: [1, 2, 3, { a: 1 }] }
+        }
+    });
+</script>

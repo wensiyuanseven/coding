@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>删除移除元素时添加动画</title>
+</head>
+<style>
+    #app {
+        width: 100px;
+        height: 100px;
+        transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        transform-origin: center top;
+        border: 1px solid sienna;
+        text-align: center;
+        line-height: 100px;
+        margin-top: 15px;
+    }
+
+    .show {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+
+    .hide {
+        opacity: 0;
+        transform: scaleY(0);
+    }
+</style>
+
+<body>
+    <button id="btn">点击</button>
+    <div id="app" class="show">
+        内容
+    </div>
+    <script>
+        let element = document.getElementById("app");
+        let btn = document.getElementById('btn')
+        let copy = null
+        function transition(ele, fn) {
+            console.log(1)
+            ele.addEventListener("transitionend", () => {
+                if (document.body.contains(ele)) {
+                    document.body.removeChild(ele)
+                    fn()
+                }
+            }, false);
+        }
+        btn.addEventListener('click', () => {
+            if (!document.body.contains(element)) {
+                let ele = document.body.appendChild(copy)
+                setTimeout(() => {
+                    ele.classList.replace("hide", "show");
+                    element = ele
+                }, 0)
+            } else {
+                element.classList.replace("show", "hide");
+                copy = element.cloneNode(true); //深克隆
+                transition(element, () => {
+                    element = null
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .viewport {
+            border: 1px solid sienna;
+            width: 500px;
+            height: 500px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .scrollBar {
+            height: 5000px;
+        }
+
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="viewport">
+        <div class="scrollBar"></div>
+        <div class="content">
+            <h1>测试</h1>
+            <h1>测试</h1>
+            <h1>测试</h1>
+            <h1>测试</h1>
+            <h1>测试</h1>
+        </div>
+    </div>
+    <script>
+        var fixed = document.querySelector('.content')
+        var viewport = document.querySelector('.viewport')
+        render()
+        viewport.onscroll = function () {
+            render()
+        }
+        function render() {
+            var scrollTop = viewport.scrollTop
+            // 固定到底部=可视区的高-自身的高度+滚动条滚动的高度
+            // fixed.style.top = viewport.clientHeight - fixed.offsetHeight + scrollTop + 'px';
+            // 固定到顶部=滚动的距离
+            fixed.style.top =scrollTop + 'px';
+        }
+    </script>
+</body>
+
+</html>

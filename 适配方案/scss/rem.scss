@@ -7,10 +7,10 @@ $ue-width: 375; /* ue图的宽度 */
 
 // 这一步就相当于根据设计图来设置rem
 @function px2rem($px) {
-  @return #{$px/$ue-width*10}rem;
+  @return #{$px/$ue-width*100}rem;
 }
 
-//转换成vw不用在head引入s
+//转换成vw不用在head引入
 @function px2vw($px) {
   @return #{$px/$ue-width*10}vw;
 }
@@ -31,7 +31,8 @@ $ue-width: 375; /* ue图的宽度 */
 
 // 流程分析
 
-// 1.px2rem()中传入px尺寸 换算成rem尺寸(也就是如何把px换算成rem)   【根据设计图手动设置rem 转换为 根据px自动设置rem】
+// 1.px2rem()中传入px尺寸 换算成rem尺寸(也就是如何把px换算成rem)
+// 【根据设计图手动设置rem 转换为 根据px自动设置rem】
 // 2.在html中设置html尺寸【根据屏幕尺寸变化】  html.style.fontSize = width / 100 + "px"
 // rem根据html设置的基本尺寸来处理比例关系
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <div style="height: 1000px;"></div>
+        <div>
+            <div>
+                <p>abc</p>
+            </div>
+        </div>
+        <!-- <div style="height: 1000px;"></div> -->
+    </div>
+    <!-- 元素顶部距离页面的高度<滚动距离 -->
+    <script>
+        let ele = document.getElementsByTagName('p')[0]
+        //getTop值是固定的
+        function getTop(obj) {
+            var iTop = 0;
+            while (obj) {
+                iTop += obj.offsetTop;
+                obj = obj.offsetParent;
+                // console.log(obj)
+            }
+            return iTop;
+        }
+        console.log(getTop(ele), '自定义')
+        // getBoundingClientRect的值时动态获取到的
+        console.log(ele.getBoundingClientRect(), 'api')
+        window.onscroll = function () {
+            console.log(getTop(ele), '自定义')
+        }
+    </script>
+</body>
+
+</html>

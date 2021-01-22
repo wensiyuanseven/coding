@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.3/vue-router.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body,
+        html {}
+
+        #app {}
+
+        .tab {
+            margin-bottom: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .center {
+            text-align: center;
+            width: 100%;
+            height: 200px;
+            background: #ffb6c1;
+            box-sizing: border-box;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            border: 1px salmon solid;
+            background: #787878;
+            border: solid sienna 1px;
+        }
+
+        /* 路由进入时 */
+        .left-enter {
+            transform: translateX(100%);
+        }
+
+        .left-enter-to {
+            transform: translateX(0);
+        }
+
+        .left-enter-active {
+            transition: 2s;
+        }
+
+        /*路由离开时*/
+
+        .left-leave {
+            transform: translateX(0);
+        }
+
+        .left-leave-to {
+            transform: translateX(-100%);
+        }
+
+        .left-leave-active {
+            transition: 2s;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="app">
+        <p class="tab">
+            <router-link to="/foo">tab-1</router-link>
+            <router-link to="/bar">tab-2</router-link>
+        </p>
+        <transition name="left">
+            <router-view class='center'></router-view>
+        </transition>
+    </div>
+    <script type="text/x-template" id="tab-1">
+        <div>路由-1</div>
+      </script>
+    <script type="text/x-template" id="tab-2">
+        <div>路由-2</div>
+      </script>
+    <script>
+
+        const Foo = { template: '#tab-1' }
+        const Bar = { template: '#tab-2' }
+        const routes = [
+            { path: '/foo', component: Foo },
+            { path: '/bar', component: Bar }
+        ]
+
+        const router = new VueRouter({
+            routes
+        })
+
+        const app = new Vue({
+            router
+        }).$mount('#app')
+
+    </script>
+</body>
+
+</html>

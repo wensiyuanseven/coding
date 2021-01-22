@@ -1,0 +1,6 @@
+windos.screen.width
+window.innerWidth
+
+document.querySelector("html").getBoundingClientRect().width
+
+document.documentElement.clientWidth

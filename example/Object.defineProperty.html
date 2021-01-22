@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Object.defineProperties
+        // let obj = { a: '123', b: 456 };
+        // (function (obj, val) {
+        //     // 此处用到了闭包
+        //     Object.defineProperty(obj, 'a', {
+        //         get: function () {
+        //             console.log('set')
+        //             return val
+        //         },
+        //         set: function (newVal) {
+        //             if (val !== newVal) {
+        //                 console.log('get')
+        //                 val = newVal
+        //             }
+        //         }
+        //     })
+        // })(obj, obj.a)
+        // obj.a = 1111111
+        // console.log(obj)
+        // console.log(obj.a)
+    </script>
+    <script>
+        let obj = { a: '123', b: 456 };
+        for (let key in obj) {
+            setObserver(obj, key, obj[key])
+        }
+        function setObserver(obj, key, val,) {
+            // 这个地方用到了闭包
+            Object.defineProperty(obj, key, {
+                get: function () {
+                    console.log('set')
+                    return val
+                },
+                set: function (newVal) {
+                    if (val !== newVal) {
+                        console.log('get')
+                        val = newVal
+                    }
+                }
+            })
+        }
+        obj.a = 1111111
+        console.log(obj)
+        console.log(obj.a)
+    </script>
+</body>
+
+</html>

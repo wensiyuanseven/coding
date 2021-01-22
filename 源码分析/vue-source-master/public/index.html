@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../dist/vue.js"></script>
+</body>
+<div id="app" style="color:red;background:green"><span>helloword {{msg}} {{arr}}</span></div>
+<script>
+    let vm = new Vue({
+        // el: '#app',
+        data: {
+            arr: ['ryry', 1111],
+            msg: 'abc',
+            abc: 'wee'
+        },
+        beforeCreate() {
+            console.log(this, '')
+        },
+        created() {
+            console.log(this)
+
+        },
+        beforeMount() {
+            console.log(this)
+
+        },
+        mounted() {
+            console.log(this)
+
+        }
+    })
+    vm.$mount('#app')
+
+    console.log(vm, '---')
+    // setTimeout(() => {
+    // vm.msg = '温思远'
+    // vm.abc = 'xshhb'
+    // vm.arr.push('数组也更新了')
+    // }, 1000)
+    // vm.arr.reverse()
+    // console.log(vm.arr)
+    // console.log(vm)
+    // vm.arr.splice(0, 1, 20)
+    vm.arr.reverse()
+</script>
+
+</html>

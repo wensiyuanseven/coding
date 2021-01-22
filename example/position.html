@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #app {
+        width: 500px;
+    }
+
+    .parent-container {
+
+        width: 400px !important;
+        border: 5px solid #FF6B5B;
+        overflow: hidden;
+
+
+    }
+
+
+    .left-container {
+        height: 100px;
+        width: 180px;
+        background: #F9BE35;
+        margin-bottom: 20px;
+    }
+
+    .parent-container .right-container {
+        /* float: right; */
+        height: 100px;
+        width: 180px;
+        background: #68CACA;
+        margin-top: 20px;
+    }
+</style>
+
+
+<body>
+    <div class="parent-container" style="width: 800px !important;" id="app">
+        <div class="left-container"></div>
+        <div style="overflow: hidden;">
+            <div class="right-container"></div>
+        </div>
+        <!-- <div style="clear: both;"></div> -->
+    </div>
+</body>
+
+</html>

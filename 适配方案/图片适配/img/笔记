@@ -5,7 +5,7 @@
 然而img标签不能使用媒体查询
 
 <img src='a.png' srcset='b.png 1.5x' />
-srcset不同分辨率下加载不同图片  ,但是不能控制图片的尺寸
+srcset属性在不同分辨率下加载不同图片,但是不能控制图片的尺寸
 
 <img src='a.png' srcset='b.png ' sizes=''/>
 sizes里面可以 指定图片宽度  浏览器根据网络环境/电量情况/分辨率自动去加载相应的图片

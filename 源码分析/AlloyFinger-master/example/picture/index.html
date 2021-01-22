@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AlloyFinger</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+</head>
+
+<body>
+    <script src="../../asset/transform.js"></script>
+    <script src="../../alloy_finger.js"></script>
+    <script src="../../asset/image_loaded.js"></script>
+    <script src="../../asset/to.js"></script>
+    <div id="imgBox" style="position:fixed;width: 100%;height: 100%;left:0;top:0;
+     background:black;display: none;">
+        <img src="../../asset/cover.jpg" id="testImg" alt="" style="width: 100%;position: absolute; " />
+    </div>
+
+    <script>
+        var topPx;
+        imageLoaded("#testImg", function (w, h) {
+            // 换算图片在当前屏幕下的高度
+            document.querySelector("#imgBox").style.display = "block";
+            topPx = window.innerHeight / 2 - (h * window.innerWidth / w) / 2;
+            this.style.top = topPx + "px";
+        });
+
+        // 缓冲公式
+        // 时间越来越大
+        function ease(x) {
+            return Math.sqrt(1 - Math.pow(x - 1, 2));
+        }
+
+        var el = document.getElementById("testImg");
+        // 初始矩阵
+        Transform(el);
+
+        var initScale = 1;
+        new AlloyFinger(el, {
+            // 一个手指以上触摸屏幕
+            multipointStart: function () {
+                //停止运动
+                To.stopAll();
+                // 把缩放的大小赋给初始值
+                initScale = el.scaleX;
+            },
+            // 旋转
+            rotate: function (evt) {
+                el.rotateZ += evt.angle;
+            },
+            pinch: function (evt) {
+                // 捏的操作
+                el.scaleX = el.scaleY = initScale * evt.zoom;
+            },
+            //手指离开屏幕触发
+            multipointEnd: function () {
+                // new To(el, "height",50,500,ease);
+
+                // return
+                To.stopAll();
+                // 缩放值小于1  注意此时角度并未改变
+                if (el.scaleX < 1) {
+                    // 运动还原为1
+                    new To(el, "scaleX", 1, 500, ease);
+                    new To(el, "scaleY", 1, 500, ease);
+                }
+                // 缩放值大于2  注意此时角度并未改变
+                if (el.scaleX > 2) {
+                    // 运动还原为图片的2倍
+                    new To(el, "scaleX", 2, 500, ease);
+                    new To(el, "scaleY", 2, 500, ease);
+                }
+                //   取余  2%360=2   -2%360=-2   361%360=1  -361%360=-1
+                var rotation = el.rotateZ % 360;
+                // 因为度数没有负值，所以要把负值转换为正值
+                if (rotation < 0) rotation = 360 + rotation;
+
+                el.rotateZ = rotation;
+                // 判断旋转边界
+                if (rotation > 0 && rotation < 45) {
+                    new To(el, "rotateZ", 0, 500, ease);
+                } else if (rotation >= 315) {
+                    new To(el, "rotateZ", 360, 500, ease);
+                } else if (rotation >= 45 && rotation < 135) {
+                    new To(el, "rotateZ", 90, 500, ease);
+                } else if (rotation >= 135 && rotation < 225) {
+                    new To(el, "rotateZ", 180, 500, ease);
+                } else if (rotation >= 225 && rotation < 315) {
+                    new To(el, "rotateZ", 270, 500, ease);
+                }
+
+            },
+            pressMove: function (evt) {
+                el.translateX += evt.deltaX;
+                // el.translateY += evt.deltaY;
+                evt.preventDefault();
+            },
+            // 双击
+            doubleTap: function (evt) {
+
+                To.stopAll();
+                if (el.scaleX > 1.5) {
+                    new To(el, "scaleX", 1, 500, ease);
+                    new To(el, "scaleY", 1, 500, ease);
+                    new To(el, "translateX", 0, 500, ease);
+                    new To(el, "translateY", 0, 500, ease);
+                }
+                else {
+                    var box = el.getBoundingClientRect();
+                    // x,y轴坐标平移公式
+                    var y = box.height - ((evt.changedTouches[0].pageY - topPx) * 2) - (box.height / 2 - (evt.changedTouches[0].pageY - topPx));
+                    var x = box.width - ((evt.changedTouches[0].pageX) * 2) - (box.width / 2 - (evt.changedTouches[0].pageX));
+                    // 元素扩大两倍
+                    new To(el, "scaleX", 2, 500, ease);
+                    new To(el, "scaleY", 2, 500, ease);
+                    // x轴 ,y轴相应平移
+                    new To(el, "translateX", x, 500, ease);
+                    new To(el, "translateY", y, 500, ease);
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

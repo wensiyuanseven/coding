@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+
+            width: 200px;
+            height: 200px;
+            border: 1px solid #787878;
+            position: relative;
+        }
+
+        span {
+            position: absolute;
+            left: 0;
+
+            width: 200px;
+            height: 50px;
+            /* display: inline-block; */
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span>温思温思温思</span>
+    </div>
+    <script>
+        // 深拷贝函数
+        function deepClone(val) {
+            return new Promise(resolve => {
+                const { port1, port2 } = new MessageChannel()
+                port1.postMessage(val)
+                port2.onmessage = e => resolve(e.data)
+            })
+        }
+
+        // 定义一个包含 undefined 的对象
+        let obj = {
+            a: 'wise',
+            b: undefined,
+            c: {
+                d: 'wrong'
+            },
+            d: '123',
+            e: '456'
+        }
+        // 循环引用
+        obj.d = obj.e
+        obj.e = obj.d
+        // 注意该方法是异步的
+        async function test() {
+            const clone = await deepClone(obj)
+            console.log(clone)
+        }
+        test()
+    </script>
+</body>
+
+</html>

@@ -18,6 +18,7 @@
             // html.style.fontSize = width / 10 + "px";
             // 如果用户在PC端浏览，页面过宽怎么办？一般我们都会设置一个最大宽度，大于这个宽度的话页面居中，两边留白
             var clientWidth = document.documentElement.clientWidth;
+        console.log(document.documentElement)
             clientWidth = clientWidth < 780 ? clientWidth : 780;
             document.documentElement.style.fontSize = clientWidth / 10 + 'px';
         }
@@ -35,10 +36,12 @@
             margin: 0;
         }
 
+        /*  由于设置了根元素字体的大小，会影响所有没有设置字体大小的元素，字体大小是会继承的 */
 
-        /*  由于设置了根元素字体的大小，会影响所有没有设置字体大小的元素，会字体大小是会继承的 */
         body {
-            /* 为没有设置字体的元素指定默认字体,否则会使用html字体(这种方式不对) 当然会下方的媒体查询所覆盖掉  */
+            /* 为没有设置字体的元素指定默认字体,否则会使用html字体，
+            因为rem是相对于根元素的，所以对于没有设置字体的元素，字体大小可以继承于body
+            (这种方式不对) 当然会被下方的媒体查询所覆盖掉  */
             font-size: 16px;
             /* 设置body的宽度为10rem,相当于body===html。并水平居中 */
             margin: 0 auto;
@@ -48,13 +51,14 @@
 
         @media screen and (min-width: 320px) {
 
-            /* js被禁止的回退方案 */
+            /*rem js被禁止的回退方案 */
             html {
-                /* 分成100份 */
-                font-size: 3.2px;
+                /* 分成10份 */
+                font-size: 32px;
             }
 
-            /* 实现字体大小的响应 */
+            /* 为没有设置字体的元素 实现字体大小的响应 */
+            /* 因为rem是相对于根元素的，所以对于没有设置字体的元素，字体大小可以继承于body */
             body {
                 font-size: 16px
             }
@@ -62,12 +66,13 @@
 
         @media screen and (min-width: 481px) and (max-width:640px) {
 
-            /* js被禁止的回退方案 */
+            /* rem js被禁止的回退方案  */
             html {
-                font-size: 4.8px
+                font-size: 48px
             }
 
-            /* 实现字体大小的响应 */
+            /* 为没有设置字体的元素 实现字体大小的响应 */
+            /* 因为rem是相对于根元素的，所以对于没有设置字体的元素，字体大小可以继承于body */
             body {
                 font-size: 18px
             }
@@ -80,6 +85,8 @@
                 font-size: 64px
             }
 
+            /* 为没有设置字体的元素 实现字体大小的响应 */
+            /* 因为rem是相对于根元素的，所以对于没有设置字体的元素，字体大小可以继承于body */
             body {
                 font-size: 20px
             }
@@ -94,7 +101,7 @@
         }
 
         /* 计算时相对比较麻烦 */
-        /* 字体如果用rem就会相当于根元素，就变成等比缩放了,不可取 */
+        /* 字体如果用rem就会相对于根元素，就变成等比缩放了,不可取 */
         /* 也可以直接使用px */
         p {
             font-size: 1em
