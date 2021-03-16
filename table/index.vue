@@ -20,7 +20,13 @@ export default {
         age: 'asc', //正序
         address: 'desc', //倒序
       },
-      selectedItems: [],
+      selectedItems: [ {
+          id: 1,
+          name: 'John Brown',
+          age: 18,
+          address: '我的内容比较多 我的内容比较多 我的内容比较多',
+          date: '2016-10-03',
+        },],
       columns: [
         {
           title: '标题',

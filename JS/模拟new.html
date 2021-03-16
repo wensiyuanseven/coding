@@ -7,8 +7,11 @@
     <title>Document</title>
 </head>
 
-<body>
+<body>(
     <script>
+
+        // let obj={a:'123'}
+        // console.log(Object.getOwnPropertyNames(obj))
         function mockNew(...args) {
             let self = args.shift()
             let obj = {}
@@ -21,7 +24,7 @@
             console.log(params)
         }
         let getVal = mockNew(fun, '哺乳类', '两栖类')
-        console.log(getVal.abc)
+        console.log(getVal)
     </script>
 </body>
 

@@ -27,8 +27,8 @@ demo页面:http://huodong.m.taobao.com/act/yibo.html  【控制台查看】
    目的: 为了给没有设置字体的元素设置默认字体(因为一般字体不需要等比缩放),
    也方便用em来设置字体
 
-4.  在html标签上设置data-dpr='2'属性
-    目的:在不同dprx下方便重置某一类标签的默认字体
+4. 在html标签上设置data-dpr='2'属性
+    目的:在不同dpr 下方便重置某一类标签的默认字体
     [data-dpr="2"] div {
        font-size: 24px;
     }
@@ -41,5 +41,5 @@ demo页面:http://huodong.m.taobao.com/act/yibo.html  【控制台查看】
 
 为什么放哪放弃淘宝布局方案:
 因为
-1.vw/vh已经可以适应大部分浏览器了。
+1.vw/vh已经可以适应大部分浏览器了。 vw/vh性能更好
 2.对于字体的适配可以直接用媒体查询来设置基准字体。

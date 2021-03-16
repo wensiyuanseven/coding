@@ -1,0 +1,21 @@
+http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html
+https://zhuanlan.zhihu.com/p/25868120
+
+
+git init
+
+touch .gitignore
+
+git add .
+
+git commit -m ''
+
+git remote add  origin  仓库地址 (195页)
+
+git push origin  master  /  git  push -u origin  master (第三页)
+
+
+看备忘录
+
+git分之模型 https://www.jianshu.com/p/cbd8cf5e232d
+

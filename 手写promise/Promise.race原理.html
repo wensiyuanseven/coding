@@ -10,7 +10,7 @@
 <body>
     <script>
         // 方案-
-        Promise.prototype.race = function (promiseArr) {
+        Promise.race = function (promiseArr) {
             return new Promise((resolve, reject) => {
                 for (let promise of promiseArr) {
                     if (typeof promise === 'object' && typeof promise.then === 'function') {
@@ -24,20 +24,23 @@
                 }
             })
         }
+
+
+
         // 方案二
-        Promise.race = function (promiseArr) {
-            return new Promise((resolve, reject) => {
-                // 每一个Promise都会有一个隐形的闭包在里面
-                for (let i = 0; i < promiseArr.length; i++) {
-                    // 这里判断是否为promise也可以
-                    Promise.resolve(promiseArr[i]).then((res) => {
-                        resolve(res) // 和promise.all的主要差别
-                    }, (err) => {
-                        reject(err)
-                    })
-                }
-            })
-        }
+        // Promise.race = function (promiseArr) {
+        //     return new Promise((resolve, reject) => {
+        //         // 每一个Promise都会有一个隐形的闭包在里面
+        //         for (let i = 0; i < promiseArr.length; i++) {
+        //             // 这里判断是否为promise也可以
+        //             Promise.resolve(promiseArr[i]).then(res => {
+        //                 resolve(res) // 和promise.all的主要差别
+        //             }, err => {
+        //                 reject(err)
+        //             })
+        //         }
+        //     })
+        // }
 
         let a = new Promise(resolve => {
             setTimeout(() => {
@@ -59,11 +62,11 @@
             console.log(res)
         })
 
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                console.log(i)
-            }, 1000*i)
-        }
+        // for (let i = 0; i < 5; i++) {
+        //     setTimeout(() => {
+        //         console.log(i)
+        //     }, 1000 * i)
+        // }
 
     </script>
 </body>

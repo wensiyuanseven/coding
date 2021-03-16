@@ -11,13 +11,13 @@ app.all("*", (req, res, next) => {
 app.get("/roleAuth", (req, res) => {
   // 数据是扁平化的
   res.json({
-    // id如果和父另一个item的pid相等就可以确立父子关系
+    // id如果和另一个item的pid相等就可以确立父子关系
     menuList: [
       {
-        pid: -1, //-1表示是路由的根节点
+        pid: -1, // -1 表示是路由的根节点
         name: "购物车",
         id: 1,
-        auth: "cart" //路由名称 如果路由名称和前端的路由相对应 路由就会被添加到列表上
+        auth: "cart" // 路由名称 如果路由名称和前端的路由相对应 路由就会被添加到列表上
       },
       {
         pid: 1, //  pid可以表示路由嵌套的等级 -1 1 4 4
@@ -40,6 +40,6 @@ app.get("/roleAuth", (req, res) => {
     ]
   });
 });
-app.listen(8082, () => {
+app.listen(8084, () => {
   console.log("监听成功");
 });

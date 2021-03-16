@@ -65,7 +65,7 @@ export default {
           {
             /**操作时隐藏下拉按钮 */
             data.id === this.currentId ? (
-              //  操作按钮
+              // 操作按钮
               <span>
                 <el-button type="text" on-click={this.sureEvent.bind(this, data)}>
                   确认
@@ -105,7 +105,6 @@ export default {
     },
     handleCommand(data, value) {
       //点击下拉菜单项触发的事件 value其实就是我们当前触发的item.text的值
-      console.log(111)
       if (value === 'rn') {
         this.handleRename(data)
       } else if (value === 'rm') {

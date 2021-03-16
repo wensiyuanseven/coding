@@ -114,18 +114,20 @@
         let liList = document.getElementsByTagName('li')
         let divList = document.getElementsByTagName('div')
         let h1List = document.getElementsByTagName('h1')
-        let statusList = Array.from(liList, () => false) //初始化展开收缩的状态
+        let statusList = Array.from(liList, () => false) // 初始化展开收缩的状态
 
         for (let i = 0; i < h1List.length; i++) {
             h1List[i].onclick = e => {
-                // 收缩
+                // 当前被点击的收缩
                 if (statusList[i]) {
                     statusList[i] = false
                     startMove(divList[i], { height: 0 })
                 } else {
-                    // 展开
+                    // 当前被点击的展开
                     statusList[i] = true
                     startMove(divList[i], { height: divList[i].scrollHeight })
+                    // 如果有展开的
+                    // 把当前展开的收缩
                     let openIndex = statusList.findIndex((ststus, index) => index !== i && ststus === true)
                     if (openIndex !== -1) {
                         statusList[openIndex] = false

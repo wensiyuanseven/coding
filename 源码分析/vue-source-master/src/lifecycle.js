@@ -33,7 +33,9 @@ export function mountComponent(vm, el) {
 
 
 export function callHook(vm, hook) { // vm.$options
+    // console.log(vm.$options,'-----------------')
     let handlers = vm.$options[hook]; // 典型的发布订阅模式
+    // console.log(handlers,'handlers')
     if (handlers) {
         for (let i = 0; i < handlers.length; i++) { // [fn,fn,fn]
             handlers[i].call(vm); // 所有的生命周期的this 指向的都是当前的实例

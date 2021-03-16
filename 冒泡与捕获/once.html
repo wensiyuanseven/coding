@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function once(type, selector, callback) {
+            selector.addEventListener(type, function fn(e) {
+                e.target.removeEventListener(e.type, fn);
+                return callback(e);
+            }, false);
+        }
+
+        var buttonEl = document.getElementById('w3c');
+        buttonEl.addEventListener('click', function (e) {
+            console.log('W3C标准事件');
+        }, { once: true });
+    </script>
+</body>
+
+</html>

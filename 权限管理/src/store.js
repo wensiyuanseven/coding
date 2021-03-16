@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { authRoutes } from "./router";
 Vue.use(Vuex);
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8082";
+axios.defaults.baseURL = "http://localhost:8084";
 axios.interceptors.response.use(res => {
   return res.data;
 });
@@ -28,9 +28,10 @@ const getTreeList = menuList => {
       }
     }
   });
-  // console.log(routeMap,menu, auths )
+  console.log(routeMap, menu, auths);
   return { menu, auths };
 };
+
 // 过滤路由列表 获取这些权限
 const formatList = (authRoutes, auths) => {
   return authRoutes.filter(route => {
@@ -78,10 +79,11 @@ export default new Vuex.Store({
         });
       });
       let { auths, menu } = getTreeList(menuList);
+      console.log(menu, "-----needRouters------");
       // 这一块的数据是扁平化之后的 都要渲染的数据
       commit("setMenuList", menu);
-
       let needRoutes = formatList(authRoutes, auths);
+      console.log(needRoutes, "needRouter");
       commit("setPermission");
       return needRoutes;
     }

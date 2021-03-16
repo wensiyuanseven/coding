@@ -48,20 +48,26 @@ export default {
     clickOutside: {
       //指令的生命周期
       bind(el, binding, vnode) {
-        //把事件绑定给doucument上，看一下点击的是否是当前这个元素
+        console.log(vnode.context, 'vnode.context')
+        //把事件绑定给document上, 看一下点击的是否是当前这个元素
         let handler = (e) => {
           // 判断当前上下文是否包含该元素
           if (el.contains(e.target)) {
-            //判断是否当前面板已经显示出来
+
+            // 判断是否当前面板已经显示出来
             if (!vnode.context.isVisible) {
+              // focus是motheds中定义的函数
               vnode.context.focus()
             }
           } else {
+
             if (vnode.context.isVisible) {
+              // blur是motheds中定义的函数
               vnode.context.blur()
             }
           }
         }
+
         el.bandler = handler
         document.addEventListener('click', handler)
       },
@@ -115,6 +121,7 @@ export default {
     chooseDate(date) {
       this.time = utils.getYearMonthDay(date) //更新头部年月
       this.$emit('input', date)
+
       this.blur() //关闭弹层
     },
     //判断是否选中

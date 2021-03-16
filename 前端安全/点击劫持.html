@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        iframe {
+            width: 500px;
+            height: 500px;
+            border: 1px solid sienna;
+            position: absolute;
+            opacity: 0.1;
+            z-index: 2;
+        }
+
+        #click {
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            top: 20px;
+            z-index: 1;
+            border: 1px solid sienna;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 黑客技术揭秘 106页 -->
+    <input type="button" value="点击" id="click">
+    <!-- 嵌入的是我们页面 -->
+    <iframe src="https://juejin.cn/user/1239904845578600/posts?sort=popular" frameborder="0"></iframe>
+</body>
+
+</html>

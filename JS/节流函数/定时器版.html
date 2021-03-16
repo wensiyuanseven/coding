@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>截流函数,定时器版本</title>
 </head>
 
 <body>
@@ -17,6 +17,7 @@
                     fun.apply(this, args)
                     return isFirst = false
                 }
+                // 终止条件
                 if (!interval) {
                     interval = setTimeout(() => {
                         clearTimeout(interval)
@@ -24,7 +25,6 @@
                         fun.apply(this, args)
                     }, time)
                 }
-
             }
         }
         function resize(event) {

@@ -15,8 +15,9 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <div id="app">
-        <h1>父组件%%%example%%%%%%abc%%%</h1>
+        <h1>父组件%%%example%%% %%%abc%%%</h1>
     </div>
+
     <div id='loading'> </div>
 
     <script type="text/x-template" id="loadingTemplate">
@@ -35,12 +36,18 @@
         })
 
         let loading = new Loading({
-            el: document.createElement('div'),
+            el: '#loading'
         })
 
+
+        // let loading = new Loading({
+        //     el: document.createElement('div')
+        // })
+        // 放到body上面
         document.body.appendChild(loading.$el)
 
         Vue.prototype.$loading = loading
+
         let CompA = {
             data() {
                 return {

@@ -33,7 +33,7 @@
         }
         return angle * 180 / Math.PI;
     }
-// 发布订阅，中间站
+    // 发布订阅，中间站
     var HandlerAdmin = function(el) {
         this.handlers = [];
         this.el = el;
@@ -45,14 +45,14 @@
 
     HandlerAdmin.prototype.del = function(handler) {
         if(!handler) this.handlers = [];
-
         for(var i=this.handlers.length; i>=0; i--) {
             if(this.handlers[i] === handler) {
                 this.handlers.splice(i, 1);
             }
         }
     }
-   //事件派发
+
+   // 事件派发
     HandlerAdmin.prototype.dispatch = function() {
         // 执行事件
         for(var i=0,len=this.handlers.length; i<len; i++) {
@@ -66,7 +66,7 @@
 
     function wrapFunc(el, handler) {
         var handlerAdmin = new HandlerAdmin(el);
-        //添加定义的事件[]
+        // 添加定义的事件[]
         handlerAdmin.add(handler);
         return handlerAdmin;
     }
@@ -98,7 +98,7 @@
         this.zoom = 1;
         this.isDoubleTap = false;
 
-        var noop = function () { };//传入默认函数
+        var noop = function () { }; //传入默认函数
 
         this.rotate = wrapFunc(this.element, option.rotate || noop);
         this.touchStart = wrapFunc(this.element, option.touchStart || noop); // 把用户写的原生事件也放到此事件中心上
@@ -226,8 +226,8 @@
                     evt.deltaX = currentX - this.x2;
                     evt.deltaY = currentY - this.y2;
 
-                    //move事件中添加对当前触摸点到初始触摸点的判断，
-                    //如果曾经大于过某个距离(比如10),就认为是移动到某个地方又移回来，应该不再触发tap事件才对。
+                    // move事件中添加对当前触摸点到初始触摸点的判断，
+                    // 如果曾经大于过某个距离(比如10),就认为是移动到某个地方又移回来，应该不再触发tap事件才对。
                     var movedX = Math.abs(this.x1 - this.x2),
                         movedY = Math.abs(this.y1 - this.y2);
 
@@ -371,6 +371,7 @@
             this.preV = this.pinchStartLen = this.zoom = this.isDoubleTap = this.delta = this.last = this.now = this.tapTimeout = this.singleTapTimeout = this.longTapTimeout = this.swipeTimeout = this.x1 = this.x2 = this.y1 = this.y2 = this.preTapPosition = this.rotate = this.touchStart = this.multipointStart = this.multipointEnd = this.pinch = this.swipe = this.tap = this.doubleTap = this.longTap = this.singleTap = this.pressMove = this.touchMove = this.touchEnd = this.touchCancel = this.twoFingerPressMove = null;
 
             window.removeEventListener('scroll', this._cancelAllHandler);
+
             return null;
         }
     };

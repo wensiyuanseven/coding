@@ -15,7 +15,7 @@
 		// html宽度算法 逻辑分辨率/scal=html尺寸=新的逻辑分辨率  (scale如果小于1相当于双指捏合，scale大于1相当于双指外扩)
 		// 解释 假设此时逻辑像素为200px 那么改变scale后会放大到320px 双指捏合  缩小
 		// 假设逻辑像素为300px 那么改变scale后会缩小到320px  双指外扩   变大
-		// 此原理和设置<meta name="viewport" content="width=375">一模一样  固定视窗  不管怎么设备变逻辑分辨率都是375px
+		// 此原理和设置 <meta name="viewport" content="width=375">一模一样  固定视窗  不管怎么设备变逻辑分辨率都是375px
 		var meta = document.createElement('meta');
 		meta.setAttribute('name', 'viewport');
 		// 不能添加 width=device-width

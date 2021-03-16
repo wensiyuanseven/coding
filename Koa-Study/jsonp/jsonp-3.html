@@ -25,13 +25,14 @@
             for (var key in setting.data) {
                 query.push(key + '=' + encodeURIComponent(setting.data[key]))
             }
+            // console.log(query)
             script.src = setting.url + '?' + query.join('&')
             document.head.appendChild(script)
             document.head.removeChild(script)
         }
 
         jsonp({
-            url: 'http://localhost:3034/getData.jsonp',
+            url: 'http://localhost:8889/getData.jsonp',
             key: 'callback',//回调名字
             data: { page: 1, cate: 'recommend' },
             callback: function (data) {

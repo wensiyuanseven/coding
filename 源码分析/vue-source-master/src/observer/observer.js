@@ -52,7 +52,7 @@ function defineReactive(data, key, value) {
         dep.depend(); // 让这个dep 去收集watcher
         // 数组或者数组方法会走此逻辑  但是是为了数组方法更改后的依赖收集
         if (childOb) {
-          //如果是数组 watcher中每次都会有两个dep
+          // 如果是数组 watcher中每次都会有两个dep
           // 假如数组方法添加的不是对象 那么根本不会触发walk()方法
           // 如果模板中定义了走set  对象/数组的date 都会有一个dep,但是只有更改了原数组的方法,时才会触发 这个数据上的dep
           childOb.dep.depend();

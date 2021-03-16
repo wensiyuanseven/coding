@@ -3,64 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 
 <body>
+    <!-- 休眠函数 -->
     <script>
-        const PENDING = 'pending'
-        const RESOLVED = 'resolved'
-        const REJECTDE = 'rejected'
-        class MyPromise {
-            constructor(fn) {
-                this.state = PENDING
-                this.value = null
-                this.callBackResolve = []
-                this.callBackReject = []
-                try {
-                    fn(this.resolve.bind(this), this.reject.bind(this))
-                } catch (error) {
-                    this.resolve.bind(this, error)
-                }
-            }
-            resolve(value) {
-                if (this.state === PENDING) {
-                    this.value = value
-                    this.state = RESOLVED
-                    this.callBackResolve.forEach(cb => cb(this.value))
-                }
-            }
-            reject(value) {
-                if (this.state === PENDING) {
-                    this.value = value
-                    this.state = REJECTDE
-                    this.callBackReject.forEach(cb => cb(this.value))
-                }
-            }
-            then(onResolved, onRejected) {
-                onResolved = typeof onResolved === 'function' ? onResolved : v => v
-                onRejected = typeof onRejected === 'function' ? onRejected : v => v
-                if (this.state === PENDING) {
-                    this.callBackResolve.push(onResolved)
-                    this.callBackReject.push(onRejected)
-                }
-                if (this.state === RESOLVED) {
-                    onResolved(this.value)
-                }
-                if (this.state === REJECTDE) {
-                    onRejected(this.value)
-                }
+        function interval(time) {
+            return new Promise(resolve => {
+                res
+            })
+        }
+        async function sleep(num = 5, time, cb) {
+            for (let i = 0; i < num; i++) {
+                await interval(time)
+                cb(i)
             }
         }
-        new MyPromise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(1)
-            }, 1000);
-        }).then(data => {
-            console.log(data)
-        }, err => {
-            console.log(err)
+        sleep(10, 1000, i => {
+            console.log(i)
         })
     </script>
 </body>

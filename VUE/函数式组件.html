@@ -26,12 +26,12 @@
         var EmptyList = {}
         var TableList = {}
         var OrderedList = {}
-        var UnorderedList = {
-            template: `<div>
-                <p>函数式组件</p>
-                <slot></slot>
-            </div>`
-        }
+        // var UnorderedList = {
+        //     template: `<div>
+        //         <p>函数式组件</p>
+        //         <slot></slot>
+        //     </div>`
+        // }
         // 参考文章
         // https://juejin.im/post/6844904191677186061
         Vue.component('smart-list', {
@@ -61,7 +61,7 @@
             el: '#app',
             mounted() {
                 // console.log(Vue.abc)
-                console.log(this.$data,'--')
+                console.log(this.$data, '--')
                 this.$once('send', this.getSend)
             },
             methods: {

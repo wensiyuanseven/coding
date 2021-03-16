@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="a">
+        A
+        <div id="b">
+            B
+            <div id="c">
+                C
+                <div id="d">D</div>
+            </div>
+        </div>
+    </div>
+    <!-- 可实现 self -->
+    <!-- 参考 https://www.cnblogs.com/yzhihao/p/9398917.html -->
+    <script>
+        document.getElementById('a').addEventListener('click', function (e) {
+            console.log('target:' + e.target.id + '&currentTarget:' + e.currentTarget.id);
+        });
+        document.getElementById('b').addEventListener('click', function (e) {
+            console.log('target:' + e.target.id + '&currentTarget:' + e.currentTarget.id);
+        });
+        document.getElementById('c').addEventListener('click', function (e) {
+            console.log('target:' + e.target.id + '&currentTarget:' + e.currentTarget.id);
+        });
+        document.getElementById('d').addEventListener('click', function (e) {
+            console.log('target:' + e.target.id + '&currentTarget:' + e.currentTarget.id);
+        });
+    </script>
+</body>
+
+</html>

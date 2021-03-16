@@ -10,22 +10,26 @@
 <body>
     <script>
         // koa express执行顺序一样
-        let app = {
+        const app = {
             arr: [],
             use(fn) {
                 this.arr.push(fn)
             }
         }
+        // 1. app.use时会函数push到arr中
+        // 0
         app.use(next => {
             console.log(1)
             next()
             console.log(6)
         })
+        // 1
         app.use(next => {
             console.log(2)
             next()
             console.log(5)
         })
+        // 2
         app.use(next => {
             console.log(3)
             next()
@@ -33,7 +37,8 @@
         })
         function dispatch(index) {
             if (index === app.arr.length) return
-            const fn = app.arr[index]
+            const fn = app.arr[index]  // 2.获取到当前函数
+            // 执行当前函数,并且把当前函数传进去【就相当于next函数】 等待调用 调用时index+1
             fn(dispatch.bind(null, index + 1))
         }
         dispatch(0)

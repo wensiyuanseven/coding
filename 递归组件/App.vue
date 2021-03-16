@@ -4,7 +4,7 @@
        <!-- 递归组件 数结构 菜单 -->
        <Menu>
            <template v-for="menu in menuList" >
-               <MenuItem :key="menu.title" v-if="!menu.children">{{menu.title}}</MenuItem>
+               <MenuItem :key="menu.title" v-if="!menu.children">{{menu.title}}-自定义</MenuItem>
                <!-- 把重复的部分 先去抽离出去 -->
                <ReSubMenu :key="menu.title" v-else :data="menu"></ReSubMenu>
            </template>

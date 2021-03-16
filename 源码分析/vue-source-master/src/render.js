@@ -13,7 +13,6 @@ export function renderMixin(Vue) {
     }
     Vue.prototype._render = function() {
         // 调用我们自己实现的render方法
-
         const vm = this;
         const { render } = vm.$options;
         //   console.log(render,'-----')

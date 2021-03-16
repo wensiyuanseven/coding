@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        p {
+            width: 200px;
+            height: 50px;
+            float: left;
+            background: skyblue;
+        }
+
+        .clear::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+
+        section {
+            background: sandybrown;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clear">
+        <p>我是浮动元素</p>
+    </div>
+    <section>我是文字</section>
+</body>
+
+</html>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>scss和rem的结合</title>
     <script>
-        //问题，就是分成100份的话，假设屏幕宽度320，此时html大小是3.2px，但浏览器支持最小字体大小是12px，怎么办？
+        // 问题，就是分成100份的话，假设屏幕宽度320，此时html大小是3.2px，但浏览器支持最小字体大小是12px，怎么办？
         // 那就分成10份呗，只要把上面的100都换成10就好了
         // 其实这种做法也是不对的
         // 因为 1.font-size小于12px时 浏览器默认会把font-zize设置为12px
@@ -18,7 +18,6 @@
             // html.style.fontSize = width / 10 + "px";
             // 如果用户在PC端浏览，页面过宽怎么办？一般我们都会设置一个最大宽度，大于这个宽度的话页面居中，两边留白
             var clientWidth = document.documentElement.clientWidth;
-        console.log(document.documentElement)
             clientWidth = clientWidth < 780 ? clientWidth : 780;
             document.documentElement.style.fontSize = clientWidth / 10 + 'px';
         }
@@ -43,21 +42,24 @@
             因为rem是相对于根元素的，所以对于没有设置字体的元素，字体大小可以继承于body
             (这种方式不对) 当然会被下方的媒体查询所覆盖掉  */
             font-size: 16px;
-            /* 设置body的宽度为10rem,相当于body===html。并水平居中 */
-            margin: 0 auto;
+            /* 因为上面计算的是把rem分成了10份 所以10rem的宽度在小于780px时正好是浏览器的宽度 */
             width: 10rem;
+            /* 当浏览器的宽度大于780时让body居中显示 */
+            /* 让body居中 */
+            margin: 0 auto;
+            /* 虽然设置了width宽度 但是它的背景颜色是全屏的 */
+            background: #787878;
         }
 
-
         @media screen and (min-width: 320px) {
+            /*rem js被禁止时的回退方案 */
 
-            /*rem js被禁止的回退方案 */
             html {
                 /* 分成10份 */
                 font-size: 32px;
             }
 
-            /* 为没有设置字体的元素 实现字体大小的响应 */
+            /* 为没有设置字体的元素，实现字体大小的响应 */
             /* 因为rem是相对于根元素的，所以对于没有设置字体的元素，字体大小可以继承于body */
             body {
                 font-size: 16px
@@ -119,6 +121,10 @@
     <noscript>开启JavaScript，获得更好的体验</noscript>
     <div id="box">
         <p>我试试<a>我是a</a></p>
+    </div>
+
+    <div>
+        <section>我是温思远</section>
     </div>
 </body>
 

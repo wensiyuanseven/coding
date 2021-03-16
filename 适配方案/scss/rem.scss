@@ -6,8 +6,10 @@ $ue-width: 375; /* ue图的宽度 */
 // 当前宽度占总宽度的的比例*100
 
 // 这一步就相当于根据设计图来设置rem
+// $px/$ue-width 当前px占总宽度的多少份 目前是十分之一的px
+// 相当于换算成功了  那么再计算十份里面占几分就行了
 @function px2rem($px) {
-  @return #{$px/$ue-width*100}rem;
+  @return #{$px/$ue-width*10}rem;
 }
 
 //转换成vw不用在head引入

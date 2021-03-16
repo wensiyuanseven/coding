@@ -5,7 +5,8 @@
 在meta需要登录的页面把父子组件用login标识出来，在全局beforeCreate()钩子函数中判断
 to.matched.some(item => item.meta.login)
 matched可以匹配父子路由
-登录之后如何添砖到上一个页面？
+
+登录之后如何跳转到上一个页面？
 
 如果需要登录 =>在beforecreate中的to中拿到页面的路径挂载到query上
    router.push({

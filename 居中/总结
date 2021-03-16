@@ -1,0 +1,92 @@
+定宽高居中
+    1.top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      margin-top: -25px;
+      margin-left: -25px;
+
+    2.position: absolute;
+      top: calc(50% - 25px);
+      left: calc(50% - 25px);
+      width: 50px;
+      height: 50px;
+
+    3.position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 50px;
+      height: 50px;
+
+
+
+定不定宽高都可以
+
+    1.dispaly:flex
+       margin:auto
+
+    2. position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+ 水平垂直居中(无需给子元素指定宽度)
+    1.父元素 display: table;
+      子元素
+      text-align: center;
+      vertical-align: middle;
+    2.
+      父元素
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+      子元素什么都不用写 （也适用于图片水平垂直居中）
+
+让内容水平居中(图片也可以)
+  text-align: center;
+
+块状元素中内容垂直居中
+
+height:20px;
+line-height:20px
+
+改变文档流 块状元素水平或者垂直居中
+margin:0 auto
+
+
+字体与图标居中问题 css世界128页
+<p>我是温思远<i class=''></i></p>
+
+
+
+text-align生效时机
+
+text-align 是一个可继承的元素
+text-align子元素不能加宽度
+canvas居中
+
+oGC.fillText('妙味课堂', (oC.width - w) / 2, (oC.height - 60) / 2);
+
+
+
+text-align 如果子元素是块状元素不能加宽度 否则会失效
+           子元素为行内块状元素(因为具有包裹性) 加不加宽度都能居中
+           替换元素img加宽度也能居中
+
+图片垂直居中
+
+      div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid salmon;
+            text-align: center;
+            line-height: 200px;  //幽灵空白节点 css世界 130页
+        }
+
+        img {
+            width: 100px;
+            vertical-align: middle;
+        }

@@ -1,0 +1,15 @@
+window.document.getElementById('btn').addEventListener('click', function () {
+  // 当按钮被点击后才去加载 show.js 文件，文件加载成功后执行文件导出的函数
+  import(/* webpackChunkName: "show" */ './show').then((show) => {
+    show('Webpack');
+  })
+});
+
+分析：
+webpack会吧上面的代码(import)转换之后传入webpack的自执行函数，然后自执行，此时按钮会被监听。
+当点击按钮时，动态创建script标签去请求资源 请求成功后触发onload函数，此时返回一个人promise
+然后 webpackJsonp文件是在show.js中调用的，当调用之后会去调用resolve()触发promise.then;然后执行里面的函数
+就会去执行show()方法
+然后改变当前chuank的标识，把当前标识缓存到列表中，表示show.js已经加载成功（防止多次创建script标签）
+此时show.js文件已经在文档中了
+

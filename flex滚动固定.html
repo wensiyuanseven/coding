@@ -10,13 +10,11 @@
     html,
     body {
       height: 100%;
-      width: 100%;
-      overflow: hidden;
+      /* overflow: hidden; */
     }
 
     div {
       height: 100%;
-      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -81,6 +79,13 @@
     </div>
     <h1>底部底部</h1>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      debugger
+      // https://www.cnblogs.com/caizhenbo/p/6679478.html
+      // dom完全被渲染到页面上时触发 而不是部分内容解析部分的内容将被解析
+    });
+  </script>
 </body>
 
 </html>

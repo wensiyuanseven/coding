@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- https://zhuanlan.zhihu.com/p/33759023 -->
+
+    <!-- https://juejin.cn/post/6915204591730556935 -->
+    <!-- prefetch 跟 preload 不同，它的作用是告诉浏览器未来可能会使用到的某个资源，浏览器就会在闲时去加载对应的资源 -->
+    <!-- 注意 是网络闲时加载 不是最后加载！！！！ -->
+    <link rel="prefetch" as="script" href="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js">
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/vuex/3.0.0/vuex.js"></script>
+    <link rel="stylesheet" href="./index.css">
+    <!-- 仙剑里链接 但是不发送请求 -->
+    <link rel="preconnect" href="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js">
+    <!-- 第一个被加载 资源只是被提前加载了 并不会被执行  -->
+    <!-- 应用场景 比如异步chuank 可以进行预加载  参考ssr官方打包文件-->
+</head>
+
+<body>
+    <h1 id="h1">aaaa1</h1>
+    <!-- 还需要主动使用才行  -->
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+</body>
+
+</html>

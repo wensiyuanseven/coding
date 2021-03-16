@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="CSS世界demo实例演示页面之 visibility与内容hover的延时显示" />
+    <meta name="keywords" content="visibility, transition" />
+    <meta name="author" content="张鑫旭, zhangxinxu" />
+    <title>visibility与内容hover的延时显示 » CSS世界demo演示</title>
+    <script>var _speedMark = new Date();</script>
+    <link rel="stylesheet" href="/common/css/demo.css?0313">
+    <style>
+        .demo {
+            width: 300px;
+            text-align: left;
+            margin: auto;
+        }
+
+        td {
+            padding: 5px 10px;
+            border: 0;
+            background: #fff;
+            font-size: 14px;
+        }
+
+        td a {
+            display: block;
+        }
+
+        .list {
+            width: 80px;
+            position: absolute;
+            visibility: hidden;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        td:hover .list {
+            visibility: visible;
+            transition: visibility 0s .2s;
+        }
+
+        .list a {
+            padding: 5px 10px;
+            color: #333;
+        }
+
+        .list a:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="../" class="logo" title="回到demo首页"></a>
+    </div>
+    <div class="main">
+        <h1>visibility与内容hover的延时显示实例页面</h1>
+        <div class="show">
+            <h3>展示</h3>
+            <div class="go-bbs"><a href="//bbs.cssworld.cn/" class="go-bbs">去论坛 &raquo;</a></div>
+            <div class="demo">
+
+                <table>
+                    <tr>
+                        <td>栏目1</td>
+                        <td>栏目2</td>
+                        <td>
+                            <a href>操作▾</a>
+                            <div class="list">
+                                <a href>编辑</a>
+                                <a href>删除</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>栏目1</td>
+                        <td>栏目2</td>
+                        <td>
+                            <a href>操作▾</a>
+                            <div class="list">
+                                <a href>编辑</a>
+                                <a href>删除</a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <h3>代码</h3>
+            <ul class="codes col2">
+                <li class="code_li">
+                    <div class="code_x">
+                        <h5>HTML：</h5>
+                        <pre name="code" class="html">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;栏目1&lt;/td&gt;
+    &lt;td&gt;栏目2&lt;/td&gt;
+    &lt;td&gt;
+      &lt;a href&gt;操作▾&lt;/a&gt;
+      &lt;div class="list"&gt;
+        &lt;a href&gt;编辑&lt;/a&gt;
+        &lt;a href&gt;删除&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;栏目1&lt;/td&gt;
+    &lt;td&gt;栏目2&lt;/td&gt;
+    &lt;td&gt;
+      &lt;a href&gt;操作▾&lt;/a&gt;
+      &lt;div class="list"&gt;
+        &lt;a href&gt;编辑&lt;/a&gt;
+        &lt;a href&gt;删除&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+                    </div>
+                </li>
+                <li class="code_li">
+                    <div class="code_x">
+                        <h5>CSS：</h5>
+                        <pre name="code" class="css">td a {
+  display: block;
+}
+.list {
+  width: 80px;
+  position: absolute;
+  visibility: hidden;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+td:hover .list {
+  visibility: visible;
+  transition: visibility 0s .2s;
+}
+.list a {
+  padding: 5px 10px;
+  color: #333;
+}
+.list a:hover {
+  background-color: #f5f5f5;
+}</pre>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>Designed &amp; Powered by <a href="https://www.zhangxinxu.com/" target="_blank">zhangxinxu</a></div>
+        <div><a href="/" class="index">Demo索引地图</a> &emsp; <a href="//bbs.cssworld.cn/">访问论坛</a></div>
+        <div><a href="https://beian.miit.gov.cn/">沪ICP备18015889号-4</a></div>
+        <div>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502009818"><img
+                    src="https://image.zhangxinxu.com/image/blog/201910/gongan.png" align="absmiddle"> 沪公网安备
+                31011502009818号</a>
+        </div>
+    </div>
+    <div class="ad_bottom"></div>
+    <script type="text/javascript" src="https://tajs.qq.com/stats?sId=57424410" charset="UTF-8"></script>
+    <script src="/common/js/all.js"></script>
+    <script>
+        DlHighlight.HELPERS.highlightByName("code", "pre");
+
+        // 广告和推广
+        var eleHeader = document.querySelector('.header');
+        if (eleHeader && window.fetch) {
+            // 广告处理
+            fetch('https://www.zhangxinxu.com/php/_ajax-support.php').then(function (response) {
+                return response.json();
+            }).then(function (json) {
+                if (json.code == 0) {
+                    var data = json.data;
+                    eleHeader.insertAdjacentHTML("afterbegin", '<style>.mmbb{position:absolute;right:0; width:480px; height:inherit;background:url(' + data.image + ') no-repeat center; background-size:cover;}.mmbb img{display:none;box-shadow: -1px 1px rgba(0,0,0,.04);}.mmbb.active img{display:block;position: absolute;right: 0;top:100%;z-index:1;}@media screen and (max-width: 480px) {.mmbb{display:block;height:calc(6000vw / 414);width:100%;position:static;background-image:url(' + data.image + ');}.header{height:auto;}.logo{display:block;position:static;}}</style>	<iframe id="taIframe" frameborder="0" style="display:none;"></iframe><a href="' + data.url + '" target="_blank" class="mmbb" title="' + data.title + '" onclick="taIframe.src=\'https://www.zhangxinxu.com/sp/ta.php?from=cssworld&type=' + data.key + '&r=\' + Math.random();" rel="nofollow noopener"></a>');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

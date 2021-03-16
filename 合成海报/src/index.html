@@ -16,7 +16,7 @@
             var canvas = document.createElement('canvas')
             var ctx = canvas.getContext('2d')
 
-            var img = new Image
+            var img = new Image()
             img.crossOrigin = 'Anonymous';//元素的跨域资源请求不需要凭证标志设置
             // 加时间戳  破坏缓存
             img.src = `${url}?time=${new Date().getTime()}`;

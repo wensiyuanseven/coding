@@ -26,7 +26,9 @@
         <tbody ref="tBody">
           <!-- 行 -->
           <tr v-for="row in data" :key="row.id">
-            <td style="width: 50px"><input type="checkbox" @change="changeItem(row, $event)" :checked="isChecked(row)" /></td>
+            <td style="width: 50px">
+              <input type="checkbox" @change="changeItem(row, $event)" :checked="isChecked(row)" />
+            </td>
             <!-- 列 -->
             <td v-for="column in columns" :key="column.key">{{ row[column.key] }}</td>
           </tr>
@@ -98,6 +100,9 @@ export default {
     }
   },
   watch: {
+    data() {
+      debugger
+    },
     selectedItems() {
       if (this.data.length !== this.selectedItems.length) {
         if (this.selectedItems.length !== 0) {
@@ -130,19 +135,26 @@ export default {
     },
     //是否选中
     isChecked(row) {
+      // 为什么全选会触发这里？
+      // 因为响应式更新是组件级别更新  你随便更新一个其它data 也会触发isChecked方法
+      console.log(row.id, this.selectedItems)
       return this.selectedItems.some((item) => item.id == row.id)
     },
     // 全选
     changeAllItems(event) {
+      console.log(this.data, 'this.data')
       this.$emit('update:selectedItems', event.target.checked ? this.data : [])
     },
     changeItem(row, event) {
+      setTimeout(() => {
+        this.abc = 6766667
+      }, 2000)
       let copySelectedItems = cloneDeep(this.selectedItems)
       if (event.target.checked) {
-        //选中放入
+        // 选中放入
         copySelectedItems.push(row)
       } else {
-        //反选删除
+        // 反选删除
         let index = copySelectedItems.findIndex((item) => item.id == row.id)
         copySelectedItems.splice(index, 1)
       }

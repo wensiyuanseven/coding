@@ -10,7 +10,7 @@ let methods = [ // 这七个方法都可以改变原数组
     'unshift',
     'sort',
     'reverse',
-    'splice' 
+    'splice'
 ]
 methods.forEach(method=>{
     arrayMethods[method] = function (...args) { // 函数劫持 AOP

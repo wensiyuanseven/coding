@@ -21,6 +21,9 @@ export default {
       },
     },
   },
+  created() {
+    console.log(this.$route, this.$router)
+  },
   components: {
     Menu,
   },

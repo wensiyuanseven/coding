@@ -5,14 +5,12 @@ import { mergeOptions } from "./utils";
 import { nextTick } from "./observer/scheduler";
 export function initMixin(Vue) {
   // 添加原型方法
-
   Vue.prototype._init = function(options) {
     // Vue的内部 $options 就是用户传递的所有参数
     const vm = this;
     // 这个options 就包含了用户创建实例时传入的所有属性  Vue.options
     // console.log(vm.constructor.zidingyi,'vm.constructor')
     vm.$options = mergeOptions(vm.constructor.options, options); // 用户传入的参数
-
     callHook(vm, "beforeCreate");
 
     // 初始化状态

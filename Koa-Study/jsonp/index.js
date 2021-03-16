@@ -1,6 +1,6 @@
 const Koa = require("koa");
 const app = new Koa();
-
+const fs = require("fs");
 app.use(async ctx => {
   // 如果jsonp 的请求为GET
   if (ctx.method === "GET" && ctx.url.split("?")[0] === "/getData.jsonp") {
@@ -18,17 +18,21 @@ app.use(async ctx => {
     // jsonp的script字符串  把参数传给前端定义的fun并且执行此函数
     let jsonpStr = `;${callbackName}(${JSON.stringify(returnData)})`;
     // 把参数传给前端定义的fun并且执行此函数
+    // 这目前是字符串
     // ;fun({success: true, data: {text: "this is a jsonp api", time: 1604640473490}})
 
-    ctx.type = "text/javascript";
+    // 需要变成可执行的js代码
+    ctx.type = "text/javascript"; //写不写都行 都能变成可执行的js代码
 
     // 输出jsonp字符串
     ctx.body = jsonpStr;
   } else {
-    ctx.body = "hello jsonp";
+    const html = fs.readFileSync("jsonp-1.html", "utf8");
+
+    ctx.body = html;
   }
 });
 
-app.listen(3034, () => {
+app.listen(8899, () => {
   console.log("[demo] jsonp is starting at port 3000");
 });

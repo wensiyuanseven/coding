@@ -17,21 +17,34 @@
             const that = this
             that.state = PENDING
             that.value = null
-            that.resolvedCallbacks = []
-            that.rejectedCallbacks = []
-            //resolve(1)  执行此函数
+            that.resolvedCallbacks = []  // 异步存放成功时的回调函数
+            that.rejectedCallbacks = []  // 异步存放失败时的回调函数
+            // resolve(1)  执行此函数
             function resolve(value) {
                 if (that.state === PENDING) {
+                    // 改变状态
                     that.state = RESOLVED
+                    // 同步执行时，then里面需要拿到此结果，所以说需要赋值
                     that.value = value
-                    that.resolvedCallbacks.map(cb => cb(that.value))
+                    // 异步触发resolve时resolvedCallbacks中就会有值
+                    that.resolvedCallbacks.map(cb => {
+                        let value = cb(that.value)  // 当有返回值时重新赋值
+                        if (value) {
+                            that.value = value
+                        }
+                    })
                 }
             }
             function reject(value) {
                 if (that.state === PENDING) {
                     that.state = REJECTED
-                    that.value = value //加入同步执行 那么then里面需要爱拿到此结果 所以说需要赋值
-                    that.rejectedCallbacks.map(cb => cb(that.value))
+                    that.value = value
+                    that.rejectedCallbacks.map(cb => {
+                        let value = cb(that.value)
+                        if (value) {
+                            that.value = value
+                        }
+                    })
                 }
             }
             try {
@@ -40,37 +53,50 @@
                 reject(e)
             }
         }
-        // 函数new出来之后 立马调用此函数把then放进去
+
+        // 函数new出来之后，立马调用此函数把then放进去
         MyPromise.prototype.then = function (onFulfilled, onRejected) {
-            const that = this
             onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v  // 为了实现了透传.then().then(()=>{}）
             onRejected = typeof onRejected === 'function' ? onRejected : r => r
-            // 意味着异步执行此函数
+            // 异步执行时
             // 为什么要有多个push 因为会有多个then 需要依次执行
-            if (that.state === PENDING) {
-                that.resolvedCallbacks.push(onFulfilled)
-                that.rejectedCallbacks.push(onRejected)
+            if (this.state === PENDING) {
+                this.resolvedCallbacks.push(onFulfilled)
+                this.rejectedCallbacks.push(onRejected)
             }
-            console.log(that.resolvedCallbacks)
+
             // 当new Promise()里面是同步代码时会执行此函数
-            if (that.state === RESOLVED) {
-                onFulfilled(that.value)
+            if (this.state === RESOLVED) {
+                let value = onFulfilled(this.value)
+                // 因为为了实现透传 value可能没有返回值 此时使用原来的value
+                if (value) {
+                    this.value = value
+                }
             }
-            if (that.state === REJECTED) {
-                onRejected(that.value)
+            if (this.state === REJECTED) {
+                let value = onRejected(this.value)
+                if (value) {
+                    this.value = value
+                }
             }
             return this // 链式调用
         }
+        // 此时的逻辑也就是先往promise中传入一个函数 ，然后promie内部调用这个函数
+        // 调用这个函数的同时，再传入两个函数 然后再等待调用
         new MyPromise((resolve, reject) => {
-            setTimeout(() => {
-                throw ('我去')
-            }, 2000)
-        }).then().then().then(value => {
+            // setTimeout(() => {
+            // throw ('我去')
+            resolve(123)  // 调用Promise内部的函数
+            // }, 10)
+        }).then(value => {
+            console.log(value)
+            return 112222222
+        }).then(value => {
             console.log(value, '我知道了')
+
         }, err => {
             console.log(err, 'err')
         })
-
 
         //  异步 错误真正的promise也不能传给下一个then
         // new Promise((resolve, reject) => {

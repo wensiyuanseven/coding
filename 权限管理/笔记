@@ -3,9 +3,10 @@
 对于路由的权限
 
 1. 后端返会给我们的数据都是扁平化的，需要根据字段之间的关系(比如是否是根组件,是否是父子组件关系)重新处理成渲染路由时需要的数据格式
-并且需要标识出陈渲染组件时路由的name,如果有name就渲染，没有就不渲染
+
+并且需要标识出渲染组件时路由的name,如果有name就渲染，没有就不渲染
 2.处理好数据格式之后，和前端配置的路由做对比，根据路由名称过滤出消除要渲染的路由。(判断子路由可能需要递归)。
-3.再beforeEach()中添加需要渲染的路由。【注意是添加到主路由上，比如 localhost:8080/】 这一坨数据是添加到当前根路由下/
+3.在beforeEach()中添加需要渲染的路由。【注意是添加到主路由上，比如 localhost:8080/】 这一坨数据是添加到当前根路由下/
 router.addRoutes()
 next({ ...to, replace: true }); // replaceState
 
@@ -32,4 +33,7 @@ next({ ...to, replace: true }); // replaceState
         !flag && el.parentNode && el.parentNode.removeChild(el)
       },
     },
-  },
+  }
+
+
+// 后端

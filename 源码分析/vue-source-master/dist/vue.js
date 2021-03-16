@@ -145,8 +145,10 @@
       // 写代码时很忌讳 各种if else if else
       // 策略模式 根据不同的属性 调用不同的策略
       if (strats[key]) {
+        // 生命周期合并策略
         // 这里就包含了 mergeHook的逻辑
         options[key] = strats[key](parent[key], child[key]);
+        console.log(parent[key], child[key]);
       } else if (isObject(parent[key]) && isObject(child[key])) {
         options[key] = Object.assign(parent[key], child[key]);
       } else {
@@ -249,6 +251,7 @@
   }();
 
   Dep.target = null; // 默认target是空的
+
   function pushTarget(watcher) {
     Dep.target = watcher; //  stack.push(watcher) // []
   }
@@ -323,7 +326,7 @@
           // 数组或者数组方法会走此逻辑  但是是为了数组方法更改后的依赖收集
 
           if (childOb) {
-            //如果是数组 watcher中每次都会有两个dep
+            // 如果是数组 watcher中每次都会有两个dep
             // 假如数组方法添加的不是对象 那么根本不会触发walk()方法
             // 如果模板中定义了走set  对象/数组的date 都会有一个dep,但是只有更改了原数组的方法,时才会触发 这个数据上的dep
             childOb.dep.depend();
@@ -666,7 +669,7 @@
     has = {};
   }
 
-  var callbacks = []; // [flushSchedulerQueue,fn]
+  var callbacks = []; // [flushSchedulerQueue,fn1,fn2]
 
   function queueWatcher(watcher) {
     var id = watcher.id;
@@ -674,9 +677,11 @@
     if (has[id] == null) {
       has[id] = true; // 如果没有注册过这个watcher，就注册这个watcher到队列中，并且标记为已经注册
 
-      queue.push(watcher);
+      queue.push(watcher); // 每次都会把它清空状态 但是queue数组中一直在增加,
+      // 所以相当于flushSchedulerQueue只有一次被加进callbacks中了
+
       callbacks = [];
-      nextTick(flushSchedulerQueue); // flushSchedulerQueue 调用渲染watcher
+      nextTick(flushSchedulerQueue); // flushSchedulerQueue  调用渲染watcher
     }
   }
 
@@ -727,10 +732,10 @@
       key: "get",
       value: function get() {
         // 1.是先把渲染watcher 放到了 Dep.target上
-        // 2.this.getter()  不是去页面取值渲染  就是调用defineProperty的取值操作
-        // 3.我就获取当前全局的Dep.target,每个属性都有一个dep 取值是就将Dep.target 保留到当前的dep中
+        // 2.this.getter()  不是去页面取值渲染  就是调用 defineProperty的取值操作
+        // 3.我就获取当前全局的 Dep.target,每个属性都有一个dep 取值是就将Dep.target 保留到当前的dep中
         // 4.数据变化 通知watcher 更新
-        pushTarget(this); // 在取值之前 先把watcher保存到dep上起来
+        pushTarget(this); // 在取值之前 先把 watcher 保存到 dep 上起来
 
         this.getter(); // 这句话就实现了视图的渲染  -》 操作是取值
 
@@ -743,7 +748,11 @@
         var id = dep.id;
 
         if (!this.depsId.has(id)) {
-          this.depsId.add(id);
+          this.depsId.add(id); // 为什么要让watcher记住dep?
+          // 只有watch watcher时才需要在watcher中记录dep,是为了unWatcher时做解绑操作
+          // 而computed wathcer 不需要做解绑操作 所以不需要记忆
+          // 当做解绑操作时，会把dep中记录的watch watcher移除掉 这样当dep触发notice就不会触发wath watcher了
+
           this.deps.push(dep);
           dep.addSub(this); // 让当前dep 订阅这个watcher  而每一个dep都对应一个渲染watcher
           // console.log(this.deps,'dep-----')
@@ -1025,7 +1034,9 @@
   }
   function callHook(vm, hook) {
     // vm.$options
+    // console.log(vm.$options,'-----------------')
     var handlers = vm.$options[hook]; // 典型的发布订阅模式
+    // console.log(handlers,'handlers')
 
     if (handlers) {
       for (var i = 0; i < handlers.length; i++) {
@@ -1147,7 +1158,7 @@
     Vue.mixin = function (mixin) {
       //   console.log(this,'this')
       // 此时this指向vue函数
-      this.options = mergeOptions(this.options, mixin); // console.log(this.options,'options')
+      this.options = mergeOptions(this.options, mixin);
     };
   }
 

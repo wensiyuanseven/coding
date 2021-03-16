@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let state = {
+            count: 123
+        }
+        let computedName = null
+        let saveComputedFn = []
+        // state变化时 让computer也改变
+        let bindComputed = []
+        let getters = {
+            newCount() {
+                debugger
+                // 记住标识
+                return state.count + 100
+            }
+        }
+
+        const forEach = (obj, callback) => {
+            Object.keys(obj).forEach(key => callback(key, obj[key]))
+        }
+        // 1. 把data转换为响应式(get/set)
+        forEach(state, (key, value) => {
+            Object.defineProperty(state, key, {
+                // 计算属性访this.count时会触发get函数
+                get: function () {
+                    // if (computedName) {
+                    //     // 说明此时已经能够访问这个值了
+                    //     // 让当前key记住此值  需要去重
+                    //     // 所以 当data中的属性变化的时候 也就是set 需要去通知 包裹函数
+                    //     bindComputed.push(computedName)
+                    // }
+                    // 有此标识 说明计算属性被访问过了
+                    // 因为是同步代码 所以能双向记忆
+                    return value
+                },
+                set: function (newVal) {
+                    value = newVal
+
+                    // 去通知getters改变
+                     saveComputedFn.forEach(item => {
+                        // if (computedName == Object.keys(item)[0]) {
+                        item[Object.keys(item)]()
+                        // }
+                    })
+                }
+            })
+        })
+
+        // 2. 把computed中的key和函数分解，把key转换为响应式，get时去调用分解出来的函数
+        forEach(getters, (key, valueFn) => {
+            // 把自己定义的函数存放为包裹函数
+            const wrapFn = function () {
+                valueFn(state)
+            }
+
+            saveComputedFn.push({ [key]: wrapFn })
+            // 用到了闭包
+            // 循环getters里面的每一项数据 给getters中的每一项添加响应式 并执行里面的函数
+            Object.defineProperty(getters, key, {
+                // get时执行自己的函数
+                get: () => {
+                    // 记住
+                    // computedName = key
+                    // 如果是vue 也可以什么都不传 直接执行也行，因为里面的this，直接能取到值
+                    return valueFn(state);
+                }
+            })
+        })
+
+        state.count = 789
+        // console.log(getters.newCount)
+    // 1. 把data转换为响应式(get/set)
+    // 2. 把computed中的key和函数分解 把key转换为响应式  get时去调用分解出来的函数
+    // 3. 转换响应式时需要把此函数存储为包裹函数
+    // 4. 当获取计算属性时 记住 key 值的那个计算属性中有data时 存储key值
+    //    此时data已经记住计算属性了
+    //    当重新赋值时 遍历包裹函数 触发计算属性
+
+    </script>
+</body>
+
+</html>

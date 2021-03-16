@@ -1,0 +1,41 @@
+清除浮动的几种方式
+
+两种原理
+
+1.利用BFC清除浮动
+        场景1 垂直排列:在父元素上设置能触发BFC的条件,可解决浮动塌陷问题 比如 overflow:hidden/auto
+        场景2 左侧浮动,右侧自适应/文字环绕  在右侧元素上设置可触发BFC的条件会自动填充除了浮动元素以外的剩余空间 比如 overflow:hidden/auto
+
+2.利用clear:both清除浮动 (clear:both 只能作用于块状元素才能起作用)
+    原理:clear:both作用的本质是让自己不和浮动元素在一行显示,
+    并不是真正意义上的清除浮动,后面的元素依旧可能发生文字环绕现象(css世界159页)
+
+    场景1 利用空标签清除浮动
+        <p>我是浮动元素</p>
+        <div style="clear:both"></div>
+        <section>我是文字</section>
+    场景2 利用伪类元素清除浮动
+
+        <div class="clear">
+            <p>我是浮动元素</p>
+        </div>
+        <section>我是文字</section>
+
+        .clear::after {
+            content: '';
+            display: block/table; //clear:both 只能作用于块状元素才能起作用,因为伪类默认为行内元素
+            clear: both;
+        }
+    场景3:clear:both 也能解决浮动塌陷的问题
+
+    after进阶写法:
+        .clear:after,.clear:before{
+            content: '';
+            display:table; //顶部生成BFC容器,为了防止上个容器的底部与当前容器的顶部发生margin重叠,
+             //当然底部也是一样的，也是生成BFC
+        }
+        .clear:after{
+            clear:both;
+        }
+
+

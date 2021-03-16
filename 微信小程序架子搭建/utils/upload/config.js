@@ -20,8 +20,8 @@ var fileHost = `https://${bucket}.oss-cn-beijing.aliyuncs.com/`
 var config = {
   //aliyun OSS config
   uploadImageUrl: `${fileHost}`, //默认存在根目录，可根据需求改
-  AccessKeySecret: '',
-  OSSAccessKeyId: '',
+  AccessKeySecret: 'KecdkPBqyqD1fddHgLZR1hu7URpqr5',
+  OSSAccessKeyId: 'LTAIfsAlXsIFDSmb',
   appId: getApp().globalData.appId,
   timeout: 87600 //这个是上传文件时Policy的失效时间
 };

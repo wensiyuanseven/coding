@@ -24,7 +24,7 @@ Dep.target = null; // 默认target是空的
 
 const stack = [];
 
-
+//  new Watcher时调用
 export function pushTarget(watcher) {
     Dep.target = watcher
     //  stack.push(watcher) // []

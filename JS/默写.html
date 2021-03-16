@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const app = {
+            arr: [],
+            use: function (fn) {
+                this.arr.push(fn)
+            }
+        }
+        app.use(next => {
+            console.log('a')
+            next()
+        })
+        app.use(next => {
+            console.log('b')
+            next()
+        })
+        function dispatch(index) {
+            if (index === app.arr.length) return
+            const fn = app.arr[index]
+            fn(dispatch.bind(null, index + 1))
+        }
+        dispatch(0)
+    </script>
+</body>
+
+</html>

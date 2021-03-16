@@ -13,37 +13,39 @@ class HistoryRoute {
 
 class MyRouter {
   constructor(options) {
-    //默认是hash 模式
+    // 默认是 hash 模式
     this.mode = options.mode || "hash";
     this.routes = options.routes || [];
-    //传递过来的是一个路由表， 为了方便后期的处理，我们需要对这个数组做一个改造：{'/home':Home,'/main':Main}
+    // 传递过来的是一个路由表， 为了方便后期的处理，我们需要对这个数组做一个改造：{'/home':Home,'/main':Main}
     this.routesMap = this.createMap(this.routes);
-    //路由中需要存放当前的路径 需要状态,之所以把它做成一个类，是为了方便我们后期进行扩展
+    // 路由中需要存放当前的路径 需要状态,之所以把它做成一个类，是为了方便我们后期进行扩展
     this.history = new HistoryRoute();
-    //开始初始化操作
+    // 开始初始化操作
     this.init();
   }
 
   init() {
     //首先需要判断路由使用的是什么模式
     if (this.mode === "hash") {
-      //先判断用户打开时有没有 hash，如果再有就跳转到对应的哈希路由，如果没有就调转到跟路由
+      // 先判断用户打开时有没有 hash，如果再有就跳转到对应的哈希路由，如果没有就调转到根路由
       location.hash ? "" : (location.hash = "/");
-      //如果加载的时候就有hash值，我们就改变当前的url
+
+      // 如果加载的时候就有hash值，我们就改变当前的url
       window.addEventListener("load", () => {
         this.history.current = location.hash.slice(1);
       });
+
       // 监听hash的变化
       window.addEventListener("hashchange", () => {
         this.history.current = location.hash.slice(1);
       });
     } else {
-      location.pathname ? "" : (location.pathname = "/"); //可以更改状态栏中的url
+      location.pathname ? "" : (location.pathname = "/"); // 可以更改状态栏中的url
       window.addEventListener("load", () => {
-        this.history.current = location.hash.slice(1);
+        this.history.current = location.pathname;
       });
       window.addEventListener("popstate", () => {
-        this.history.current = location.hash.slice(1);
+        this.history.current = location.pathname;
       });
     }
   }
@@ -70,7 +72,7 @@ MyRouter.install = function(Vue, opts) {
       //定位跟组件 如果存在 $options 而且 $options 上存在 router ，则为根组件
       if (this.$options && this.$options.router) {
         this._router = this.$options.router; //把 router 挂载到当前实例的 _router属性上
-        this._root = this; //把当前实例挂载到当前实例的_root属性上
+        this._root = this; // 把当前实例挂载到当前实例的_root属性上
 
         //observe方法 ,如果 history 中的 current 属性变化了，也会刷新视图
         //这里我们使用 defineReactive 来进行实现
@@ -80,17 +82,21 @@ MyRouter.install = function(Vue, opts) {
         // 向this添加一个响应式属性 xxx  今天
         // Vue.util.defineReactive(this, "xxx", this._router.history);
         // 也可以
-        Vue.observable(this._router.history); //为了响应render组件 监听了路由
+        console.log(this._router.history, "哈哈哈");
+        // {
+        //   current: "/main"
+        // }
+        Vue.observable(this._router.history); // 为了响应render组件 监听了路由
       } else {
         //如果不是根节点，那么就是子或者孙子节点,Vue 组件的渲染顺序是 父->子->孙
         this._root = this.$parent._root;
-        //如果想获取唯一的路由实例 this._root._router
+        // 如果想获取唯一的路由实例 this._root._router
       }
 
       Object.defineProperty(this, "$router", {
-        //$router  ,就是 Vue Router 的实例
-        //问题来了？ 我们怎么才能在组件中拿到同一个路由的实例呢？
-        //在所有组件中，获取同一个路由的实例
+        // $router  ,就是 Vue Router 的实例
+        // 问题来了？ 我们怎么才能在组件中拿到同一个路由的实例呢？
+        // 在所有组件中，获取同一个路由的实例
         get() {
           //我们在这里就可以拿到惟一的路由实例
           return this._root._router;
@@ -123,7 +129,7 @@ MyRouter.install = function(Vue, opts) {
       //this.$slots.default 取得是插槽中的默认插槽
       // return <tag on-click={this.handleClick} href={mode === 'hash' ? `#${this.to}` : this.to}>{this.$slots.default}</tag>
       return (
-        <a href={mode === "hash" ? `#${this.to}` : this.to}>
+        <a href={ mode === "hash" ? `#${this.to}` : this.to}>
           {this.$slots.default}
         </a>
       );
@@ -133,16 +139,17 @@ MyRouter.install = function(Vue, opts) {
     //根据当前的 current 去路由表中获取相应的组件 {'/home':Home}
     render(h) {
       // this._self 当前组件实例
-      console.log(this._self.$router.history.current) //也能拿到
+      console.log(this._self.$router.history.current); //也能拿到
       //render 里面的  this  是proxy
       // console.log('this',this);
       //获取当前路由
       /*
         如何将 current 变成动态的 current ，currnet  变化应该会影响视图的刷新
-        Vue 的时间绑定使用的是 Object.defineProperty ,当进行 set 的时候，就会刷新视图，所以我们可以在这里做文章
+        Vue 的事件绑定使用的是 Object.defineProperty ,当进行 set 的时候，就会刷新视图，所以我们可以在这里做文章
       */
       let current = this._self._root._router.history.current;
       let routerMap = this._self._root._router.routesMap;
+      console.log(routerMap, "routerMap[current]");
       // 根据路由表和对应的路径获取对应的组件，然后对组件进行渲染
       return h(routerMap[current]);
     }

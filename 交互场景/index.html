@@ -1,0 +1,31 @@
+！<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>如何使用JavaScript删除CSS属性</title>
+		<style>
+			.elem {
+				color: green;
+				font-size: 3rem;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="elem">Hello World!</div>
+		<p>
+			单击下面的按钮删除元素的text-decoration属性--下划线
+		</p>
+		<button onclick="removeProperty()"> 删除text-decoration属性</button>
+		<script>
+			function removeProperty() {
+				element =
+					document.styleSheets[0].cssRules[0].style;
+				element.removeProperty('text-decoration');
+			}
+		</script>
+	</body>
+
+</html>

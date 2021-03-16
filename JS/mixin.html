@@ -9,9 +9,10 @@
 
 <body>
     <script>
+        // extend
         // notice:如果需要彻底切断与源对象的联系，需要一进来就深拷贝
         Object.prototype.mixin = function (...args) {
-            args.forEach((everyObj, index) => {
+            args.forEach(everyObj => {
                 for (let item in everyObj) {
                     if (!(item in this)) {
                         this[item] = everyObj[item]

@@ -11,6 +11,7 @@ function flushSchedulerQueue() {
 }
 
 let callbacks = []; // [flushSchedulerQueue,fn]
+
 export function queueWatcher(watcher) {
     const id = watcher.id;
 
@@ -18,9 +19,9 @@ export function queueWatcher(watcher) {
         has[id] = true; // 如果没有注册过这个watcher，就注册这个watcher到队列中，并且标记为已经注册
         queue.push(watcher);
         callbacks=[]
-        nextTick(flushSchedulerQueue); // flushSchedulerQueue 调用渲染watcher
-
+        nextTick(flushSchedulerQueue); // flushSchedulerQueue 调用渲染watche
     }
+
 }
 
 let pending = false;
@@ -31,7 +32,7 @@ function flushCallbacksQueue() {
 export function nextTick(fn) {
     callbacks.push(fn); // 防抖
     // console.log(callbacks)
-    // if (!pending) { // true  事件环的概念 promise mutationObserver setTimeout setImmediate
+    // if (!pending) { // true  事件环的概念 promise mutationObserver  setImmediate setTimeout
         setTimeout(() => {
             flushCallbacksQueue();
             // callbacks=[]

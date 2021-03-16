@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- https://zhuanlan.zhihu.com/p/33759023 -->
+    <!-- 使用 preload 后，不管资源是否使用都将最先加载 -->
+    <link rel="stylesheet" href="./index.css">
+    <!-- 第一个被加载 资源只是被提前加载了 并不会被执行  -->
+    <link rel="preload" href="./index.js" as="script">
+</head>
+
+<body>
+    <h1 id="h1">aaaa1</h1>
+    <!-- 还需要主动使用才行  -->
+    <script src="./index.js"></script>
+</body>
+
+</html>

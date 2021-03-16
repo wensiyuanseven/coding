@@ -4,11 +4,11 @@ import {initMixin} from './init'; //给vue混入一个_init方法(模块化)
 // import {initGlobalAPI} from './global-api/index.js'
 // import { nextTick } from './observer/scheduler';
 function Vue(options){
-    debugger
+
     // 内部要进行初始化的操作
     this._init(options); // 初始化操作
 }
-debugger
+
 initMixin(Vue); // 添加原型的方法
 // renderMixin(Vue);
 // lifeCycleMixin(Vue);

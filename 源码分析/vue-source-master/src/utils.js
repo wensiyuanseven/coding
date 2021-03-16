@@ -45,8 +45,10 @@ export function mergeOptions(parent,child){ // {...parent,...child}  {a:1.b:2}  
 
         // 策略模式 根据不同的属性 调用不同的策略
         if(strats[key]){
+            // 生命周期合并策略
             // 这里就包含了 mergeHook的逻辑
             options[key] = strats[key](parent[key],child[key])
+            console.log(parent[key],child[key])
         }else if(isObject(parent[key]) && isObject(child[key])){
             options[key] = Object.assign(parent[key],child[key])
         }else{

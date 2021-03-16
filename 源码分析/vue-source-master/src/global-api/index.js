@@ -11,7 +11,5 @@ export function initGlobalAPI(Vue) {
     //   console.log(this,'this')
     // 此时this指向vue函数
     this.options = mergeOptions(this.options, mixin);
-    // console.log(this.options,'options')
-
   };
 }

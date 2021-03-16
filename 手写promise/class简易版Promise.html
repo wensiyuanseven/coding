@@ -11,9 +11,9 @@
     <script>
         // 链式调用
         // this指向
-        const PENDING = 'pending'
-        const RESOLVED = 'resolved'
-        const REJECTED = 'rejected'
+        const PENDING = 'pending' // 等待
+        const RESOLVED = 'resolved' // 完成
+        const REJECTED = 'rejected'  // 拒绝
 
         class MyPromise {
             constructor(fn) {
@@ -22,13 +22,15 @@
                 this.resolvedCallbacks = []
                 this.rejectedCallbacks = []
                 try {
-                    // 立马执行此函数
+                    // 成功请求 立马执行此函数
+                    // 为什么要bind 因为回调函数this会发生隐式丢失的问题
                     fn(this.resolve.bind(this), this.reject.bind(this))
                 } catch (e) {
-                    this.reject.bind(this, e)
+                    // 捕获错误 立马调用此函数
+                    this.reject.call(this, e)
                 }
             }
-            //resolve(1)  执行此函数
+            // resolve(1)  执行此函数
             resolve(value) {
                 if (this.state === PENDING) {
                     this.state = RESOLVED
@@ -38,35 +40,42 @@
             }
             reject(value) {
                 if (this.state === PENDING) {
+
                     this.state = REJECTED
-                    this.value = value  //加入同步执行 那么then里面需要爱拿到此结果 所以说需要赋值
+                    this.value = value  // 加入同步执行 那么then里面需要拿到此结果 所以说需要赋值
                     this.rejectedCallbacks.map(cb => cb(this.value))
                 }
             }
-            then(onFulfilled, onRejected) {
-                onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v  // 为了实现了透传.then().then(()=>{}）
+            then(onResolved, onRejected) {
+                //  为了实现了透传.then().then(()=>{}）
+                onResolved = typeof onResolved === 'function' ? onResolved : v => v
                 onRejected = typeof onRejected === 'function' ? onRejected : r => r
-                // 意味着异步执行此函数
-                // 为什么要有多个push 因为会有多个then 需要依次执行
+                // 意味着异步执行此函数 如果构造函数中有异步操作
+                //  会先去执行then  所以需要把then给缓存起来
+                // 为什么要push 因为会有多个then 需要依次执行
                 if (this.state === PENDING) {
-                    this.resolvedCallbacks.push(onFulfilled)
+                    this.resolvedCallbacks.push(onResolved)
                     this.rejectedCallbacks.push(onRejected)
                 }
-                // 当new Promise()里面是同步代码时会执行此函数
+                // 当 new Promise() 里面是同步代码时会执行此函数
                 if (this.state === RESOLVED) {
-                    onFulfilled(this.value)
+                    onResolved(this.value)
                 }
+
                 if (this.state === REJECTED) {
                     onRejected(this.value)
                 }
+
                 return this // 链式调用
             }
         }
         // 函数new出来之后 立马调用此函数把then放进去
         new MyPromise((resolve, reject) => {
+            // abc.ws
             setTimeout(() => {
                 reject(1)
             }, 1000)
+
         }).then().then().then(value => {
             console.log(value, 'resolve')
         }, err => {

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 参考 https://www.jianshu.com/p/b76b08720c74
+        var Dep = null
+        function defineReactive(obj, key, val) {
+            var deps = []
+            Object.defineProperty(obj, key, {
+                get: function () {
+                    if (Dep) {
+                        deps.push(Dep)
+                    }
+                    return val
+                },
+                set: function (newVal) {
+                    if (val != newVal) {
+                        deps.forEach(fn => fn())
+                    }
+                    val = newVal
+                }
+            })
+        }
+        function defineComputed(obj, key, func) {
+            func = func.bind(obj)
+            var value;
+            Dep = function () {
+                // console.log(value,'value')
+                value = func()
+            }
+            value = func()
+            //  这时会执行func函数，如果内部有this, 那么就会触发Obj.a的get函数
+            //  此时computed watcher就会被dep记住
+            Dep = null
+            Object.defineProperty(obj, key, {
+                get: function () {
+                    return value || func()
+                }
+            })
+        }
+        var obj = {}
+
+        defineReactive(obj, 'a', 0)
+        defineComputed(obj, 'b', function () {
+            let a = this.a
+            return a + 1
+        });
+
+        console.log(obj.a)
+
+        obj.a += 1;
+
+        console.log(obj.b);
+
+        obj.a += 1;
+
+        console.log(obj.b);
+
+        obj.a += 1;
+
+        console.log(obj.b);
+
+    </script>
+</body>
+
+</html>

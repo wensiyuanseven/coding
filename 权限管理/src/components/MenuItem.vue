@@ -7,7 +7,7 @@
     </template>
   </el-submenu>
   <el-menu-item :index="item.auth" v-else>
-    {{ item.auth }}
+   ---- {{ item.auth }}
     <!-- name对应path 会把相应的父组件也会渲染出来的  -->
     <router-link :to="{ name: item.auth }">{{ item.name }}</router-link>
   </el-menu-item>

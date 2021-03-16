@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            transition: all 1s;
+            /* position: absolute; */
+            /* clip: rect(0 0 0 0); */
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div id="app" >
+            我是内容哈哈哈
+        </div>
+    </section>
+    <button id="btn">点击</button>
+
+    <script>
+        btn.onclick = function () {
+            console.log(app.style)
+            if (app.style.visibility === 'hidden') {
+                app.style.visibility = 'visible'
+                app.style.opacity = 1
+                app.style.position = ''
+            } else {
+                app.style.visibility = 'hidden'
+                app.style.opacity = 0
+                app.style.position = 'absolute'
+            }
+        }
+    </script>
+</body>
+
+</html>
