@@ -3,6 +3,7 @@ function copyFields(target, source) {
         target[id] = source[id];
     }
     return target;
+
     
 }
 var x = { a: 1, b: 2, c: 3, d: 4 };
