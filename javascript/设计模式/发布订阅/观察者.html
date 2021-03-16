@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观察者模式</title>
+</head>
+
+<body>
+    <script>
+// 目标（订阅者）
+class Subject {
+    constructor() {
+        this.observers = []
+    }
+    //注册
+    rejist(observer) {
+        this.observers.push(observer)
+    }
+    // 派发
+    dispatch(args) {
+        for (let i = 0; i < this.observers.length; i++) {
+            this.observers[i].update(args)
+        }
+    }
+
+}
+// 观察者
+class Observer {
+    update(args) {
+        console.log(args)
+    }
+}
+
+let ob1 = new Observer()
+let ob2 = new Observer()
+let subject = new Subject()
+// 观察者需要在目标中注册  观察和目标建立了依赖关系
+subject.rejist(ob1)
+subject.rejist(ob2)
+// 目标主动通知观察者
+subject.dispatch('abc')
+        // 理解  当你需要观察一组目标的时候，每个目标都要暴露一个缺口，让观察者去监听(注册到目标当中)，最后目标再主动通知观察者。
+    </script>
+</body>
+
+</html>

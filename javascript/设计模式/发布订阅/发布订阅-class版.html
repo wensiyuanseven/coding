@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布订阅-class版</title>
+</head>
+
+<body>
+    <script>
+        class Observer {
+            constructor() {
+                this._observer = {}
+            }
+            //订阅
+            reject(type, fn) {
+                if (typeof this._observer[type] === 'undefined') {
+                    this._observer[type] = [fn]
+                } else {
+                    this._observer[type].push(fn)
+                }
+            }
+            //发布
+            diapatch(type, args) {
+                if (this._observer[type].length) {
+                    for (let i = 0; i < this._observer[type].length; i++) {
+                        this._observer[type][i].call(this, { type: type, args: args || {} })
+                    }
+                }
+            }
+            //删除
+            remove(type, fn) {
+                if (this._observer[type] instanceof Array) {
+                    for (let i = this._observer[type].length - 1; i >= 0; i--) {
+                        this._observer[type][i] === fn && this._observer[type].splice(i, 1)
+
+                    }
+                }
+            }
+        }
+        let observer = new Observer()
+        let fn = function (data) {
+            console.log(this)
+            console.log(data)
+        }
+        observer.reject('example', fn)
+        observer.diapatch('example', '消息')
+    </script>
+</body>
+
+</html>

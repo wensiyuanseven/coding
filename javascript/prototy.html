@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>a</li>
+        <li>b</li>
+        <li>c</li>
+    </ul>
+    <script>
+        function created(o) {
+            function fn() { }
+            fn.prototype = o
+            console.log(new fn())
+            // 创建了一个新对象
+            return new fn()
+        }
+        function Foo(name) {
+            this.name = '123'
+        }
+        Foo.prototype.myName = function () {
+            console.log(123)
+        }
+        function Bar() {
+
+        }
+
+        Bar.prototype = new Foo()
+
+        Bar.prototype = created(Foo.prototype)
+
+        Bar.prototype.selfName = function () {
+            console.log(456)
+        }
+
+        let a = new Bar()
+        console.log(Foo.prototype)
+        console.log(Bar.prototype)
+        // a.myName()
+        a.myName()
+        // console.log(a.name)
+
+        let obj={
+            obj2:{
+
+            }
+        }
+    </script>
+</body>
+
+</html>

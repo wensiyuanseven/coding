@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Animal(type) {
+            this.type = type
+            console.log(this, 'this')
+        }
+        Animal.prototype.say = function () {
+            console.log('说话')
+        }
+        // js 设计模式与开发实践
+        function mockNew() {
+            let Constructor = [].shift.call(arguments) //拿到第一个参数
+            // 创建对象 或者new Object()  //
+            let obj = {} //从Object.prototype上克隆一个空对象
+            // constructor 指向的是创建的函数
+            // 关联原型  把对象的原型关联到Animal是因为 需要把对象原型上的的constructor指向函数（因为我们是模拟 new Animal）
+            obj.__proto__ = Constructor.prototype
+            console.log(obj.constructor)
+            // 调用函数,改变this指向
+            let r = Constructor.apply(obj, arguments)
+            // 判断是否是对象
+            return r instanceof Object ? r : obj
+        }
+
+        let animal = mockNew(Animal, '哺乳类')
+
+        console.log(animal)
+    </script>
+
+</body>
+
+</html>

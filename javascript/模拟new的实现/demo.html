@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Animal(type) {
+            this.type = type
+        }
+        Animal.prototype.say = function () {
+            console.log('say')
+        }
+        function mockAnimal() {
+
+            let Constructor = [].shift.call(arguments)
+            let obj = {}
+            obj.__proto__ = Constructor.prototype
+            let r = Constructor.apply(obj, arguments)
+            return r instanceof Object ? r : obj
+        }
+
+        let animal = mockAnimal(Animal, '哺乳类')
+        // console.log(animal)
+        animal.say()
+    </script>
+</body>
+
+</html>

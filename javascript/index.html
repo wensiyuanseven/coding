@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aaa</title>
+    <script src="./gesture.js"></script>
+</head>
+
+<body>
+
+    <div id="example">哈哈哈哈哈哈</div>
+
+    <script>
+        new BetterGesture(document.getElementById('example'), {
+            //拖拽
+            pressMove(evt) {
+                console.log(evt.deltaX, evt.deltaY)
+            },
+            // 旋转
+            rotate(evt) {
+                console.log(evt.angle)
+            },
+            // 缩放
+            pinch(evt) {
+                console.log(evt.zoom)
+            },
+            // 滑动
+            swipe(evt) {
+                console.log(evt.direction)
+            }
+            //......
+        })
+    </script>
+</body>
+
+</html>

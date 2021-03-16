@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布订阅-闭包版</title>
+</head>
+
+<body>
+    <script>
+
+        let Observer = (function () {
+            _Observer = {}
+            return {
+                // 订阅
+                regist: function (type, fn) {
+                    if (typeof _Observer[type] === 'undefined') {
+                        _Observer[type] = [fn]
+                    } else {
+                        _Observer[type].push(fn)
+                    }
+                },
+                // 发布
+                dispatch: function (type, args) {
+
+                    if (_Observer[type].length) {
+                        for (let i = 0; i < _Observer[type].length; i++) {
+                            _Observer[type][i].call(this, { type: type, args: args || {} })
+                        }
+                    }
+                },
+                // 删除
+                remove(type, fn) {
+                    console.log(_Observer)
+                    if (_Observer[type] instanceof Array) {
+                        for (let i = _Observer[type].length - 1; i >= 0; i--) {
+                            _Observer[type][i] === fn && _Observer[type].splice(i, 1)
+                        }
+                    }
+                }
+            }
+        })()
+        let action = function (event) {
+            console.log(event)
+        }
+        Observer.regist('example', action)
+
+        Observer.regist('example', function (event) {
+            console.log(event)
+        })
+
+        Observer.regist('example', function (event) {
+            console.log(event)
+        })
+        // 删除某个类型下的某一条订阅
+        Observer.remove('example', action)
+
+        Observer.dispatch('example', '发布')
+        // console.log(Observer)
+    </script>
+</body>
+
+</html>

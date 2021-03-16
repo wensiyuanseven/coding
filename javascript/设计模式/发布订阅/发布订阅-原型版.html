@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布订阅-原型版</title>
+</head>
+
+<body>
+    <script>
+        function Observer() {
+            this._observer = {}
+        }
+
+        Observer.prototype.reject = function (type, fn) {
+            if (typeof this._observer[type] === 'undefined') {
+                this._observer[type] = [fn]
+            } else {
+                console.log(this._observer)
+                this._observer[type].push(fn)
+            }
+            console.log(this._observer)
+        }
+        //也可以用arguments传参
+        Observer.prototype.diapatch = function (type, args) {
+            if (this._observer[type].length) {
+                for (let i = 0; i < this._observer[type].length; i++) {
+                    this._observer[type][i].call(this, { type: type, args: args || {} })
+                }
+            }
+        }
+        Observer.prototype.remove = function (type, fn) {
+            if (this._observer[type] instanceof Array) {
+                for (let i = this._observer[type].length - 1; i >= 0; i--) {
+                    this._observer[type][i] === fn && this._observer[type].splice(i, 1)
+                }
+            }
+        }
+
+
+        let observer = new Observer()
+        let fn = function (data) {
+            console.log(this)
+            console.log(data)
+        }
+
+        observer.reject('example', fn)
+        // observer.remove('example', fn)
+        observer.diapatch('example', '消息')
+    </script>
+</body>
+
+</html>

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }, false);
 
 Vue.use(Mint);
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({

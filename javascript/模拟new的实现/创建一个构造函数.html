@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Animal(type) {
+            this.type = type //实例上的属性
+            console.log(this)
+        }
+        //静态的东西都在 constructor 下面存放
+        Animal.static = function () {
+            alert('静态方法')
+        }
+        Animal.ABC = '123'
+        Animal.prototype.say = function () {  //公共属性
+            console.log('说话')
+        }
+        // Animal.prototype = {  //公共属性
+        //     say: function () {  //公共属性
+        //         console.log('说话')
+        //         return this
+        //     },
+        //     lianshi(){
+        //         alert('链式调用')
+        //     }
+        // }
+        // new 初始化时会调用类中的构造函数
+        let animal = new Animal('哺乳类')
+        console.log(animal.type)
+        console.log(animal)
+        Animal.static()
+        // animal.say().lianshi()
+
+    </script>
+</body>
+
+</html>
