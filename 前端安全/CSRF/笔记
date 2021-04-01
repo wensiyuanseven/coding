@@ -1,0 +1,23 @@
+前端安全笔记;
+
+https://juejin.cn/post/6844904071938342925
+
+ <form hidden action="http://www.a.com/xxx/delete" method="post">
+    <input value="1" name="id" />
+    // 假如还需要其他参数，这里再搞几个表单出来
+</form>
+<script>
+window.onload = function(){
+    document.forms[0].submit();
+}
+</script>
+
+为什么SameSite能防御CSRF攻击
+假设此时请求成功 可能是一个删除操作 就造成了csrf攻击产生
+
+https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html
+需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、
+与请求网页一致的域名。同时，Cookie依然遵循同源政策，
+只有用服务器域名设置的Cookie才会上传，
+其他域名的Cookie并不会上传，
+且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。

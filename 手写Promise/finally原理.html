@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Promise.prototype.finally = function (callback) {
+        //     let P = this.constructor;
+        //     return this.then(
+        //         value => P.resolve(callback()).then(() => value),
+        //         reason => P.resolve(callback()).then(() => { throw reason })
+        //     );
+        // };
+        Promise.prototype.finally = function (callback) {
+            let P = this.constructor;
+            return this.then(
+                value => P.resolve(callback()),
+                reason => P.reject(callback())
+            )
+        };
+        new Promise(resolve => {
+            reject(123)
+        }).finally(() => {
+            console.log(123)
+        })
+
+        new Promise(resolve => {
+            reject(123)
+        }).finally(() => {
+            console.log(123)
+        })
+    </script>
+</body>
+
+</html>

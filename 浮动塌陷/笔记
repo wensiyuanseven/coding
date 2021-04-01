@@ -19,23 +19,28 @@
         <div class="clear">
             <p>我是浮动元素</p>
         </div>
+
         <section>我是文字</section>
 
         .clear::after {
             content: '';
-            display: block/table; //clear:both 只能作用于块状元素才能起作用,因为伪类默认为行内元素
+            display: block/table; // clear:both 只能作用于块状元素才能起作用,因为伪类默认为行内元素
             clear: both;
         }
-    场景3:clear:both 也能解决浮动塌陷的问题
+        .clear{
+            zoom:1; //兼容ie6 7
+        }
+    场景3:clear:both 也能解决浮动塌陷的问题   <br style="clear: both;" />
+
+
+
+
 
     after进阶写法:
-        .clear:after,.clear:before{
+        .clear:after,.clear:before{   // clear:before防止父级元素的空白崩塌   不懂 了解
             content: '';
-            display:table; //顶部生成BFC容器,为了防止上个容器的底部与当前容器的顶部发生margin重叠,
-             //当然底部也是一样的，也是生成BFC
+            display:table;
         }
         .clear:after{
             clear:both;
         }
-
-

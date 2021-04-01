@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Document</title>
-        <style>
-            div {
-                display: flex;
-            }
-            span {
-                background: #787878;
-                border: 2px red solid;
-                /* flex-grow: 1; */
-                /* width: 0; */
-                /* flex-basis: 0; */
-                /* 个人理解 当主轴宽度为0之后就会使用flex-grow属性来充当宽度*/
-                /* flex: 1 0 0; */
-                flex:1;
-            }
 
-            .gundong {
-                /* white-space: nowrap; */
-                /* overflow: auto; */
-            }
-        </style>
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        div {
+            display: flex;
+            width: 300px;
+            border: 2px skyblue solid;
+        }
 
-    <body>
-        <div>
-            <span class="gundong">都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好</span>
-            <span>2</span>
-            <span>3</span>
-        </div>
-    </body>
+        span {
+            background: #787878;
+            border: 1px red solid;
+            /* flex-grow: 1; */
+            /* width: 0; */
+            /* flex-basis: 0; */
+            /* 个人理解 当主轴宽度为0之后就会使用flex-grow属性来充当宽度*/
+            /* flex: 1 0 0; */
+            flex: none;
+        }
+
+        .gundong {
+            /* white-space: nowrap; */
+            /* overflow: auto; */
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span
+            class="gundong">都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好都后悔当初不吃不吃不吃不喝吃不饱好</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+</body>
+
 </html>

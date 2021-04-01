@@ -28,7 +28,7 @@
             return new Proxy(obj, handler)
         }
 
-        let obj = { a: 1 }
+        let obj = ['a', 'b']
         let p = onWatch(
             obj,
             (v, property) => {
@@ -38,8 +38,9 @@
                 console.log(`'${property}' = ${target[property]}`)
             }
         )
-        p.a = 2 // 监听到属性a改变
-        p.a // 'a' = 2
+        p[0] = 2 // 监听到属性a改变
+        p.push(3)
+        // p.a // 'a' = 2
     </script>
 </body>
 

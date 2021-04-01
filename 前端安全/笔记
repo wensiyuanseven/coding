@@ -1,7 +1,29 @@
-DDos攻击防范 原理
+CSRF攻击
+https://juejin.cn/post/6844904071938342925
+https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html
+
+Cookie 的SameSite属性用来限制第三方 Cookie，从而减少安全风险。
+SameSite=Strict
+这个属性是 跳转到第三方网站上时不允许带有第三方网站自己的cookie
+注意和Credential做区分
+比如当前网页有一个 GitHub 链接，用户点击跳转就不会带有 GitHub 的 Cookie，跳转过去总是未登陆状态
+
+Cookie SameSite
+https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html
+
+Dos攻击防范 原理
  http://www.ruanyifeng.com/blog/2018/06/ddos.html
 
- 黑名单过滤方式通过定义一系列不安全的扩展名，当服务器在接收文件后，如果上传的文件扩展名与黑名单里的文件扩展名匹配到则认为文件非法，不允许上传
- 白名单过滤方式通过定义一系列安全的文件扩展名，当服务器在接收文件后，如果上传的文件扩展名与白名单里的文件扩展名匹配到则允许上传，否则就不允许上传。
- 从某种程度上来说，白名单比黑名单更加具有安全性
- 参考 https://blog.csdn.net/qq_35733751/article/details/108135759
+
+ 前端安全总结
+
+XSS攻击 存储型 反射型
+常见案例
+黑名单、白名单
+
+基于黑名单的 XSS 过滤，将转义或移除黑名单中的标签和属性。
+基于白名单的 XSS 过滤，仅允许白名单中的标签和属性存在，其他全部转义或移除。
+由于 XSS 的复杂多变，无法穷举全部 XSS 攻击向量，基于黑名单的 XSS Filter 不够安全。
+而基于白名单的 XSS Filter ，需要穷举允许的全部标签和属性，配置繁琐。
+这也是为什么 XSS 如此泛滥的原因：没有一个能低成本实施、对用户输入无影响的 XSS 防御方案。
+

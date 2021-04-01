@@ -8,7 +8,7 @@ module.exports = {
   entry: resolve("./src/main.js"),
   output: {
     filename: "bundle.js",
-    path: resolve("dist"),
+    path: resolve("dist")
     // publicPath:'abc/'
   },
   resolve: {

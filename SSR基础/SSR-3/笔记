@@ -73,21 +73,23 @@ const ServerRenderPlugin = require("vue-server-renderer/server-plugin");
 
 npm run client:build -- --watch 文件变动执行打包编译
 
-为什么服务端vue vuex vueRouter 都需要调用一个函数，从函数中获取实例？
-因为Node.js 服务器是一个长期运行的进程 当代码进入进程时，它将进行一次取值并留存在内存中。也就是会把vue实例保存到内存中
+为什么服务端vue vuex vueRouter 都需要调用一个函数，从函数中获取实例 ？
+因为node.js 服务器是一个长期运行的进程 当代码进入进程时，
+它将进行一次取值并留存在内存中。也就是会把vue实例保存到内存中
 假如说不用函数返回新的实例，那么每个人访问同一个页面时都会共用同一个实例，那么就会造成数据的污染。
 https://ssr.vuejs.org/zh/guide/structure.html
 
 
 集成路由
-  首屏只渲染一个路由，但是其他路由的逻辑混淆再js文件中。如果需要分开 可以使用路由懒加载。
+  首屏只渲染一个路由，但是其他路由的逻辑混淆在js文件中。如果需要分开，可以使用路由懒加载。
   每个路由需要返回一个函数 每个服务器都要返回一个路由实例
 
 
 此时的问题
 此时在服务器中执行构建,
 访问localhose:3000/    应该渲染出对应的组件Foo 但是没有渲染出来
-并且控制台会报错 Failed to execute 'appendChild' on 'Node': This node type does not support this method.at Object.appendChild
+并且控制台会报错 Failed to execute 'appendChild' on 'Node':
+This node type does not support this method.at Object.appendChild
 
 解造成此问题的原因：
 服务器访问根目录时 router.get("/") 渲染出来的时字符串 它并不知道哪个页面对应哪个路由 所以只会渲染app.vue
@@ -114,7 +116,7 @@ server.enter.js中
 所以在服务器中还得再配其他路径，使用中间件，使得每个路径渲染对应的页面
 
 中间件 当找不到路由时会走此逻辑
-如果匹配不到路由就会走此逻辑(当路由不是跟路径时，要跳转到对应的路径,渲染对应的页面)
+如果匹配不到路由就会走此逻辑(当路由不是根路径时，要跳转到对应的路径,渲染对应的页面)
 如果服务器没有此路径，会渲染当前的app.vue(首页)文件,在渲染时又会重新指向/bar路径对应的页面
 然后 server.entry.js 中router.push(context.url)找对应的组件
     app.use(async ctx => {
@@ -123,7 +125,7 @@ server.enter.js中
         render.renderToString(
         {
             title: "服务",
-            url: ctx.url  //比如当前请求的/bar 那就把/bar传到server.entry.js中的content
+            url: ctx.url  // 比如当前请求的/bar 那就把/bar传到server.entry.js中的content
         },
         (err, data) => {
             if (err) reject(err);

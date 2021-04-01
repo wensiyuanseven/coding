@@ -14,6 +14,7 @@
         var Dep = null
         function defineReactive(obj, key, val) {
             var deps = []
+            // 转换成set,get形式
             Object.defineProperty(obj, key, {
                 get: function () {
                     if (Dep) {
@@ -29,6 +30,7 @@
                 }
             })
         }
+
         function defineComputed(obj, key, func) {
             func = func.bind(obj)
             var value;
@@ -36,6 +38,7 @@
                 // console.log(value,'value')
                 value = func()
             }
+            // 先执行
             value = func()
             //  这时会执行func函数，如果内部有this, 那么就会触发Obj.a的get函数
             //  此时computed watcher就会被dep记住
@@ -46,10 +49,13 @@
                 }
             })
         }
+
         var obj = {}
 
         defineReactive(obj, 'a', 0)
+
         defineComputed(obj, 'b', function () {
+            // this.a触发a的set操作
             let a = this.a
             return a + 1
         });

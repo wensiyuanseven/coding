@@ -12,6 +12,8 @@
     <a onclick="go('/about')">关于</a>
     <div id='html'></div>
     <script>
+        // 为什么不能用本地图片 因为收到了跨域限制 file协议不支持跨域
+        // cannot be created in a document with origin 'null'
         // 为什么在本地打开会报错？
         // 本地原地址是 file:///Users/siyuan/Desktop/coding/%E8%B7%AF%E7%94%B1/history%E6%A8%A1%E5%BC%8F.html
         // 用pushState更改后的地址是 file:///about  报的错为 cannot be created in a document with origin 'null'

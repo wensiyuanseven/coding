@@ -34,7 +34,6 @@
                 if (this._observer[type] instanceof Array) {
                     for (let i = this._observer[type].length - 1; i >= 0; i--) {
                         this._observer[type][i] === fn && this._observer[type].splice(i, 1)
-
                     }
                 }
             }

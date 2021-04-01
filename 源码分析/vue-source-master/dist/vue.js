@@ -167,12 +167,14 @@
   var oldArrayMethods = Array.prototype; // 获取数组原型上的方法
   // 创建一个全新的对象 可以找到数组原型上的方法，而且修改对象时不会影响原数组的原型方法
   // 这样的话就只会拦截data中定义的数据了
+  // vue为什么要重写原数组方法？的原因
+  // https://www.zhihu.com/question/427389825
 
   var arrayMethods = Object.create(oldArrayMethods);
   var methods = [// 这七个方法都可以改变原数组
   'push', 'pop', 'shift', 'unshift', 'sort', 'reverse', 'splice']; // 为什么要写reverse，sort  因为这会改变原数组，假如不写reserve 会去数组原型上找值 然后返回
   // 但是我们是要劫持数组，然后监听数组中的对象，那这样的话虽然能返回值，因为要去·通知依赖 更新模板
-  //  一上来   就走这个地方
+  //  一上来 就走这个地方
 
   methods.forEach(function (method) {
     // 剩余运算符   在函数中拿到是一个数组
@@ -227,7 +229,7 @@
     _createClass(Dep, [{
       key: "depend",
       value: function depend() {
-        // 1.让dep记住watcher
+        // 1. 让dep记住watcher
         // 2. 让watcher 记住dep 双向记忆
         // 此步骤是在watcher中处理的
         // 这个地方也能标识出是谁记住了谁
@@ -267,7 +269,7 @@
 
       // 这个对象上面只挂了一个dep
       this.dep = new Dep(); // 给每一个数组增加一个dep 目的是当数组方法变更的时候通知 notify();  因为不挂载的话 没办法通知
-      // 对数组索引进行拦截 性能差而且直接更改索引的方式并不多
+      // 对数索引进行拦截 性能差而且直接更改索引的方式并不多
 
       Object.defineProperty(data, "__ob__", {
         // __ob__ 是一个响应式表示 对象数组都有
@@ -322,7 +324,7 @@
       get: function get() {
         // 这里会有取值的操作,给这个属性增加一个dep，这个dep 要和刚才我放到全局变量的上的watcher 做一个对应关系
         if (Dep.target) {
-          dep.depend(); // 让这个dep 去收集watcher
+          dep.depend(); // 让这个dep 去收集 watcher
           // 数组或者数组方法会走此逻辑  但是是为了数组方法更改后的依赖收集
 
           if (childOb) {
@@ -736,6 +738,7 @@
         // 3.我就获取当前全局的 Dep.target,每个属性都有一个dep 取值是就将Dep.target 保留到当前的dep中
         // 4.数据变化 通知watcher 更新
         pushTarget(this); // 在取值之前 先把 watcher 保存到 dep 上起来
+        // 触发dep的set操作
 
         this.getter(); // 这句话就实现了视图的渲染  -》 操作是取值
 

@@ -28,6 +28,7 @@ class Watcher {
         // 3.我就获取当前全局的 Dep.target,每个属性都有一个dep 取值是就将Dep.target 保留到当前的dep中
         // 4.数据变化 通知watcher 更新
         pushTarget(this); // 在取值之前 先把 watcher 保存到 dep 上起来
+        // 触发dep的set操作
         this.getter(); // 这句话就实现了视图的渲染  -》 操作是取值
         popTarget(); // 删掉watcher
         // Vue是组件级别更新的

@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <!-- 参考 https://blog.fundebug.com/2017/10/09/unhandled-pomise-rejection/ -->
     <script>
         new Promise(resolve => {
             foo.bc
@@ -19,9 +20,21 @@
             console.log(data)
         }, err => {
             foo.bc
+            console.log(err, '----')
         }).catch(err => {
-            debugger
+            // foo.bc
+            // console.log(err)
+        }).finally(() => {
+            console.log(112)
         })
+        // 捕获未处理的promise错误
+        window.addEventListener('unhandledrejection', event => {
+            console.log(event.reason, '捕获未处理的promise错误'); // 打印"Hello, Fundebug!"
+        });
+        // 当一个Promise错误最初未被处理，但是稍后又得到了处理，则会触发rejectionhandled事件：
+        window.addEventListener("rejectionhandled", event => {
+            console.log("Promise rejected; reason: " + event.reason);
+        }, false);
     </script>
 </body>
 

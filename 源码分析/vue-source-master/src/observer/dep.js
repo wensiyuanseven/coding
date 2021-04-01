@@ -5,7 +5,7 @@ class Dep {
         this.subs = [];
     }
     depend(){
-        // 1.让dep记住watcher
+        // 1. 让dep记住watcher
         // 2. 让watcher 记住dep 双向记忆
         // 此步骤是在watcher中处理的
         // 这个地方也能标识出是谁记住了谁
@@ -19,7 +19,6 @@ class Dep {
     }
 }
 Dep.target = null; // 默认target是空的
-
 
 
 const stack = [];

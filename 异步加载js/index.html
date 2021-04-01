@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <script>
+        // 用服务器启动 http://127.0.0.1:5501/异步加载js/index.html
+        //方案1
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", "./defer.js", true)
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                //    方案1 // eval(xhr.responseText);
+                let script = document.createElement('script');
+                script.type = 'text/javascript';
+                // 相当于外部加载
+                // script.src = './defer.js';
+                // 相当于内联
+                script.text = xhr.responseText;
+                // 只有添加到html文件中才会开始下载
+                document.body.append(script);
+            }
+        }
+        console.log(456)
+
+
+    </script>
+</body>
+
+</html>

@@ -9,12 +9,16 @@
 </head>
 
 <body>
+  <iframe src="https://siyuanseven.cn/usr/uploads/2021/03/2029680814.js"></iframe>
   <div>Content</div>
 </body>
 <script>
-  
-  document.cookie = 'name=1234567'
+  document.cookie = 'old=sbxhb'
   console.log(document.cookie)
 </script>
+<!-- 因为 -->
+<!-- https://segmentfault.com/q/1010000020800711 -->
+<!-- cookie 是不能跨域，但这指的当前页面只能读取页面所在域的cookie（即 document.cookie） -->
+<script src="https://siyuanseven.cn/usr/uploads/2021/03/2029680814.js"></script>
 
 </html>

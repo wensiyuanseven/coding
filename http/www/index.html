@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>example</title>
+    <style>
+        li {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe src="https://www.baidu.com" frameborder="0"></iframe>
+    <form action="/form" id="form" type='POST' enctype="application/x-www-form-urlencoded">
+        <p>
+            <input type="text" name="name">
+        </p>
+        <p>
+            <input type="password" name="password">
+        </p>
+        <p>
+            <input type="file" name="file">
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+
+    <ul>
+        <li><button>application/x-www-form-urlencoded提交</button></li>
+        <li><button>application/json提交</button></li>
+        <li><button>multipart/form-data提交</button></li>
+        <li><button>get提交</button></li>
+    </ul>
+
+    <script>
+
+        // form表单提交数据
+        let form = document.getElementById('form')
+        form.addEventListener('submit', function (e) {
+
+            e.preventDefault()
+            // FormData 将仅使用具有name属性的输入字段
+            let formData = new FormData(form)
+            formData.append("newFied", "新字段");
+            console.log(formData)
+            // 因为formDate 原型上上面部署了Symbol.iterator方法,并且指向了entries  所以可以被for of遍历
+            let params = {}
+            for (let [key, value] of formData) {
+                params[key] = value
+            }
+            // console.log(formData.get('CustomField'), '--')
+            fetch('/success', {
+                method: 'POST',
+                body: formData
+            })
+            // console.log(params.file, 'file有值')
+            // // xhr 对 formData.append("newFied", "新字段");不起作用  所以需要formDate循环添加
+            // let request = new XMLHttpRequest()
+            // request.open("POST", "/success")
+            // request.send(JSON.stringify(params))
+        })
+
+        // application/x-www-form-urlencoded提交数据
+        let buttom0 = document.getElementsByTagName('button')[0]
+
+        buttom0.addEventListener('click', e => {
+            fetch('/success', {
+                method: 'POST',
+                body: 'a=123&b=[1,2,3]',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(res => { return res.json() }
+            ).then(res => {
+                console.log(res)
+            })
+        })
+
+        // application/json提交数据 默认就是以application/json形式提交数据
+        let buttom1 = document.getElementsByTagName('button')[1]
+        document.cookie = "test1=Hello;expires=Sun, 01 Dec 2019 15:25:47 GM";
+        buttom1.addEventListener('click', e => {
+            fetch('/success', {
+                method: 'POST',
+                body: JSON.stringify({ a: 456, b: [1, 2, '111'] }), //'{"a":123,"b":456}' 或者 JSON.stringify({ a: 123, b: 456 })
+                // body: '{"a":123,"b":456}',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Set-Cookie': 123
+                }
+            })
+        })
+
+
+        // multipart/form-data 提交数据  使用json形式提交和json格式提交一样   只有用于form表单提交时才会有区别
+        let buttom2 = document.getElementsByTagName('button')[2]
+
+        buttom2.addEventListener('click', e => {
+            fetch('/success', {
+                method: 'POST',
+                body: JSON.stringify({ a: 123, b: [1, 2, 3] }), //'{"a":123,"b":456}' 或者 JSON.stringify({ a: 123, b: 456 })
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        })
+
+        let buttom3 = document.getElementsByTagName('button')[3]
+
+        buttom3.addEventListener('click', e => {
+            fetch('/success?a=123&b=456', {
+                method: 'GET'
+            })
+        })
+    </script>
+</body>
+
+</html>

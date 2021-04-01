@@ -14,7 +14,7 @@ const serverBundle = require("./dist/vue-ssr-server-bundle.json"); // 引入服�
 const clientManifest = require("./dist/vue-ssr-client-manifest.json"); // 引入客户端映射文件
 const template = fs.readFileSync("./dist/index.ssr.html", "utf8");
 // 渲染打包后的结果 让客户端与服务端文件相互关联
-// 相当于告诉webpack 服务端打包的时候需要用到manifest.json(客户端的映射文件),然后根据这个映射文件在template模板中自动注入客户端js文件(client.bundle.js)
+// 相当于告诉webpac  服务端打包的时候需要用到 manifest.json(客户端的映射文件),然后根据这个映射文件在template模板中自动注入客户端js文件(client.bundle.js)
 // 这样就不需要主动去引入客户端打包好的js文件了
 const render = vueServerRender.createBundleRenderer(serverBundle, {
   template,

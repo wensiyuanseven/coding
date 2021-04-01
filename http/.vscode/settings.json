@@ -1,0 +1,6 @@
+{
+    "javascript.format.enable": false,
+    "prettier.eslintIntegration": true,
+    "prettier.printWidth": 500,
+    "prettier.singleQuote": true
+}

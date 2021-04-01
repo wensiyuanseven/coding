@@ -28,7 +28,7 @@ demo页面:http://huodong.m.taobao.com/act/yibo.html  【控制台查看】
    也方便用em来设置字体
 
 4. 在html标签上设置data-dpr='2'属性
-    目的:在不同dpr 下方便重置某一类标签的默认字体
+    目的:在不同dpr下方便重置某一类标签的默认字体
     [data-dpr="2"] div {
        font-size: 24px;
     }

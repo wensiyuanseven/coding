@@ -3,7 +3,7 @@
     <button @click="click">点击</button>
     <h1>Bar</h1>
     <!-- 此时还是vue实例,此时还是服务端渲染出来的静态页面，
-    asyncData中的dispatch也还是服务端改变的，replaceState替换状态是为了客户端 mounted()能改变状态-->
+    asyncData中的dispatch 也还是服务端改变的，replaceState替换状态是为了客户端 mounted()能改变状态-->
     <h1>{{ this.$store.state }}</h1>
   </section>
 </template>
@@ -16,7 +16,7 @@ export default {
   },
   // 刷新浏览器走服务端渲染 执行此方法
   asyncData(store) {
-    // 也可以在此处自己定义ajax逻辑 只需返回promise即可 服务端会直接渲染成字符串 有利于seo
+    // 也可以在此处自己定义ajax逻辑 只需返回 promise 即可服务端会直接渲染成字符串 有利于seo
     // 这个地方就可以处理异步逻辑
     // nuxt.js中也有此方法。此方法只在服务端执行，并且只在页面组件中执行
     //（页面级别组件指通过路由生成的组件，路由组件中的子组件不执行此方法）
@@ -25,6 +25,7 @@ export default {
   // 客户端代码调用state
   mounted() {
     this.$store.dispatch('changeEmail')
+    console.log(this.$route, '---------')
   },
   components: {},
   watch: {},

@@ -4,7 +4,6 @@
   // 安装过的模块都存放在这里面
   // 作用是把已经加载过的模块缓存在内存中，提升性能
   var installedModules = {};
-
   // 去数组中加载一个模块，moduleId 为要加载模块在数组中的 index
   // 作用和 Node.js 中 require 语句相似
   function __webpack_require__(moduleId) {
@@ -12,7 +11,6 @@
     if (installedModules[moduleId]) {
       return installedModules[moduleId].exports;
     }
-
     // 如果缓存中不存在需要加载的模块，就新建一个模块，并把它存在缓存中
     var module = (installedModules[moduleId] = {
       // 模块在数组中的 index
@@ -33,7 +31,6 @@
     );
     // 把这个模块标记为已加载
     module.l = true;
-    console.log(installedModules, "installedModules");
     // 返回这个模块的导出值
     return module.exports;
   }
@@ -58,7 +55,6 @@
     /* 1 */
     function(module, exports) {
       function show(content) {
-        console.log(document.getElementById("app"));
         window.document.getElementById("app").innerHTML = "Hello," + content;
       }
       // 通过 CommonJS 规范导出 show 函数

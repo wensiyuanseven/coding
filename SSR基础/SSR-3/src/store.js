@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 Vue.use(Vuex);
-//服务端和客户端都会走此逻辑   服务端先走 客户端再走
+// 服务端和客户端都会走此逻辑   服务端先走 客户端再走
 export default () => {
   let store = new Vuex.Store({
     state: {
@@ -39,8 +39,7 @@ export default () => {
 };
 
 // 解释流程
-
 // 刷新页面--先执行服务端渲染-执行vuex-把state挂载到window上
 // 客户端(client.bundle.js)执行时,通过store.replaceState()把执行的结果替换掉
 // 客户端也就是指引入的js逻辑比如 mounted(){}
-// 那么此时拿到的我就是最新状态 此时我们再去取值那就是设置好的状态了
+// 那么此时拿到的我就是最新状态，此时我们再去取值那就是设置好的状态了

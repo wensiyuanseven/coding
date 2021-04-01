@@ -17,7 +17,8 @@
             var ctx = canvas.getContext('2d')
 
             var img = new Image()
-            img.crossOrigin = 'Anonymous';//元素的跨域资源请求不需要凭证标志设置
+            // 如果图片的服务器允许跨域访问这个图片(服务器需要配置cors)，那么你可以使用这个图片而不污染canvas，否则，使用这个图片将会污染canvas。
+            img.crossOrigin = 'Anonymous'; // 元素的跨域资源请求不需要凭证标志设置
             // 加时间戳  破坏缓存
             img.src = `${url}?time=${new Date().getTime()}`;
             img.onload = function () {
@@ -37,6 +38,8 @@
                 canvas = null;
             };
         }
+        // 为什么不能用本地图片 因为收到了跨域限制 file协议不支持跨域
+        // cannot be created in a document with origin 'null'
         getImgToBase64('http://localhost:8088/img.jpeg', data => {
             console.log(data)
             img.src = data

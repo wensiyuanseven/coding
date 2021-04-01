@@ -1,0 +1,22 @@
+https://juejin.cn/post/6844904096655212558j
+
+
+设置script.setAttribute('crossorigin','use-credentials')后，加载资源会带上用户的cookie是什么意思？
+
+场景：A页面加载一个JSONP
+
+这个案例是失败的
+
+因为同一个ip不同端口可以共享cookie
+
+sameSite
+https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html
+
+sameSite=Lax
+例如，一个用户在 A 站点 点击了一个 B 站点（GET请求），
+而假如 B 站点 使用了Samesite-cookies=Lax，那么用户可以正常登录 B 站点。
+相对地，如果用户在 A 站点提交了一个表单到 B站点（POST请求），
+那么用户的请求将被阻止，因为浏览器不允许使用 POST 方式将 Cookie 从A域发送到Ｂ域。。
+
+sameSite与跨站脚本攻击的联系
+https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html

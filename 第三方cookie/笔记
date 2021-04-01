@@ -1,0 +1,52 @@
+https://zh.javascript.info/cookie   这个比较重要 ！！！！
+//理解  image url后面是可以传送信息的，所以可以存储当前用户的信息，下次其他网站再访问当前图片能直接识别用户
+
+
+https://maxket.com/wtf-is-3rd-party-cookie
+
+第三方Cookie是如何生成的？
+和第一方Cookie一样，第三方Cookie有两种方式进行部署。
+
+首先是使用JavaScript的document.cookie进行Cookie写入。
+这种方法既可以对用户正在访问的域进行写入又可以对第三方域写入。
+另外你也可以使用iframe在页中页中进行写入。
+
+还有一种是使用服务器端返回的HTTP Response中的Set-Cookie字段进行设置。
+这种方式仅需要页面发起一个第三方资源请求即可，比如调用服务器端的一个图片。
+一般的做法还会通过JavaScript把信息附在图片资源后作为参数进行请求作为refer字段的补充。
+由于第一方的JavaScript无法获取第三方的Cookie内容（只能写不能读），Google Analytics会把信息转而存储在第一方Cookie中。
+
+第一方cookie是如何被第三方的网站或者软件读取的？有哪些方法？
+cookie matching的方式需要第一方主动的把cookie交给第三方，
+即用户请求到第一方的时候主动的把请求转到第三方同时将cookie保存在请求中
+
+
+https://juejin.cn/post/6844904128557105166
+那么为什么还需要第三方 Cookie 呢？再打开 taobao.com，你会发现你已经不需要再登录了，
+因为淘宝、天猫都属于阿里旗下的产品，阿里为他们提供统一的登录服务，同时，
+你的登录信息也会存到这个统一登录服务的域下，所以存到这个域下的Cookie就成了三方Cookie。
+如何写入？
+嵌入一段javascript  document.cookie写入。
+或者 image url拼接参数  服务端set-Cookie写入
+因为如果写入之后 再打开 就会有一个标识  可以作为登录标识
+
+
+CORS 域名限制 等于说在SameSite之上又加了一层限制
+阮一峰
+https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html
+需要注意的是，如果要发送 Cookie，Access-Control-Allow-Origin 就不能设为星号，必须指定明确的、与请求网页一致的域名。
+同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，
+且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。
+
+
+
+与CSRF之间的关系
+https://juejin.cn/post/6844904071938342925
+
+
+
+todo
+
+https://segmentfault.com/q/1010000020800711
+
+https://blog.csdn.net/whzhaochao/article/details/50125207

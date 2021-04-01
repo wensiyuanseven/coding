@@ -10,7 +10,7 @@ Vue.use(Router);
 export default () => {
   const router = new Router({
     mode: "history",
-    //动态路由必须返回一个promise函数
+    // 动态路由必须返回一个promise函数
     routes: [{ path: "/", component: Foo }, { path: "/Bar", component: Bar }]
   });
   return router;

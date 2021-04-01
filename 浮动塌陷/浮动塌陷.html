@@ -6,34 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
         div {
             width: 300px;
             border: 1px solid sienna;
             /* 生成bfc */
-            overflow: hidden;
+            /* overflow: hidden; */
         }
 
-        /*这种方式也能解决浮动塌陷的问题  */
-        /* .clear::after {
+        /* 这种方式也能解决浮动塌陷的问题  */
+        .clear:after {
             content: '';
+            display: table;
             clear: both;
-            display: block;
-        } */
+        }
 
         p {
+            margin-top: 20px;
             float: left;
             width: 200px;
-            height: 200px;
+            height: 50px;
             border: 1px solid skyblue;
         }
     </style>
 </head>
 
 <body>
-    <div class="clear">
+    <div class="clear" >
         <p>我是浮动元素</p>
+        <!-- 并没有清除 -->
+        我是哈哈哈我是哈哈哈我是哈哈哈我是哈哈哈我是哈哈哈我是哈哈哈我是哈哈哈我是哈哈哈我是哈哈哈我是哈哈哈
+        <!-- 相当于after -->
+        <!-- <br style="clear:both"> -->
     </div>
-    <span>aaaa</span>
+    <span>我是后面的元素</span>
 </body>
 
 </html>

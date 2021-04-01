@@ -1,0 +1,24 @@
+TCP第四次挥手后为什么要经过TIME_WAIT状态？
+
+第四次挥手后为什么要经过TIME_WAIT状态之后才进入CLOSED状态，为什么不直接进入CLOSED状态？
+因为客户端发送的第四次挥手的ACK应答数据包，服务端可能没有收到，
+如果服务端在发送第三次挥手的FIN数据包后，等待一段时间后没有收到ACK应答，
+那么会重新发送第三次挥手的FIN数据包，客户端收到后再次发送第四次挥手的ACK数据包。
+这TIME_WAIT状态的等待时间就是为了防止服务端没有收到客户端发送的第四次挥手的ACK数据包，
+从而向客户端重新发送第三次挥手的FIN数据包时，客户端能正常接收到FIN数据包并且向服务端发送第四次挥手的ACK应答数据包。
+
+TIME_WAIT状态一般等待的是2MSL的时长。
+
+https://blog.csdn.net/yzpbright/article/details/113566357
+
+https://blog.csdn.net/overstack/article/details/8833894
+MSL是Maximum Segment Lifetime,译为“报文最大生存时间”，
+他是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。
+RFC 793中规定MSL为2分钟，实际应用中常用的是30秒，1分钟和2分钟等
+2MSL即两倍的MSL，TCP的TIME_WAIT状态也称为2MSL等待状态
+
+已经建立了TCP连接，并可能互通信息。但是如果长时间不进行信息的传递。这个TCP连接会自动断开吗？
+如果能自动断开的话，这个时间大约是多少呢？
+https://bbs.csdn.net/topics/320158178
+https://www.cnkirito.moe/tcp-talk/
+https://zhuanlan.zhihu.com/p/55815516

@@ -1,0 +1,22 @@
+xss（跨站脚本攻击）
+资料 前端面试
+黑名单白名单区别和为什么需要CSP防御 https://zhuanlan.zhihu.com/p/38327058
+
+
+反射型/存储型
+或者 持久型/非持久型
+
+转义防御
+CSP防御 笔记
+浏览器自带防御(反射型) X-XSS-Protection  笔记
+
+跨站攻击案例  黑客技术揭秘 75页
+
+框架防御  https://www.zhihu.com/question/307047041/answer/1508502538
+
+cookie 和 token 都存放在 header 中，为什么不会劫持 token？
+https://muyiy.cn/question/browser/28.html
+
+
+介绍下如何实现 token 加密
+https://muyiy.cn/question/browser/61.html

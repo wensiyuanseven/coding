@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <iframe src="https://siyuanseven.cn/usr/uploads/2021/03/2029680814.js"></iframe>
+  <div>Content</div>
+</body>
+<script>
+  document.cookie = 'old=sbxhb'
+  console.log(document.cookie)
+</script>
+<!-- 因为 -->
+<!-- https://segmentfault.com/q/1010000020800711 -->
+<!-- 仔细品 -->
+<!-- cookie 是不能跨域，但这一是指的当前页面只能读取页面所在域的 cookie（即 document.cookie），
+  二是指的浏览器在发送请求时携带在请求头里的，请求哪个域就只会带哪个域对应的 cookie。
+但谁也没说我一个页面里只能请求跟这个页面同域的资源啊。
+segmentfault.com 页面里植入一个百度的广告，这个页面就会给 baidu.com 发请求啊，响应结果里带 Set-Cookie 了或者是个 JS 在写 Cookie
+，自然而然不就有 baidu.com 的 cookie 了么。
+不然广告追踪咋做，百度之类的不就靠这个活着么。 -->
+<script src="https://siyuanseven.cn/usr/uploads/2021/03/2029680814.js"></script>
+
+</html>
