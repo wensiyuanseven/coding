@@ -50,11 +50,8 @@ function defineReactive(data,key,value){
             if(newValue == value) return;
             observe(newValue); // 监控当前设置的值，有可能用户给了一个新值
             value = newValue;
-
             // 当我们更新数据后 要把当前自己对应的watcher 去重新执行以下
             dep.notify();
-
-
         }
     })
 }

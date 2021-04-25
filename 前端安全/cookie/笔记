@@ -1,0 +1,7 @@
+document.cookie 读取的是当前域名下的cookie
+而携带第三方cookie是有条件的 比如设置sameSite
+
+
+所以第三方cookie也可以使用document.cookie 写入或者
+或者 image url拼接参数  服务端set-Cookie写入
+因为如果写入之后 再打开 就会有一个标识  可以作为登录标识

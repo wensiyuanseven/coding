@@ -12,10 +12,10 @@ Cookie SameSite
 https://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html
 
 Dos攻击防范 原理
- http://www.ruanyifeng.com/blog/2018/06/ddos.html
+http://www.ruanyifeng.com/blog/2018/06/ddos.html
 
 
- 前端安全总结
+前端安全总结
 
 XSS攻击 存储型 反射型
 常见案例
