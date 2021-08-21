@@ -12,7 +12,6 @@ export function patch(oldVnode, newVnode) {
         // dom diff 算法  同层比较 （默认想完整比对一棵树 O(n^3)）  O(n)
         // 不需要跨级比较
         // 两棵树 要先比较树根一不一样，再去比儿子长的是否一样
-
         if (oldVnode.tag !== newVnode.tag) { // 标签名不一致 说明是两个不一样的节点
             oldVnode.el.parentNode.replaceChild(createElm(newVnode), oldVnode.el);
         }

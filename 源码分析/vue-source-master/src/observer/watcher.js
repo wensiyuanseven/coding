@@ -25,7 +25,7 @@ class Watcher {
     get() {
         // 1.是先把渲染watcher 放到了 Dep.target上
         // 2.this.getter()  不是去页面取值渲染  就是调用 defineProperty的取值操作
-        // 3.我就获取当前全局的 Dep.target,每个属性都有一个dep 取值是就将Dep.target 保留到当前的dep中
+        // 3.我就获取当前全局的 Dep.target,每个属性都有一个dep 取值是就将 Dep.target 保留到当前的dep中
         // 4.数据变化 通知watcher 更新
         pushTarget(this); // 在取值之前 先把 watcher 保存到 dep 上起来
         // 触发dep的set操作

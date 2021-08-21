@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .father {
+                position: relative;
+            }
+            .father:hover .visible {
+                visibility: visible;
+                opacity: 1;
+            }
+            .son {
+                transition: all 0.4s ease-in;
+                position: absolute;
+                margin-top: 30px;
+                visibility: hidden;
+                opacity: 0;
+                width: 200px;
+                height: 200px;
+                background: red;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- https://www.zhangxinxu.com/wordpress/2013/05/transition-visibility-show-hide/?shrink=1 -->
+        <div class="father">
+            <a href="#">显示div</a>
+            <div class="son visible">我是图片</div>
+        </div>
+        <p onclick="abc()">哈哈</p>
+        <script>
+            function abc() {
+                alert()
+            }
+        </script>
+    </body>
+</html>

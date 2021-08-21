@@ -55,7 +55,6 @@ http
           })
         }
       }
-
       // console.log(url.parse(req.url,true).query) // get方式提交的数据
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=utf-8',

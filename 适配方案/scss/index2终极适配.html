@@ -36,8 +36,8 @@
         }
 
         /*  由于设置了根元素字体的大小，会影响所有没有设置字体大小的元素，字体大小是会继承的 */
-
         body {
+            /* ∆ */
             /* 为没有设置字体的元素指定默认字体,否则会使用html字体，
             因为rem是相对于根元素的，所以对于没有设置字体的元素，字体大小可以继承于body
             (这种方式不对) 当然会被下方的媒体查询所覆盖掉  */
@@ -52,8 +52,8 @@
         }
 
         @media screen and (min-width: 320px) {
-            /*rem js被禁止时的回退方案 */
 
+            /*rem js被禁止时的回退方案 */
             html {
                 /* 分成10份 */
                 font-size: 32px;
@@ -110,7 +110,7 @@
         }
 
         p a {
-            font-size: 2em;
+            font-size: 1rem;
             margin: 2em;
         }
     </style>
@@ -122,7 +122,6 @@
     <div id="box">
         <p>我试试<a>我是a</a></p>
     </div>
-
     <div>
         <section>我是温思远</section>
     </div>

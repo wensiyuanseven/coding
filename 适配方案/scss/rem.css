@@ -2,9 +2,11 @@
 /* ue图的宽度 */
 * {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 #box {
   background: rgb(214, 76, 76);
   /* width: 10rem; */
-  height: 1.3333333333rem; }
+  height: 1.3333333333rem;
+}

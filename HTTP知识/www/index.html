@@ -28,21 +28,18 @@
             <input type="submit">
         </p>
     </form>
-
     <ul>
         <li><button>application/x-www-form-urlencoded提交</button></li>
         <li><button>application/json提交</button></li>
         <li><button>multipart/form-data提交</button></li>
         <li><button>get提交</button></li>
     </ul>
-
     <script>
         // 提交给后台的数据为什么会出现[object Object]？
         // 因为后台要的都是对象的形式 对象强制转成字符串(String({}))会变成[object Object]
         // form表单提交数据
         let form = document.getElementById('form')
         form.addEventListener('submit', function (e) {
-
             e.preventDefault()
             // FormData 将仅使用具有name属性的输入字段
             let formData = new FormData(form)
@@ -109,7 +106,6 @@
                 }
             })
         })
-
         let buttom3 = document.getElementsByTagName('button')[3]
 
         buttom3.addEventListener('click', e => {
@@ -117,6 +113,7 @@
                 method: 'GET'
             })
         })
+
     </script>
 </body>
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .container {
+                height: 200px;
+                width: 800px;
+                background-color: #eee;
+                white-space: nowrap;
+                overflow: auto;
+                position: relative;
+                /* 可以使窗口平稳滚动 */
+                scroll-behavior: smooth;
+                margin: 0 auto;
+                user-select: none;
+            }
+            .item {
+                width: 220px;
+                height: 100px;
+                background-color: blue;
+                display: inline-block;
+                text-align: center;
+                line-height: 100px;
+            }
+            .item:nth-child(2n) {
+                background-color: pink;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+            <div class="item">10</div>
+        </div>
+        <script>
+            // 获取到 container 整个盒子
+            var container = document.querySelector(".container")
+            container.onscroll = function(){
+                // console.log(container.scrollLeft)
+            }
+            // 获取包裹盒子 container.offsetWidth
+            var containerW = container.offsetWidth;
+            // 找到所有需要被点击的 item 的集合
+            var itemList = document.querySelectorAll(".item");
+            // 遍历数组
+            for (let i = 0; i < itemList.length; i++) {
+                // 给每个元素添加点击事件
+                itemList[i].onclick = function () {
+                    // 获取到当前点击元素的 offsetLeft  - 包裹盒子 offsetWidth 的一半 + 当前点击元素 offsetWidth 的一半
+                    var scrollLeftNum =
+                        itemList[i].offsetLeft -
+                        containerW / 2 +
+                        itemList[i].offsetWidth / 2;
+                    console.log(scrollLeftNum, "距离");
+                    // 赋值
+                    container.scrollLeft = scrollLeftNum;
+                };
+            }
+        </script>
+    </body>
+</html>

@@ -51,14 +51,16 @@ background-size:100% auto; 即会保持自己固有的宽高比，不会变形�
 background-size:contain; 不会形变，不会被裁切,自动保持图片的宽高比，但是会出现空白。
 浏览器自动决定哪一边使用auto,哪一边使用100%。
 
-宽度>高度 background-size:100% auto; 高度使用100%,水平方向会出现空白
-宽度<高度 background-size:auto 100%; 宽度使用100%,垂直方向会出现空白
+(容器)
+
+宽度>高度 background-size: auto 100%; 高度使用100%,水平方向会出现空白
+宽度<高度 background-size:100% auto; 宽度使用100%,垂直方向会出现空白
 
 
 background-size:cover; 不会形变，图片会缩放，图片会被裁切,自动保持宽高比。
 浏览器自动决定哪一边使用auto,哪一边使用100%【与containt相反】
 
-宽度>高度 background-size:auto 100%; 宽度使用100%,垂直方向会被裁切
-宽度<高度 background-size:100% auto; 高度使用100%,水平方向会被裁切
+宽度>高度 background-size: 100% auto; 宽度使用100%,垂直方向会被裁切
+宽度<高度 background-size:auto 100%; 高度使用100%,水平方向会被裁切
 
 

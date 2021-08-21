@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
+        <title>css3 title 滑动显示</title>
+
+        <style>
+            .tab {
+                width: 100%;
+                background: #fff;
+                overflow: auto;
+            }
+            /* 隐藏滚动条 */
+            .tab::-webkit-scrollbar {
+                display: none;
+            }
+            .tab-ul {
+                display: flex;
+                display: -webkit-flex;
+                padding: 0;
+            }
+            .tab-ul li {
+                flex: 0 0 20%;
+                text-align: center;
+                list-style: none;
+            }
+            .tab-ul li.active {
+                background: pink;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="tab">
+            <ul class="tab-ul">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+            </ul>
+        </div>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+        <script>
+            $(function () {
+                $(".tab-ul li").on("click", function () {
+                    $(".tab-ul li").removeClass("active");
+                    $(this).addClass("active");
+
+                    var liLeft = $(this).offset().left;
+                    var liWidth = $(this).width() / 2;
+                    var widths = $(window).width() / 2;
+                    var scrollL = $(".tab").scrollLeft();
+
+                    $(".tab").animate({
+                        scrollLeft: scrollL + (liLeft - widths) + liWidth,
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

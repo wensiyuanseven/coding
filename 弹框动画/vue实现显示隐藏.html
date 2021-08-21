@@ -42,19 +42,19 @@
 
 <body>
     <div id="app">
+        <div v-if='vIf' v-show='vShow'>我是显示隐藏</div>
         <button @click="click">点击</button>
         <transition>
-            <div v-if="active" class="content">
-                显示隐藏
-            </div>
+            <div v-if="active" class="content"> 显示隐藏 </div>
         </transition>
     </div>
-
     <script>
         new Vue({
             el: '#app',
             data: {
-                active: true
+                active: true,
+                vIf: true,
+                vShow: true
             },
             methods: {
                 click() {

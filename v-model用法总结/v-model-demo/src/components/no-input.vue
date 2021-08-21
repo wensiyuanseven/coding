@@ -26,7 +26,7 @@ export default {
     console.log(this.visible, 'value')
   },
   watch: {
-    //两个问题，1 为什么prop传过来的值没有直接修改
+    // 两个问题，1 为什么prop传过来的值没有直接修改
     // 2.计算属性get,set
     value(val) {
       this.visible = val

@@ -14,7 +14,6 @@ let callbacks = []; // [flushSchedulerQueue,fn]
 
 export function queueWatcher(watcher) {
     const id = watcher.id;
-
     if (has[id] == null) {
         has[id] = true; // 如果没有注册过这个watcher，就注册这个watcher到队列中，并且标记为已经注册
         queue.push(watcher);

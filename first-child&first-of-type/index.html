@@ -1,0 +1,38 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-07-16 18:48:23
+ * @LastEditTime: 2021-07-16 18:48:33
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /coding/first-child&first-of-type/index.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+       <!-- https://blog.csdn.net/qq_29207823/article/details/82019910 -->
+        <!-- 参考：https://blog.csdn.net/liuarmyliu/article/details/105084577 -->
+        <style>
+            /* 匹配时 必须是section下的 同类型标签(div) 并且class为.bill-item   */
+            section .bill-item:first-of-type {
+                background: red;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 匹配不到 -->
+        <section>
+            <div class="select-month">哈哈</div>
+            <div class="bill-item">阿巴巴BB</div>
+        </section>
+        <!-- 能匹配 -->
+        <section>
+            <div class="select-month">哈哈</div>
+            <div class="bill-item">阿巴巴BB</div>
+        </section>
+    </body>
+</html>

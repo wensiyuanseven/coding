@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                width: 500px;
+                height: 100px;
+                border: 3px solid red;
+                white-space: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+            span {
+                width: 200px;
+                border: 2px solid #787878;
+                display: inline-block;
+                margin: 0 10px;
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+            <span class="item"></span>
+        </div>
+
+        <script>
+            var container = document.querySelector(".container");
+
+            // 获取包裹盒子 container.offsetWidth
+            var containerW = container.offsetWidth;
+            // 找到所有需要被点击的 item 的集合
+            var itemList = document.querySelectorAll(".item");
+            // 遍历数组
+            for (let i = 0; i < itemList.length; i++) {
+                // 给每个元素添加点击事件
+                itemList[i].onclick = function () {
+                    // 获取到当前点击元素的 offsetLeft  - 包裹盒子 offsetWidth 的一半 + 当前点击元素 offsetWidth 的一半
+                    console.log(itemList[i].offsetLeft , "距离")
+                };
+            }
+        </script>
+    </body>
+</html>

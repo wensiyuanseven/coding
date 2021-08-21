@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常见问题解决方法全书</title>
+    <script>
+        function setBaseFontSize() {
+            var clientWidth = document.documentElement.clientWidth;
+            clientWidth = clientWidth < 750 ? clientWidth : 750;
+        }
+        document.addEventListener('DOMContentLoaded', setBaseFontSize);
+        window.addEventListener('resize', setBaseFontSize);
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 18px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .page-body {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h3,
+        p {
+            margin: 10px 0;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-body">
+        <h1>常见问题解决方法全书</h1>
+        <h3>1. 手机APP无法更新，常见于苹果手机</h3>
+        <img src="./static/1.jpg">
+        <p>解决方法：查看手机版本是否更新如果是最新版本按图片更新即可</p>
+        <h3>2. 登入账号显示账号在拣货作业中</h3>
+        <img src="./static/2.jpg">
+        <p>解决方法：电脑查看4C商品拣货单是否存在录单状态，可是昨天的</p>
+        <h3>3. 分拣作业中手机出现异常无法使用需更换手机。</h3>
+        <p>解决方法：重新在另外一台手机上登入账号，无法登入去4C删除录单状态拣货单。（注意记住已分拣数）</p>
+        <h3>4. 账号异常无法登入（冻结、禁用）。</h3>
+        <img src="./static/4.jpg">
+        <p>解决方法：群内联系技术人员进行账号解冻，且要行政尽快提交人员资料（花名册及离职又入职人员）</p>
+        <h3>5. 商品规格、单位错误。</h3>
+        <img src="./static/5.jpg">
+        <p>解决方法：群内联系园区杨建伟，及时进行商品规格、单位的更改。</p>
+        <h3>6. 手机分拣待装区显示不全（显示1、1、2、2）</h3>
+        <img src="./static/6.jpg">
+        <p>解决方法：先进行手机字体显示调整重新开机，还是不行就群内联系技术人员</p>
+        <h3>7. 提交拣货单失败，提示填写的拣货数超过了应拣数</h3>
+        <img src="./static/7.jpg">
+        <p>解决方法：应该分拣员手动编辑了原本的拣货数，提交的件数不可大于原本的拣货数</p>
+        <h3>8. 登入时发送不了验证码。</h3>
+        <img src="./static/8.jpg">
+        <p>解决方法：关闭重新打开手机网络，还是不行就连接WLAN进行验证码发送。</p>
+        <h3>9. 分拣时提交拣货数据显示此拣货单已被删除</h3>
+        <img src="./static/9.jpg">
+        <p>解决方法：记住各个待装区分拣数量，退出后重新提交。</p>
+        <h3>10. 组长明明排了单，但是分拣员手机上不显示。</h3>
+        <img src="./static/10.jpg">
+        <p>解决方法：去3D流水线里面检查是否未绑定拣货员，如果未绑定就无法显示。</p>
+        <h3>11. 手机APP的批次待检数和系统里面的订购量不一样相差不大。举例一个苹果电脑上看销售4900份，手机APP上待分拣数量只有4800份。</h3>
+        <img src="./static/11.jpg">
+        <p>解决方法：3D流水线查看是否新加了线路忘记绑定到流水线里面。</p>
+        <h3>12. 当某天单量比较大时，分拣到第二天早上发现无法提交拣货单了。</h3>
+        <img src="./static/12.jpg">
+        <p>解决方法：去10B仓库作业参数配置，修改APP提交拣货单限制。</p>
+        <h3>13. 准备分拣时提示生成拣货单失败：未排单。</h3>
+        <img src="./static/13.jpg">
+        <p>解决方法：登入系统分拣设置里面选择3E门店派单表生成排单表点击确认排单。（需在线路不改动的情况下且只能生成一次）</p>
+        <h3>14. 手机APP上显示待分拣件数是11件一件取整后只剩下4件</h3>
+        <img src="./static/14.jpg">
+        <p>解决方法：是因为该商品销售规格2*15，每个待装区要有2件以上才能一件取整，不然就会显示不足一件，这种情况下按照APP分拣就好。</p>
+    </div>
+</body>
+
+</html>

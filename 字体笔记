@@ -1,0 +1,13 @@
+1. head first书籍
+2. css世界书籍
+3. https://www.iconfont.cn/ 字体图标网站（此时图标是在本地的，需要用插件转换为base64）
+4. 使用 https://transfonter.org 制作内联base64文件 可以防止字符转换图标时闪现问题（css世界256页）
+5. 使用preload 属性可以预加载字体文件（也能防止字符转换图标时闪现问题） https://zhuanlan.zhihu.com/p/33759023
+（要么内置，要么预加载）
+6. @font-face {
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'vant-icon';
+}的作用（看css世界251页）
+7. svg图标是未来的趋势，字体图标兼容性更好（兼容ie）
+8. 字体图标也可以加阴影

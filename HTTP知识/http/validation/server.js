@@ -21,8 +21,8 @@ http
       console.log(etag, "|", modifiedSince, "|", unModifiedSince, "|", ifMatch);
       // 如果给定URL中的资源更改，则一定要生成新的Etag值。 因此Etags类似于指纹，也可能被某些服务器用于跟踪。 比较etags能快速确定此资源是否变化，但也可能被跟踪服务器永久存留
       // 注意是自己主动生成新的etag  而不是内容变了浏览器会自动让etag发生改变！！！
-      //  如果缓存过期了 那么etager也就失效了。
-      //  如果还在缓存期内,即使重启etager的值也是存在的
+      // 如果缓存过期了 那么etager也就失效了。
+      // 如果还在缓存期内,即使重启etager的值也是存在的
       if (etag === "777") {
         response.writeHead(304, {
           "Content-Type": "text/javascript",

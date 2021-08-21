@@ -7,7 +7,7 @@ http.createServer(function (request, response) {
   const html = fs.readFileSync('test.html', 'utf8')
   const img = fs.readFileSync('test.jpg')
   if (request.url === '/') {
-    response.writeHead(200, {
+    response.writeHead(330, {
       'Content-Type': 'text/html',
       'Connection': 'keep-alive',
       'Link': '</test.jpg>; as=image; rel=preload'
@@ -21,6 +21,6 @@ http.createServer(function (request, response) {
     response.end(img)
   }
 
-}).listen(8888)
+}).listen(8810)
 
 console.log('server listening on 8888')

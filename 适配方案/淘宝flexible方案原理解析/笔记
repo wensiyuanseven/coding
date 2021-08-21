@@ -1,4 +1,5 @@
 参考文章:https://www.cnblogs.com/sybboy/p/6474999.html
+https://github.com/amfe/lib-flexible
 demo页面:http://huodong.m.taobao.com/act/yibo.html  【控制台查看】
 
 //分析.png
@@ -38,6 +39,8 @@ demo页面:http://huodong.m.taobao.com/act/yibo.html  【控制台查看】
 
 不会出现1px问题
 
+
+ 目的就是为了根据设计稿直接转换尺寸。
 
 为什么放哪放弃淘宝布局方案:
 因为
