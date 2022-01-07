@@ -48,7 +48,7 @@ export default {
   width: 80%;
   margin: 0 auto;
   .table {
-    // 房子表格两条线质检重叠
+    // 防止表格两条线重叠
     border-collapse: collapse;
     //去掉表格间隙
     border-spacing: 0;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const abxType = {
+                enrollHomepage: {
+                    label: "无车报名",
+                    value: "abc",
+                },
+                checkNotice: {
+                    label: "有车报名",
+                    value: "def",
+                },
+            };
+
+            const getlabel = function (key) {
+                return abxType[key].label;
+            };
+            const getValue = function (key) {
+                return abxType[key].value;
+            };
+
+            const getArr = function () {
+                return Object.keys(abxType).map((key) => {
+                    return {
+                        label: getlabel(key),
+                        value: getValue(key),
+                    };
+                });
+            };
+            console.log(getArr(), "getArr");
+        </script>
+    </body>
+</html>

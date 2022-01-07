@@ -40,7 +40,7 @@ class MyRouter {
         this.history.current = location.hash.slice(1);
       });
     } else {
-      location.pathname ? "" : (location.pathname = "/"); // 可以更改状态栏中的url
+      location.pathname ? "" : (location.pathname = "/");  // 可以更改状态栏中的url
       window.addEventListener("load", () => {
         this.history.current = location.pathname;
       });

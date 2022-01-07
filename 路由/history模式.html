@@ -36,10 +36,12 @@
             // this.history.current = location.hash.slice(1);
         });
 
+
         // 监听后退按钮和前进按钮   History.pushState()和 History.replaceState()不会触发popstate此事件
         // 但是History.go()和History.back()等，
         // 虽然可以触发popstate事件，但是都会刷新页面，我们在单页应用中使用的是replaceState和pushState，因此这里还有一个等待解决的问题：
         // 如何监听replaceState和pushState行为呢？ 参考 https://segmentfault.com/a/1190000017560688
+        // https://zhuanlan.zhihu.com/p/269853186
         window.addEventListener('popstate', event => {
             console.log(event)
             console.log(location.pathname, 'location.hash')

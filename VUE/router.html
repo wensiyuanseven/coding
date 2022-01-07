@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <div id="app"></div>
+        <script>
+            const NotFound = { template: "<p>Page not found</p>" };
+            const Home = { template: "<p>home page</p>" };
+            const About = { template: "<p>about page</p>" };
 
-<body>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <div id="app"></div>
-    <script>
-        const NotFound = { template: '<p>Page not found</p>' }
-        const Home = { template: '<p>home page</p>' }
-        const About = { template: '<p>about page</p>' }
-
-        const routes = {
-            '/': Home,
-            '/about': About
-        }
-        console.log(window.location.pathname)
-        new Vue({
-            el: '#app',
-            data: {
-                currentRoute: window.location.pathname
-            },
-            computed: {
-                ViewComponent() {
-                    return routes[this.currentRoute] || NotFound
-                }
-            },
-            render(h) { return h(this.ViewComponent) }
-        })
-    </script>
-</body>
-
+            const routes = {
+                "home": Home,
+                "about": About,
+            };
+            console.log(window.location.pathname);
+            new Vue({
+                el: "#app",
+                data: {
+                    currentRoute: window.location.hash.slice(1),
+                },
+                computed: {
+                    ViewComponent() {
+                        return routes[this.currentRoute] || NotFound;
+                    },
+                },
+                render(h) {
+                    return h(this.ViewComponent);
+                },
+            });
+        </script>
+    </body>
 </html>

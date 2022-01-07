@@ -1,68 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <style>
-        .v-enter {
-            opacity: 0;
-        }
-
-        .v-enter-to {
-            opacity: 1;
-        }
-
-        .v-enter-active {
-            transition: 1s;
-        }
-
-        .v-leave {
-            opacity: 1;
-        }
-
-        .v-leave-to {
-            opacity: 0;
-        }
-
-        .v-leave-active {
-            transition: 0.5s;
-        }
-
-        .content {
-            width: 300px;
-            height: 400px;
-            border: 1px solid sienna;
-            margin-top: 30px;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="app">
-        <div v-if='vIf' v-show='vShow'>我是显示隐藏</div>
-        <button @click="click">点击</button>
-        <transition>
-            <div v-if="active" class="content"> 显示隐藏 </div>
-        </transition>
-    </div>
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                active: true,
-                vIf: true,
-                vShow: true
-            },
-            methods: {
-                click() {
-                    this.active = !this.active
-                }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style>
+            .v-enter {
+                opacity: 0;
             }
-        })
-    </script>
-</body>
 
+            .v-enter-to {
+                opacity: 1;
+            }
+
+            .v-enter-active {
+                transition: 1s;
+            }
+
+            .v-leave {
+                opacity: 1;
+            }
+
+            .v-leave-to {
+                opacity: 0;
+            }
+
+            .v-leave-active {
+                transition: 0.5s;
+            }
+
+            .content {
+                width: 300px;
+                height: 400px;
+                border: 1px solid sienna;
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <p>{{num}}</p>
+            <div v-if="vIf" v-show="vShow">我是显示隐藏</div>
+            <button @click="click">点击</button>
+            <transition>
+                <div v-if="active" class="content">显示隐藏</div>
+            </transition>
+        </div>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    active: true,
+                    vIf: true,
+                    vShow: true,
+                    num: 0,
+                },
+                methods: {
+                    click() {
+                        this.active = !this.active;
+                        this.num++;
+                    },
+                },
+            });
+        </script>
+    </body>
 </html>
