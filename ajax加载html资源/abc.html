@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <!-- https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/responseType -->
+        <script type="text/javascript">
+            var xmlHttp;
+            function createXmlHttpRequestObject() {
+                if (window.ActiveXObject) {
+                    try {
+                        xmlHttp = new ActiveXObject("Microsoft.XMLHttp");
+                    } catch (e) {
+                        xmlHttp = false;
+                    }
+                } else {
+                    try {
+                        xmlHttp = new XMLHttpRequest();
+                    } catch (e) {
+                        xmlHttp = false;
+                    }
+                }
+
+                if (!xmlHttp) alert("返回创创建的对象或错误信息");
+                else return xmlHttp;
+            }
+
+            function ReqHtml() {
+                createXmlHttpRequestObject();
+                xmlHttp.onreadystatechange = StatHandler;
+                xmlHttp.open("GET", "http://127.0.0.1:5500/text.html", true);
+                xmlHttp.send(null);
+            }
+
+            function StatHandler() {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    console.log(
+                        xmlHttp.responseText,
+                        "xmlHttp.responseText======="
+                    );
+                    document.getElementById("webpage").innerHTML =
+                        xmlHttp.responseText;
+                }
+            }
+        </script>
+
+        <a href="#" onclick="ReqHtml();">点这里</a>
+        <div id="webpage"></div>
+    </body>
+</html>
