@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 模拟多重继承
+        Object.prototype.mixin = function (...objs) {
+            objs.forEach(obj => {
+                for (let key in obj) {
+                    if (!this[key]) {
+                        this[key] = obj[key]
+                    }
+                }
+            })
+        }
+        let sourceObj = { a: 123 }
+        sourceObj.mixin({ b: 456 }, { c: 789 })
+        console.log(sourceObj)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Factory(type, content) {
+            if (this instanceof Factory) {
+                return new this[type](content)
+            } else {
+                return new Factory(type, content)
+            }
+        }
+        Factory.prototype = {
+            alert: function (content) {
+                console.log(content)
+            },
+            login: function (content) {
+                console.log(content)
+            },
+            text: function (content) {
+                console.log(content)
+            }
+        }
+        const data = [
+            { type: 'alert', content: '我是alert' },
+            { type: 'login', content: '我是login' },
+            { type: 'text', content: '我是text' }
+        ]
+        // for (let i = 0; i < data.length; i++) {
+        //     new Factory(data[i].type, data[i].content)
+        // }
+        Factory('login', '我是login')
+    </script>
+</body>
+
+</html>

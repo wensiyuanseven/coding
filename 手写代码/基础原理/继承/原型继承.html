@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- https://cchroot.github.io/2018/05/10/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84javascript(%E4%B8%8A%E4%BA%8C)%E2%80%94%E2%80%94ES6_class/ -->
+    <script>
+        // ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。
+        // ES6 的继承机制完全不同， ES6 是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承,
+        // 也就是直接定义到子类身上，而不用去父类原型上去找
+        // 也就是是说  es5  先new 再更改this
+        //  es6 先把父类属性和方法加到this身上  再new 也就是再new之前 父类的this已经绑定到子类的身上了
+        function Foo(name) {
+            this.name = name
+        // }
+        // Foo.abc = 111111
+        Foo.prototype.getName = function () {
+            console.log(this, this.name)
+        }
+
+        function Bar(name, age) {
+            Foo.call(this, name)
+            this.age = age
+        }
+
+        Bar.prototype = Object.create(Foo.prototype)
+
+        let bar = new Bar('温思远', '18')
+        // 属性屏蔽
+        bar.getName = function () {
+            console.log(124)
+        }
+
+        bar.getName()
+        console.log(bar)
+
+        //     const aaa = Symbol('bar');
+        //     const snaf = Symbol('snaf');
+
+        //    class myClass {
+
+        //         // 公有方法
+        //         foo(baz) {
+        //             this[bar](baz);
+        //         }
+
+        //         // 私有方法
+        //         [aaa](baz) {
+        //             return this[snaf] = baz;
+        //         }
+
+        //         // ...
+        //     };
+
+        //     console.log(new myClass(),'---')
+
+
+    </script>
+</body>
+
+</html>

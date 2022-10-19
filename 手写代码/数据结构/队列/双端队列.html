@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双端队列</title>
+</head>
+
+<body>
+    <script>
+
+        class Deque {
+            constructor() {
+                this.count = 0;  // 后指针
+                this.lowestCount = 0;  // 前指针
+                this.items = {};
+            }
+            // 往后添加
+            addFront(element) {
+                if (this.lowestCount > 0) {
+                    // 大于0时
+                    this.lowestCount--;
+                    this.items[this.lowestCount] = element;
+                } else {
+                    // 等于0时,把索引为0的位置腾出来
+                    for (let i = this.count; i > 0; i--) {
+                        this.items[i] = this.items[i - 1];
+                    }
+                    this.count++;
+                    this.items[0] = element;
+                }
+            }
+
+            addBack(element) {
+                this.items[this.count] = element;
+                this.count++;
+            }
+
+            removeFront() {
+                if (this.isEmpty()) {
+                    return undefined;
+                }
+                const result = this.items[this.lowestCount];
+                delete this.items[this.lowestCount];
+                this.lowestCount++;
+                return result;
+            }
+
+            removeBack() {
+                if (this.isEmpty()) {
+                    return undefined;
+                }
+                this.count--;
+                const result = this.items[this.count];
+                delete this.items[this.count];
+                return result;
+            }
+
+            isEmpty() {
+                return this.count - this.lowestCount === 0;
+            }
+
+        }
+        const deque = new Deque()
+        deque.addFront('d')
+
+        // 移除前端
+        // deque.removeFront()
+        // console.log(deque.items)
+        // 向前端添加元素
+        // console.log(deque.lowestCount,'--')
+        deque.addFront('hhahhah')
+        deque.addFront('d')
+        deque.addFront('d')
+        console.log(deque)
+
+    </script>
+</body>
+
+</html>

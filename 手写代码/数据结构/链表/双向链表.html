@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Node {
+            constructor(element, next) {
+                this.element = element
+                this.next = next // 链向下一个元素
+            }
+        }
+        class DoublyNode extends Node {
+            constructor(element, next, prev) {
+                super(element, next);
+                this.prev = prev; // 链向前一个元素
+            }
+        }
+        class LinkList {
+            constructor() {
+                this.count = 0
+                this.head = null
+            }
+
+            // 根据索引查找元素
+            getElementAt(index) {
+                let node = this.head
+                for (let i = 0; i < index; i++) {
+                    node = node.next
+                }
+                return node
+            }
+        }
+        class DoublyLinkedList extends LinkList {
+            constructor() {
+                super();
+                this.tail = null;  // 从尾部开始指向
+            }
+            // 添加
+            push(element) {
+                const node = new DoublyNode(element);
+                if (this.head == null) {
+                    this.head = node; // 首部指向node
+                    this.tail = node; // 尾部也指向node
+                } else {
+                    // 互相关联
+                    this.tail.next = node; // 前一个尾部指针的next指向当前的node
+                    node.prev = this.tail; // 让node前一个链接指向尾部指针
+                    this.tail = node; // 让尾部指向node
+                }
+                this.count++;
+            }
+
+            // 插入
+            insert(element, index) {
+                if (index >= 0 && index <= this.count) {
+                    const node = new DoublyNode(element);
+                    let current = this.head;
+                    // 首部添加
+                    if (index === 0) {
+                        // circularList.insert(789, 0) // 第一次插入
+                        if (this.head == null) {
+                            this.head = node;
+                            this.tail = node;
+                        } else {
+                            // 大于第一次插入时 比如 第二次插入到索引为0的节点 第三次插入到索引为0的节点
+                            node.next = this.head;
+                            this.head.prev = node;
+                            this.head = node;
+                        }
+                        // 末尾添加
+                    } else if (index === this.count) { // last item NEW
+                        current = this.tail;
+                        current.next = node;
+                        node.prev = current;
+                        this.tail = node; // !!
+                    } else {
+                        // 中间添加
+                        const previous = this.getElementAt(index - 1);
+                        current = previous.next;
+                        node.next = current;
+                        previous.next = node;
+                        current.prev = node;
+                        node.prev = previous;
+                    }
+                    this.count++;
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        let doublyLinkedList = new DoublyLinkedList()
+
+        doublyLinkedList.push('A')
+        doublyLinkedList.push('B')
+        doublyLinkedList.push('C')
+
+        console.log(doublyLinkedList)
+
+    </script>
+</body>
+
+</html>

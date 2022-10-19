@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function add(a, b) {
+            let a1 = String(a).split('.')[1]
+            let b1 = String(b).split('.')[1]
+            let multiple = Math.pow(10, Math.max(a1.length, b1.length))
+            return (a1 * multiple + b1 * multiple) / multiple
+
+        }
+        console.log(add(0.1, 0.2))
+    </script>
+</body>
+
+</html>

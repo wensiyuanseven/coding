@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Link() {
+            this.a = null
+            this.b = null
+        }
+        Link.prototype.A = function (a) {
+            this.a = a
+            return this
+        }
+        Link.prototype.B = function (b) {
+            this.b = b
+            return this
+        }
+        console.log(new Link().A('a').B('b'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function add(arr) {
+            return arr.reduce((all, val) => {
+                return all += val
+            }, 0)
+        }
+        function currying(fn) {
+            const arr = []
+            return function dofn(params) {
+                if (!params) {
+                    return fn(arr)
+                } else {
+                    arr.push(params)
+                    return dofn
+                }
+
+            }
+        }
+        let init = currying(add)
+        const catchData = init(30)(40)()
+        console.log(catchData)
+    </script>
+</body>
+
+</html>

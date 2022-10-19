@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function A(data) {
+            return new Promise((resolve => {
+                resolve(data)
+            }))
+        }
+        function* asyncDemo() {
+            let result1 = yield A('123')
+            let result2 = yield A('456')
+            console.log(result1, result2)
+        }
+        let start = asyncDemo()
+        // 会把当前执行next的值传给yield
+        start.next().value.then(data => {
+            start.next(data).value.then(data => {
+                start.next(data)
+            })
+        })
+
+        // 自动更新
+        function run(asyncDemo) {
+            let start = asyncDemo()
+            function go(data) {
+                let result = start.next(data)
+                if (result.done) return
+                result.value.then(data => {
+                    go(data)
+                })
+            }
+            go()
+        }
+        run(asyncDemo)
+    </script>
+</body>
+
+</html>

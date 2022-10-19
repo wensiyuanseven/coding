@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.src = './demo.js'
+        document.getElementsByTagName('head')[0].appendChild(script)
+        script.onload = function (data) {
+            alert('script')
+        }
+        window.onload = function () {
+            alert('window')
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            alert('DOMContentLoaded')
+        })
+    </script>
+    <div id="app">
+        你好
+    </div>
+</body>
+
+</html>

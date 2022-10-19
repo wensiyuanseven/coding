@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- a=123&b=456 -->
+    <!-- {a:123,b:456} -->
+    <script>
+        const query = 'a=123&b=456'
+        const queryStr = query.split('&')
+        const getObj = queryStr.reduce((obj, val) => {
+            const item = val.split('=')
+            obj[item[0]] = item[1]
+            return obj
+        }, {})
+        console.log(getObj)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        class Dep {
+            constructor() {
+                this.watchers = []
+            }
+            push(wathcer) {
+                this.watchers.push(wathcer)
+            }
+            notice() {
+                this.watchers.forEach(wathcer => {
+                    wathcer.update()
+                })
+            }
+        }
+        class Watcher {
+            constructor() {
+            }
+            update() {
+                console.log(1)
+            }
+
+        }
+
+        let dep = new Dep()
+        dep.push(new Watcher())
+        dep.push(new Watcher())
+        dep.push(new Watcher())
+        dep.push(new Watcher())
+        dep.notice()
+    </script>
+
+</body>
+
+</html>

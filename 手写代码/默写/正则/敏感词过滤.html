@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            const str = "我是哈哈哈的温思远";
+            console.log(/是/g.test(str));
+            const result = str.replace(/哈哈哈|温思远/g, function ($0) {
+                let str = "";
+                for (let i = 0; i < $0.length; i++) {
+                    str += "*";
+                }
+                return str;
+            });
+            console.log(result);
+        </script>
+    </body>
+</html>

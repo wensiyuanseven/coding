@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 参考 https://juejin.cn/post/6844903802298974221 -->
+
+<body>
+
+    <script>
+        /**
+         * 1. 实现一个函数，判断两个变量值是否相等
+         *
+         * 注意
+         * - 数据类型不限于示例，尽可能考虑边界
+         * - function 引用相等即可
+         */
+        const foo1 = {
+            a: 1,
+            b: "1",
+            c: 0,
+            c: NaN,
+            d: [
+                {
+                    a: 1,
+                    b: 2,
+                },
+            ],
+            f: {
+                a: 1,
+            },
+            g: null,
+        };
+
+        const foo2 = {
+            c: 0,
+            a: 1,
+            b: "1",
+            c: NaN,
+            d: [
+                {
+                    a: 1,
+                    b: 2,
+                },
+            ],
+            f: {
+                a: 1,
+            },
+            g: null,
+        };
+
+        /*
+        * @param x {Object} 对象1
+        * @param y {Object} 对象2
+        * @return  {Boolean} true 为相等，false 为不等
+        */
+        const deepEqual = (x, y) => {
+            // 指向同一内存时
+            if (x === y) {
+                return true;
+            } else if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
+                // 长度不同，返回false
+                if (Object.keys(x).length !== Object.keys(y).length) {
+                    return false;
+                }
+                for (var prop in x) {
+                    if (y.hasOwnProperty(prop)) {
+                        // 递归
+                        if (!deepEqual(x[prop], y[prop])) return false;
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                if (Object.is(x, y)) {
+                    return true
+                } else {
+                    return false;
+                }
+            }
+        }
+        console.log(deepEqual(foo1, foo2))
+
+    </script>
+</body>
+
+</html>

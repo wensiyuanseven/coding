@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function timeOut(fn, time) {
+            let interval = setTimeout(() => {
+                interval = null
+                fn(new Error('超时'))
+            }, time)
+            return function (...args) {
+                // 说明还未超时
+                if (interval) {
+                    clearInterval(interval)
+                    fn.apply(this, ...args)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

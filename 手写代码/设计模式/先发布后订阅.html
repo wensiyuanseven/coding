@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            class Event {
+                constructor() {
+                    this.catch = {};
+                }
+                dispatch(name, params) {
+                    this.catch[name] = function () {
+                        // 把当前的参数返回
+                        return params;
+                    };
+                }
+                reject(name, fn) {
+                    if (this.catch[name]) {
+                        const params = this.catch[name]();
+                        fn(params);
+                    }
+                }
+            }
+            let event = new Event();
+
+            event.dispatch("click", "我是参数");
+
+            event.reject("click", (data) => {
+                console.log(data);
+            });
+
+            setTimeout(() => {
+                event.reject("click", (data) => {
+                    console.log(data);
+                });
+            }, 1000);
+        </script>
+    </body>
+</html>

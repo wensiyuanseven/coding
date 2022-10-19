@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二叉树搜索树</title>
+</head>
+
+<body>
+    <script>
+    // 在左侧存储比父节点小的值，在右侧存储比父节点大的值
+    // 表示某个节点
+    class Node {
+        constructor(key) {
+            this.key = key
+            this.left = null
+            this.right = null
+        }
+    }
+    // 二叉搜索树
+    class SearchTree {
+        constructor() {
+            this.root = null
+        }
+        // 插入
+        insert(key) {
+            // 第一次插入
+            if (this.root == null) {
+                this.root = new Node(key)
+            } else {
+                this.insertNode(this.root, key)
+            }
+        }
+        insertNode(node, key) {
+            // 当前key小于节点key
+            if (key < node.key) {
+                // 叶节点
+                if (node.left == null) {
+                    node.left = new Node(key)
+                } else {
+                    // 递归循环左侧值
+                    this.insertNode(node.left, key)
+                }
+            } else {
+                if (node.right == null) {
+                    node.right = new Node(key)
+                } else {
+                    // 递归循环右侧值
+                    this.insertNode(node.right, key)
+                }
+            }
+        }
+        // 计算一个节点的高度
+        getNodeHeight(node) {
+            if (node == null) {
+                return -1
+            }
+            return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) + 1
+        }
+    }
+    let tree = new SearchTree()
+    tree.insert(11)
+    tree.insert(7)
+    tree.insert(15)
+    tree.insert(5)
+    tree.insert(3)
+    tree.insert(9)
+    tree.insert(8)
+    tree.insert(10)
+    tree.insert(13)
+    tree.insert(12)
+    tree.insert(14)
+    tree.insert(20)
+    tree.insert(18)
+    tree.insert(25)
+    tree.insert(6)
+    console.log(tree)
+    console.log(tree.getNodeHeight(tree.root))
+    </script>
+</body>
+
+</html>

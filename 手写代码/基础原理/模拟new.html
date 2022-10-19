@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        (
+        <script>
+            // let obj={a:'123'}
+            // console.log(Object.getOwnPropertyNames(obj))
+            function mockNew(...args) {
+                const self = args.shift();
+                const obj = {};
+                obj.__proto__ = Object.create(self.prototype);
+                const result = self.apply(obj, args);
+                return result instanceof Object ? result : obj;
+            }
+            function fun(...params) {
+                this.test = "测试";
+                console.log(this);
+            }
+            let getVal = mockNew(fun, "哺乳类", "两栖类");
+            console.log(getVal);
+        </script>
+    </body>
+</html>

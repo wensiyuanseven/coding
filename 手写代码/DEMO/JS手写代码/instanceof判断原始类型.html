@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class PrimitiveString {
+            static [Symbol.hasInstance](x) {
+                return typeof x === 'string'
+            }
+        }
+        console.log('hello world' instanceof PrimitiveString)  // true
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function feibonaqie(n) {
+            if (n < 0) return 0
+            if (n <= 2) return 1
+
+            return feibonaqie(n - 1) + feibonaqie(n - 2)
+        }
+        // console.log(feibonaqie(3))
+
+        // function fibonacciIterative(n) {
+        //     let fibNMinus2 = 0;
+        //     let fibNMinus1 = 1;
+        //     let fibN = n;
+        //     for (let i = 2; i <= n; i++) { // n >= 2
+        //         fibN = fibNMinus1 + fibNMinus2; // f(n-1) + f(n-2)
+        //         fibNMinus2 = fibNMinus1;
+        //         fibNMinus1 = fibN;
+        //         console.log(fibN)
+        //     }
+        //     return fibN;
+        // }
+
+        // console.log('fibonacciIterative(2)', fibonacciIterative(2));
+        // console.log('fibonacciIterative(3)', fibonacciIterative(3));
+        // console.log('fibonacciIterative(4)', fibonacciIterative(4));
+        // console.log('fibonacciIterative(5)', fibonacciIterative(8));
+
+
+        function fibonacciMemoization(n) {
+            const memo = [0, 1];
+            const fibonacci = (n) => {
+                if (memo[n] != null) return memo[n];
+                return memo[n] = fibonacci(n - 1) + fibonacci(n - 2);
+            };
+            return fibonacci(n);
+        }
+
+        // console.log('fibonacciMemoization(2)', fibonacciMemoization(2));
+        // console.log('fibonacciMemoization(3)', fibonacciMemoization(3));
+        // console.log('fibonacciMemoization(4)', fibonacciMemoization(4));
+        console.log('fibonacciMemoization(5)', fibonacciMemoization(8));
+    </script>
+</body>
+
+</html>

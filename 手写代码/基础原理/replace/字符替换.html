@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const str = "2013-6-7"
+        // substring的用法和slice一样，只是它不能处理负参数，没有任何理由会使用substring
+        const newStr = str.replace(/(\d+)(-)/g, function ($0) {
+            return $0.slice(0, $0.length - 1) + '.'
+        })
+        console.log(newStr)
+    </script>
+</body>
+
+</html>

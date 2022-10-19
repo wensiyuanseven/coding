@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Alert() {
+            // todo  做一些其它事情
+            (function () {
+                let div = document.createElement('div')
+                div.innerHTML = 'alert'
+                document.body.appendChild(div)
+            })()
+        }
+        function Confirm() {
+
+        }
+        function Login() {
+
+        }
+        const factory = function (name) {
+            switch (name) {
+                case 'alert':
+                    return new Alert()
+                case 'confirm':
+                    return new Confirm()
+                case 'login':
+                    return new Login()
+            }
+        }
+        factory('alert')
+    </script>
+</body>
+
+</html>

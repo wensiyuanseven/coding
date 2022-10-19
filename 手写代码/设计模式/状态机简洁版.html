@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const Fsm = {
+            off: {
+                changeStatus() {
+                    console.log('关灯')
+                    this.currentState = Fsm.on
+                }
+            },
+            on: {
+                changeStatus() {
+                    console.log('开灯')
+                    this.currentState = Fsm.off
+                }
+            }
+        }
+        // js版本状态机
+        let Light = function () {
+            this.currentState = Fsm.off;
+        }
+        Light.prototype.init = function () {
+            // 点击事件 改变状态
+            document.onclick = () => {
+                // 调用关灯 并且改变this指向
+                this.currentState.changeStatus.call(this)
+            }
+        }
+
+        new Light().init()
+    </script>
+</body>
+
+</html>

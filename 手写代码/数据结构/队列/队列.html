@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队列</title>
+</head>
+
+<body>
+    <script>
+        // 先进先出
+        class Queue {
+            constructor() {
+                this.count = 0;
+                this.lowestCount = 0;
+                this.items = {};
+            }
+            // 添加
+            enqueue(element) {
+                this.items[this.count] = element;
+                this.count++;
+            }
+            //删除
+            dequeue() {
+                if (this.count - this.lowestCount === 0) {
+                    return undefined;
+                }
+                const result = this.items[this.lowestCount];
+                delete this.items[this.lowestCount];
+                this.lowestCount++;
+                return result;
+            }
+        }
+        let queue = new Queue()
+        queue.enqueue('a')
+        queue.enqueue('b')
+        queue.enqueue('c')
+        queue.enqueue('d')
+        queue.dequeue()
+        queue.dequeue()
+        console.log(queue)
+    </script>
+</body>
+
+</html>

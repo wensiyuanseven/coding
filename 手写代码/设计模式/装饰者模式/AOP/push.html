@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let push = Array.prototype.push
+        Array.prototype.push = function (...args) {
+            // 这里可以自定义代码
+            let result = push.apply(this, args)
+            return result
+        }
+        let arr = []
+        arr.push('1')
+        console.log(arr)
+    </script>
+</body>
+
+</html>

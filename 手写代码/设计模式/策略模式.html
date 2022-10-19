@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+        function getPrice(type, price) {
+            if (type === 'A') {
+                return price * 4
+            }
+            if (type === 'B') {
+                return price * 5
+            }
+        }
+        */
+        const obj = {
+            'A': function (price) {
+                return price * 4
+            },
+            'B': function (price) {
+                return price * 5
+            }
+        }
+        function getPrice(type, price) {
+            return obj[type](price)
+        }
+        getPrice('A', 20)
+    </script>
+</body>
+
+</html>

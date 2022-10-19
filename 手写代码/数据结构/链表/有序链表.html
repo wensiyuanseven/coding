@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    class Node {
+        constructor(element, next) {
+            this.element = element
+            this.next = next
+        }
+    }
+    class LinkList {
+        constructor() {
+            this.count = 0
+            this.head = null
+        }
+        // 根据索引查找元素
+        getElementAt(index) {
+            let node = this.head
+            for (let i = 0; i < index; i++) {
+                node = node.next
+            }
+            return node
+        }
+        // 在任意位置插入某个元素
+        insert(element, index) {
+            let node = new Node(element)
+            // 向首部插入元素
+            if (index === 0) {
+                let oldHead = this.head
+                node.next = oldHead
+                this.head = node
+            } else {
+                let preview = this.getElementAt(index - 1)
+                node.next = preview.next
+                preview.next = node
+            }
+            this.count++
+            return true
+        }
+    }
+
+    class SortLinkList extends LinkList {
+        constructor() {
+            super()
+        }
+        push(element) {
+            // 对比之后找索引
+            const pos = this.getIndex(element);
+            // 然后插入
+            this.insert(element, pos);
+        }
+        // 找索引
+        getIndex(element) {
+            // 从头开始
+            let current = this.head;
+            // 用while循环也行
+            for (let i = 0; i < this.count && current; i++) {
+                // 新添加的值小于当前值
+                if (element < current.element) {
+                    return i;
+                }
+                current = current.next;
+            }
+            // 如果对比之后没找到 说明此值为最大值 直接返回链表长度
+            return this.count;
+        }
+
+    }
+    const sortLinkList = new SortLinkList()
+    sortLinkList.push(3)
+    sortLinkList.push(2)
+    sortLinkList.push(1)
+    sortLinkList.push(100)
+    sortLinkList.push(10)
+    console.log(sortLinkList)
+    </script>
+</body>
+
+</html>

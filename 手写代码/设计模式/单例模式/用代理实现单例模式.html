@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function createDiv() {
+            this.init()
+        }
+        createDiv.prototype.init = function () {
+            let div = document.createElement('div')
+            div.innerHTML = '我是弹框'
+            document.body.appendChild(div)
+        }
+        // 把负责管理单例的逻辑转移到了代理类ProxySingle中，这样一来createDiv就变成了一个普通的类
+        // 这也是代理缓存的应用之一
+        let ProxySingle = (function () {
+            let instance = null
+            return function () {
+                if (instance) {
+                    return instance
+                } else {
+                    return instance = new createDiv()
+                }
+            }
+        })()
+
+        let a = new ProxySingle()
+        let b = new ProxySingle()
+        console.log(a === b)
+    </script>
+</body>
+
+</html>

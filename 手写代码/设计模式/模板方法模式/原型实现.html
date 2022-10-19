@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const Father = function () { }
+        Father.prototype.A = function () {
+            console.log('A')
+        }
+        Father.prototype.B = function () {
+            throw new Error('子类必须重写B')
+        }
+        Father.prototype.C = function () {
+            throw new Error('子类必须重写C')
+        }
+        Father.prototype.D = function () {
+            throw new Error('子类必须重写D')
+        }
+        Father.prototype.isD = function () {
+            return true
+        }
+        Father.prototype.init = function () {
+            this.A()
+            this.B()
+            this.C()
+            if (this.isD()) {
+                this.D()
+            }
+        }
+        const Son = function () { }
+
+        Son.prototype = Object.create(Father.prototype)
+
+        Son.prototype.B = function () {
+            console.log('B')
+        }
+
+        Son.prototype.C = function () {
+            console.log('C')
+        }
+
+        Son.prototype.D = function () {
+            console.log('D')
+        }
+        Son.prototype.isD = function () {
+            return false
+        }
+        const getSon = new Son()
+
+        getSon.init()
+    </script>
+</body>
+
+</html>

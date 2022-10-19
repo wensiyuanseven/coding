@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getValue(obj, express) {
+            const arr = express.split(".")
+            return arr.reduce((prev, next) => {
+                prev = prev[next]
+                return prev
+            }, obj)
+        }
+        let obj = { a: { b: { c: 'ccc' } } }
+        console.log(getValue(obj, 'a.b.c'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function father(params) {
+            const A = params.A || function () {
+                throw new Error('必须传递A方法')
+            }
+            const B = params.B || function () {
+                throw new Error('必须传递B方法')
+            }
+            const C = params.C || function () {
+                throw new Error('必须传递C方法')
+            }
+            const D = params.D || function () {
+                throw new Error('必须传递D方法')
+            }
+            const isD = params.E || function () {
+                return false
+            }
+            function F() { }
+            F.prototype.init = function () {
+                A()
+                B()
+                C()
+                if (isD()) {
+                    // debugger
+                    D()
+                }
+            }
+            return F
+        }
+        let getFather = father({
+            'A': function () {
+                console.log('A')
+            },
+            'B': function () {
+                console.log('B')
+            },
+            'C': function () {
+                console.log('C')
+            },
+            'D': function () {
+                console.log('D')
+            },
+            'E': function () {
+                return true
+            }
+        })
+        new getFather().init()
+    </script>
+</body>
+
+</html>

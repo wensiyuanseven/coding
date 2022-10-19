@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Function.prototype.apply = function (content, args) {
+            // Objecƒt(content) 装箱 假如 this传入的是字符串 fun.apply('abc')  此时this需要指向字符串  字符串需要转换成对象才行
+            content = content ? Object(content) : window;
+            content.fn = this // 此时改变了this的指向 如果不改变的话那么谁调用apply()函数 this指向谁
+            // 利用数组的toString()特性  eval会调用toString() 把变量变成字符串  然后变成可执行的代码 最后执行
+            let result = args ? eval('content.fn(' + args + ')') : content.fn()
+            delete content.fn
+            return result
+        }
+        let obj = { a: 123 }
+
+        function fun(a, b, c) {
+            console.log(a, b, c)
+        }
+
+
+        fun.apply(obj, [1, 2, 3])
+    </script>
+</body>
+
+</html>

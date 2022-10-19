@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function add(num1, num2) {
+            const time1 = num1.toString().split('.')[1].length
+            const time2 = num2.toString().split('.')[1].length
+            let multiple = Math.pow(10, Math.max(time1, time2))
+            return (num1 * multiple + num2 * multiple) / multiple
+        }
+        console.log(add(0.1, 0.2))
+    </script>
+</body>
+
+</html>

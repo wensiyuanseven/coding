@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Node {
+            constructor(element, next) {
+                this.element = element
+                this.next = next
+            }
+        }
+        class LinkList {
+            constructor() {
+                this.count = 0
+                this.head = null
+            }
+            // 根据索引查找元素
+            getElementAt(index) {
+                let node = this.head
+                for (let i = 0; i < index; i++) {
+                    node = node.next
+                }
+                return node
+            }
+        }
+        class CircularLinkedList extends LinkList {
+            constructor() {
+                super()
+            }
+            // 添加
+            push(element) {
+                const node = new Node(element);
+                let current;
+                if (this.head == null) {
+                    this.head = node;
+                } else {
+                    // 根据索引查，从最后一位查
+                    current = this.getElementAt(this.count - 1);
+                    current.next = node;
+                    // 不能会这样查 因为会造成死循环
+                    // current = this.head
+                    // while (current.next != null) {
+                    //     current = current.next
+                    // }
+                    // current.next = node
+                }
+                // 关键代码
+                node.next = this.head;
+                this.count++;
+            }
+            // 插入
+            insert(element, index) {
+                if (index >= 0 && index <= this.count) {
+                    const node = new Node(element);
+                    if (index === 0) {
+                        // circularList.insert(789, 0) // 第一次插入
+                        if (this.head == null) {
+                            this.head = node;
+                            node.next = this.head;
+                        } else {
+                            // 大于第一次插入时 比如 第二次插入到索引为0的节点 第三次插入到索引为0的节点
+                            let current = this.head;
+                            node.next = current;
+                            this.head = node;
+                            // 把尾部next指向首部
+                            current = this.getElementAt(this.count);
+                            current.next = this.head;
+                        }
+                    } else {
+                        // 正常插入
+                        const previous = this.getElementAt(index - 1);
+                        // 因为最后一位next指向的就是head,所以不冲突
+                        node.next = previous.next; //因为如果是最后一位 previous.next正好等于this.head
+                        previous.next = node;
+                    }
+                    this.count++;
+                    return true;
+                }
+                return false;
+            }
+        }
+        let circularList = new CircularLinkedList()
+        circularList.push(123)
+        circularList.push(456)
+        circularList.insert(789, 0)
+        circularList.insert(789, 0)
+        circularList.insert('我是插入的', 2)
+        console.log(circularList)
+
+    </script>
+</body>
+
+</html>

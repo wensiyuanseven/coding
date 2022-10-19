@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function sendAjax(params) {
+            console.log(params)
+        }
+        function proxyAjax() {
+            let arr = []
+            let interval = null
+            return function (data) {
+                arr.push(data)
+                if (interval) return
+                interval = setTimeout(() => {
+                    sendAjax(arr);
+                    interval = null;
+                    arr = []
+                }, 2000)
+            }
+        }
+        let start = proxyAjax()
+        document.onclick = start
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 把当前的参数延迟到最后执行
+        const currying = function (fn) {
+            const result = []
+            return function cost(...arg) {
+                if (arg.length === 0) {
+                    // 直接执行当前的函数
+                    return fn.apply(this, result)
+                } else {
+                    // [].push.apply(result, arg)
+                    result.push(...arg)
+                    return cost
+                }
+            }
+        }
+        const getMoney = function (...arg) {
+            let money = 0
+            for (let i = 0; i < arg.length; i++) {
+                money += arg[i]
+            }
+            return money
+        }
+        let cost = currying(getMoney)
+        cost(10)(20)(30)(40)(2000)
+        console.log(cost())
+    </script>
+</body>
+
+</html>

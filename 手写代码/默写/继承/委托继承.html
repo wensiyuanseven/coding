@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const Father = {
+            init: function () {
+                console.log(123)
+            }
+        }
+
+        let Son = Object.create(Father)
+        Son.init()
+        // 委托不建议使用相同方法名
+        Son.getsONsSelfName = function () {
+            this.init()
+        }
+        Son.getsONsSelfName()
+    </script>
+</body>
+
+</html>

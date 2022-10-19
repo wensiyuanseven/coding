@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const PENDING = 'pending';
+        const RESOLVE = 'resolve';
+        const REJECT = 'reject';
+        class MyPromise {
+            constructor(func) {
+                this.value = ""   // 设置值
+                this.status = PENDING
+                this.callbackResolved = []
+                this.callbackRejected = []
+                function resolved(value) {
+                    if (this.status === PENDING) {
+                        this.status = RESOLVE //改变状态
+                        this.value = value
+                        // 为了异步触发
+                        this.callbackResolved.forEach(fn => fn(this.value))
+                    }
+                }
+                function rejected(value) {
+                    if (this.status === PENDING) {
+                        this.status = REJECT //改变状态
+                        this.value = value
+                        // 为了异步触发
+                        this.callbackRejected.forEach(fn => fn(this.value))
+                    }
+                }
+                try {
+
+                    func(resolved.bind(this), rejected.bind(this))
+
+                } catch (error) {
+                    rejected.call(this, error)
+                }
+            }
+            then(resolved, rejected) {
+                resolved = typeof resolved === 'function' ? resolved.bind(this) : function () { }
+                rejected = typeof rejected === 'function' ? rejected.bind(this) : function () { }
+
+                if (this.status === PENDING) {
+                    this.callbackResolved.push(resolved.bind(this))
+                    this.callbackRejected.push(rejected.bind(this))
+                }
+
+                if (this.status === RESOLVE) {
+                    resolved(this.value)
+                }
+
+                if (this.status === REJECT) {
+                    resolved(this.value)
+                }
+
+                return this
+            }
+        }
+
+        new MyPromise((resolve, reject) => {
+            // setTimeout(() => {
+            resolve('我是谁')
+            
+            reject('hah')
+            // }, 1000)
+        }).then().then(function (data) {
+            console.log(this, data)
+        }, function (err) {
+            console.log(err)
+        })
+    </script>
+</body>
+
+</html>

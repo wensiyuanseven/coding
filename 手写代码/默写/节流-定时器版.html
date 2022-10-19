@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="div">温思远</div>
+    <script>
+        // 节流
+        function throttle(fn, timer = 500) {
+            let interval = null
+            let isFirst = true
+            return function (...args) {
+                if (isFirst) {
+                    fn.apply(this, args)
+                    isFirst = false
+                }
+                console.log(this, '00')
+                if (interval) {
+                    return
+                }
+                interval = setTimeout(() => {
+                    interval = null
+                    clearInterval(interval)
+                    fn.apply(this, args)
+                }, timer)
+            }
+        }
+        // window.onresize = throttle(function (event) {
+        //     console.log(event)
+        // }, 2000)
+        div.addEventListener('click', throttle(function (event) {
+            console.log(event)
+        }, 2000))
+    </script>
+</body>
+
+</html>

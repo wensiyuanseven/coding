@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 反柯里化是一种思想 可以扩大函数的适用范围 这样push函数就跟[].push()一样了
+        Function.prototype.uncurrying = function () {
+            const self = this  // Array.prototype.push
+            return (...args) => {
+                let obj = args.shift()
+                // 想当于 Array.prototype.push.apply(obj,args)
+                return self.apply(obj, args)
+            }
+        }
+        let push = Array.prototype.push.uncurrying()  // 因为this的指向只有在最后一层才会起作用
+        // 数组
+        let arr = [1]
+        push(arr, 2)
+        // 类数组
+        let obj = { '0': 'a', length: 1 }
+        push(obj, 'b')
+        console.log(arr)
+        console.log(obj)
+    </script>
+</body>
+
+</html>

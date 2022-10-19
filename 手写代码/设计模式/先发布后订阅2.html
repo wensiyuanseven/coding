@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let Event = (function () {
+            let cache = {}  // 存储事件的列表{'click':[],'click2':[]}
+            let offlineStack = [] // 发布的包装函数都存储在这里 [fn,fn,fn]
+
+            let _trigger = function () {
+                let key = Array.prototype.shift.call(arguments) // 'click'
+
+                let stack = cache[key] // 当没有订阅时这个地方是空的
+                if (!stack || !stack.length) {
+                    return;
+                }
+                // 这个地方才是真正的已经订阅过了 该发布了  [fn,fn,fn]
+                for (let i = 0; i < stack.length; i++) {
+                    // 传入参数
+                    stack[i].apply(this, arguments)
+                }
+            };
+            return {
+                // 发布时 创建一个包装函数 包装函数的参数把cach也加进去[{},'click','1'] 此时cach是一个空对象
+                // 把这个发布的对象放到栈offlineStack中 []
+                trigger: function () {
+                    args = arguments;
+                    if (offlineStack) {
+                        // 1.存储包装函数 先存储起来 不调用
+                        offlineStack.push(() => {
+                            // 包装函数的参数为 ['click','1']
+                            _trigger.apply(null, args);
+                        });
+                    }
+
+                },
+                // 订阅时 往cache里面放入要触发的函数
+                listener: function (key, fn) {
+                    if (!cache[key]) {
+                        cache[key] = [];
+                    }
+                    // 订阅时cache里面才有值
+                    cache[key].push(fn);  //{'click':[]}
+                    // 遍历数组
+                    for (let i = 0; i < offlineStack.length; i++) {
+                        //fn的this指向 1.存储包装函数 此时并没有调用包装函数
+                        offlineStack[i]() //执行包装函数
+                        cache[key].shift()
+                    }
+
+                }
+            }
+        })()
+
+        Event.trigger('click', 1111);
+
+        // setTimeout(() => {
+
+        Event.listener('click', function (a) {
+            console.log(a, '----'); // 输出：1
+        });
+
+        // }, 2000);
+        // Event.listener('click', function (a) {
+        //     console.log(a); // 输出：1
+        // });
+        // Event.listener('click', function (a) {
+        //     console.log(a); // 输出：1
+        // });
+
+        Event.trigger('click2', 111);
+
+        Event.listener('click2', function (a) {
+            console.log(a);
+        });
+
+        Event.listener('click2', function (a) {
+            console.log(a);
+        });
+    </script>
+</body>
+
+</html>

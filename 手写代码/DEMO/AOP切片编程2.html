@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let push = Array.prototype.push
+        let arr = [1, 2, 3]
+        arr.push = function (...arg) {
+            console.log('处理问题')
+            let newPush = push.call(this, ...arg)
+            return newPush
+        }
+
+        arr.push('4', '5')
+        console.log(arr)
+    </script>
+</body>
+
+</html>

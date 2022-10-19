@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            Function.prototype.after = function (fn) {
+                const self = this; // abc
+                return function (...args) {
+                    self.apply(this, args); // 先执行自己
+                    fn.apply(this, args); // 再执行传入的函数
+                    // console.log(result,'result')
+                    // return '1234'
+                };
+            };
+
+            function abc(a) {
+                console.log(123);
+            }
+
+            function def() {
+                console.log(456);
+            }
+
+            function hij(a) {
+                console.log(789);
+            }
+
+            abc = abc.after(def).after(hij);
+            abc();
+            //理解
+            // abc.after(def)  它返回的是
+            // function (...args) {
+            //         self.apply(this, args) // 先执行自己
+            //         fn.apply(this, args)   // 再执行传入的函数
+            //         // console.log(result,'result')
+            //         // return '1234'
+            // }
+            // 然后这个函数调用 after(hij) 那么这个函数的self就是 abc.after(def) 返回的函数
+            // after(hij)先执行  abc.after(def) 返回的函数  然后再执行hij
+            // 那么abc.after(def) 返回的函数 会去执行abc函数 然后执行def函数
+
+            // 也就是把上一个after执行之后的返回值 会被当做后一个after的父亲
+        </script>
+    </body>
+</html>

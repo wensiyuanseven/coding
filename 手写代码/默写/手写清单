@@ -1,0 +1,41 @@
+call  apply  bind  new  防抖 节流 超时函数 代理合并https请求 继承 委托 mixin
+函数柯里化 反柯里化 去重 链式调用
+
+Object.create()  instanceof  __proto__  精度
+
+Promise()  Promise.all() Promise.race() async原理  休眠函数 async并发处理   next()
+
+数组扁平化  使用reduce实现map  用对象根据某个字段分组 计算每个元素出现的次数  按属性对object分类
+
+驼峰下划线 下划线转驼峰  敏感词过滤 去除首尾空格 字符串替换(2017-1-2/2017.1.2)
+
+拖拽,pc端  图片懒加载  图片预加载  可视区
+
+交集 并集 差集  发布订阅模式 观察者模式
+
+after函数   before函数  模板方法模式  proxy实现set/get sort  适配器模式  单例模式 代理缓存乘积  切片编程
+
+动态创建script  原生dom增删改查
+
+阶乘  斐波那契数列  尾调用优化
+
+冒泡  快排  插入  选择  二分   随机算法
+
+
+// ----------------------------------
+缓冲运动，摩擦运动 加速运动
+对象池  状态机  组合模式  模拟类数组
+切片编程  sort
+query转对象/对象转query
+
+
+todo  深拷贝  MVC MVP
+复习
+数据结构+项目+数学 canvas动画+vue原理
+
+
+函数柯里化
+反柯里化
+myInstanceof
+async原理
+

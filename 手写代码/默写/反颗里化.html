@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 反颗粒化 -->
+    <script>
+        Function.prototype.uncurrying = function () {
+            let self = this
+            // 我去
+            return function (...args) {
+                let obj = args.shift()
+                return self.apply(obj, args)
+            }
+        }
+        let push = Array.prototype.push.uncurrying()
+        let arr = []
+        push(arr, 123)
+        console.log(arr)
+
+    </script>
+</body>
+
+</html>

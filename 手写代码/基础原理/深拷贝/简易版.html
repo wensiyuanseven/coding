@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 无法解决循环引用的问题
+        function deepClone(obj) {
+            function isObject(o) {
+                // 不需要 typeof o === 'function'此判断 因为如果是函数的话不需要深拷贝
+                return (typeof o === 'object') && o !== null
+            }
+            if (!isObject(obj)) {
+                throw new Error('非对象')
+            }
+            let isArray = Array.isArray(obj)
+            // 为什么要用扩展运算符？
+            // 因为函数也是对象，必须的用扩展运算符包裹,才能被ownKeys循环
+            let newObj = isArray ? [...obj] : { ...obj }
+            Reflect.ownKeys(newObj).forEach(key => {
+                newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]
+            })
+            return newObj
+        }
+
+        let obj = {
+            a: [1, 2, 3],
+            b: {
+                c: 2,
+                d: 3
+            },
+            data: new Date(),
+            c: undefined,
+            d: function () { },
+            r: Symbol()
+        }
+        // obj.b.c = obj.b
+        let newObj = deepClone(obj)
+        console.log(obj) // 2
+    </script>
+</body>
+
+</html>

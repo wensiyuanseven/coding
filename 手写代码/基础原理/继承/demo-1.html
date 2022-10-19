@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function abc() {
+            this.name = '温思远'
+        }
+        abc.prototype.getName = function () {
+            console.log(this,'this')
+        }
+
+        console.log(new abc(), abc.prototype)
+
+        new abc().getName()
+
+        abc.prototype.getName()
+
+    </script>
+</body>
+
+</html>

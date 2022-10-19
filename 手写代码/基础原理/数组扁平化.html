@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 方案1
+        let arr = [[12, [234], [1245656, 'ASADDQD', ['哈哈']]], ['ssssCCAC', 'sssss'], '123']
+
+        function flatten(arr) {
+            let res = [];
+            for (let i = 0, length = arr.length; i < length; i++) {
+                res.concat(Array.isArray(arr[i]) ? flatten(arr[i]) : arr[i]);
+            }
+            return res;
+        }
+        console.log(flatten(arr), '------')
+
+
+        // 方案2
+        let newArr = []
+        function handleArr(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                if (Array.isArray(arr[i])) {
+                    handleArr(arr[i])
+                } else {
+                    newArr.push(arr[i])
+                }
+            }
+        }
+
+        handleArr(arr)
+
+        // 方案3
+        let arr1 = [1, 2, [3, [10]]];
+        function flatten(arr) {
+            return arr.reduce((result, item) => {
+                return result.concat(Array.isArray(item) ? flatten(item) : item)
+            }, []);
+        }
+
+        console.log(flatten(arr1))
+    </script>
+</body>
+
+</html>

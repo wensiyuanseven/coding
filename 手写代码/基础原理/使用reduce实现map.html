@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 拿到返回值
+        Array.prototype.map = function (callback) {
+            return this.reduce((mappedArray, currentValue, index, array) => {
+                // 数组的每一项都等于回调的返回值
+                mappedArray[index] = callback(currentValue, index, array)
+                return mappedArray
+            }, [])
+        };
+
+        let arr = [1, 2, 3].map((currentValue, index, array) => 123)
+
+        console.log(arr)
+    </script>
+</body>
+
+</html>

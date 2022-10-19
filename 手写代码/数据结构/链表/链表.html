@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Node {
+            constructor(element, next) {
+                this.element = element
+                this.next = next
+            }
+        }
+        class LinkList {
+            constructor() {
+                this.count = 0
+                this.head = null
+            }
+            // 向链表末尾添加元素
+            push(element) {
+                let node = new Node(element)
+                let current;
+                // 向头部添加元素
+                if (this.count == 0) {
+                    this.head = node
+                } else {
+                    current = this.head
+                    while (current.next != null) {
+                        current = current.next
+                    }
+                    current.next = node
+                }
+                this.count++
+            }
+            // 获取当前元素的位置
+            getIndex(element) {
+                let current = this.head
+                for (let i = 0; i < this.count; i++) {
+                    if (element === current.element) {
+                        return i
+                    }
+                    current = current.next
+                }
+                return -1
+            }
+            // 根据索引查找元素
+            getElementAt(index) {
+                let node = this.head
+                for (let i = 0; i < index; i++) {
+                    node = node.next
+                }
+                return node
+            }
+            // 根据索引移除元素
+            removeAt(index) {
+                if (index === 0) {
+                    let current = this.head
+                    this.head = current.next
+                } else {
+                    // 根据索引拿到上一个元素
+                    let preview = this.getElementAt(index - 1)
+                    // 然后做相应的处理
+                    let removeNode = preview.next
+                    preview.next = removeNode.next
+                }
+                this.count--
+            }
+            // 删除某个元素
+            remove(element) {
+                // 拿到当前元素的索引
+                let index = this.getIndex(element)
+                // 根据索引移除元素【根据索引查找上一个元素】
+                this.removeAt(index)
+            }
+            // 在任意位置插入某个元素
+            insert(element, index) {
+                let node = new Node(element)
+                // 向首部插入元素
+                if (index === 0) {
+                    let oldHead = this.head
+                    this.head = node
+                    this.head.next = oldHead
+                } else {
+                    let preview = this.getElementAt(index - 1)
+                    node.next = preview.next
+                    preview.next = node
+                }
+                this.count++
+                return true
+            }
+        }
+        let linkList = new LinkList()
+        // 添加
+        linkList.push('a')
+        linkList.push('b')
+        linkList.push('c')
+        linkList.push('d')
+        // 删除某个元素
+        linkList.remove('b')
+        console.log(linkList)
+    </script>
+</body>
+
+</html>

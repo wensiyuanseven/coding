@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一个类数组 是对象 可以当数组一样用
+        var obj = {
+            "0": 'A',
+            "1": "B",
+            "2": "c",
+            name: "obj",
+            age: 18,
+            "length": 3,
+            "push": Array.prototype.push,
+            "splice": Array.prototype.splice  // 加上该方法，就长得和数组一样了
+        }
+
+        obj.push('温思远')
+
+        console.log(obj, Array.prototype.slice.call(obj))
+    </script>
+</body>
+
+</html>

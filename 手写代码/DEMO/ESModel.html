@@ -1,0 +1,42 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-10-17 18:36:56
+ * @LastEditTime: 2021-07-13 14:15:29
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /手写代码/DEMO/ESModel.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- <script src="/Users/siyuan/Desktop/DEMO/a.js "></script> -->
+    </head>
+
+    <body>
+        <button id="btn">点击</button>
+        <!-- https://blog.csdn.net/qq_44163269/article/details/105116173 -->
+        <!-- mdn 中也指名了 -->
+        <!-- 跨域问题 张鑫旭 -->
+        <!-- https://www.zhangxinxu.com/wordpress/2018/08/browser-native-es6-export-import-module/?shrink=1 -->
+
+        <!-- 跨域了 -->
+        <!-- 你需要注意本地测试 —
+    如果你通过本地加载Html 文件 (比如一个 file:// 路径的文件), 你将会遇到 CORS 错误，因为Javascript 模块安全性需要。你需要通过一个服务器来测试 -->
+        <script type="module" >
+            import message from "./module.js";
+            document.getElementById('btn').addEventListener("click", (event) => {
+                import("./dialogBox.js")
+                    .then((item) => {
+                       console.log(item)
+                    })
+                    .catch((error) => {
+                        /* Error handling */
+                    });
+            });
+            console.log(message); // hello world
+        </script>
+    </body>
+</html>

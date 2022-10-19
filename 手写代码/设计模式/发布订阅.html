@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>发布订阅</title>
+    </head>
+
+    <body>
+        <script>
+            class Subject {
+                constructor() {
+                    this.event = {};
+                }
+                reject(name, fn) {
+                    if (this.event[name]) {
+                        this.event[name].push(fn);
+                    } else {
+                        this.event[name] = [fn];
+                    }
+                }
+
+                dispatch(name, args) {
+                    if (this.event[name]) {
+                        for (let i = 0; i < this.event[name].length; i++) {
+                            this.event[name][i].call(this, name, args);
+                        }
+                    }
+                }
+
+                delete(name, fn) {
+                    if (Array.isArray(this.event[name])) {
+                        for (let i = 0; i < this.event[name].length; i++) {
+                            if (this.event[name][i] === fn) {
+                                this.event[name].splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            let subject = new Subject();
+            const clickFn1 = function (name, args) {
+                console.log(this);
+                console.log(name, args);
+            };
+            const clickFn2 = function (name, args) {
+                console.log(this);
+                console.log(name, args);
+            };
+            subject.reject("click", clickFn1);
+            subject.reject("click", clickFn2);
+            subject.delete("click", clickFn1);
+            subject.dispatch("click", "触发click");
+        </script>
+    </body>
+</html>

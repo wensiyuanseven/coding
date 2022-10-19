@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完整版</title>
+</head>
+
+<body>
+    <script>
+        // https://zh.javascript.info/bubbling-and-capturing
+        // https://blog.csdn.net/qq_41846861/article/details/102296436
+        // 循环检测 解决方案很简单，其实就是循环检测，我们设置一个数组或者哈希表存储已拷贝过的对象
+        // 当检测到当前对象已存在于哈希表中时，取出该值并返回即可（其实就是返回了引用）
+        // obj instanceof Date相当于 new a() instanceof a
+        // new Date(obj) 返回了一个新的对象 就相当于又返回了一份新的
+        // new obj.constructor 的理解
+        // 如果不这样写 那么需要判断是否是对象还是数组  new obj.constructor 生成一个新的对象或数组 更方便
+        function deepClone(obj, hash = new WeakMap()) {
+            if (obj == null || typeof obj !== 'object') return obj // 如果是 null 或者 undefined就不进行拷贝操作 函数或者普通的值直接返回不需要深拷贝 因为函数是用来调用的
+            if (obj instanceof Date) return new Date(obj)  // 如果obj是Date或RegExp就返回对应的新实例
+            if (obj instanceof RegExp) return new RegExp(obj) // new a() instanceof a
+            // 为什么return之后引用也会被切断 ？ weakMap中存储的值能够切断栈中的联系，重新分配地址
+            if (hash.has(obj)) return hash.get(obj)
+            let cloneObj = Array.isArray() ? [] : {}
+            hash.set(obj, cloneObj)
+            // Reflect.ownKeys方法用于返回对象的所有属性
+            // 基本等同于 Object.getOwnPropertyNames与Object.getOwnPropertySymbols之和
+            Reflect.ownKeys(obj).forEach(key => {
+                cloneObj[key] = deepClone(obj[key], hash)
+            })
+            return cloneObj
+        }
+
+
+        let obj = {
+            a: [1, 2, 3],
+            b: {
+                c: 2,
+                d: 3
+            },
+            data: new Date(),
+            c: undefined,
+            d: function () { },
+            [Symbol('a')]: 'localSymbol',
+        }
+
+        obj.b.c = obj.b
+        let newObj = deepClone(obj)
+        console.log(newObj, obj) // 2
+        newObj.b.c.b = '我是'
+
+    </script>
+</body>
+
+</html>

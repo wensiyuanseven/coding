@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function timeOut(fn, time = 2000) {
+            let interval = setTimeout(() => {
+                interval = null
+                fn(new Error('超时'))
+            }, time)
+            return function (...args) {
+                // 还没有超时
+                if (interval) {
+                    clearInterval(interval)
+                    fn.apply(this, args)
+                }
+            }
+        }
+
+        function getData(data, aaaa) {
+            console.log(data, aaaa)
+        }
+
+        function ajax(url, callback) {
+            setTimeout(() => {
+                callback('1111',1111)
+            }, 50)
+        }
+        ajax('baidu.com', timeOut(getData, 1000))
+    </script>
+</body>
+
+</html>

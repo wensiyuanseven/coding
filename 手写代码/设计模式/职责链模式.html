@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 理解  执行两边after 就会调用两边after返回的函数
+        Function.prototype.after = function (fn) {
+            let self = this
+            return (...arg) => {
+                //当调用order()时 执行oredr500()
+                var ret = self.apply(null, arg)
+                // 如果oredr500返回success 执行传入的函数
+                if (ret === 'success') {
+                    // console.log(fn.apply(null, arg),'---')
+                    return fn.apply(null, arg)
+                }
+            }
+            // console.log(result, '函数') //再不执行order()时 会打印两遍
+            // return result
+        }
+        var oredr500 = function () {
+            console.log(500)
+            return 'success'
+        }
+        var order200 = function () {
+            console.log(200)
+            return 'success'
+        }
+        var order100 = function () {
+
+            console.log(100)
+        }
+        var order = oredr500.after(order200).after(order100)
+        // 还没调用order()时 会先执行两个after 会返回两个函数 fun1(){...}   fun2(){...}
+        order('1')
+        // 调用 order() 时的执行顺序
+        // oredr500()==>return 'success'==>order200()==>return 'success' [此时第一个after返回的函数执行完毕 返回 'success'']
+
+        //开始执行after返回的第二个函数 因为order()相当于启动了链式调用 会去主动执行 fun2().....就这样吧
+
+
+        // oredr500.after(order200).after(order100)
+        // 执行了两遍after怎么理解  第一遍执行after返回了一个函数  第二遍执行after也是返回了一个函数
+        // 因为第一遍执行的时候返回的是函数所以它的原型上也有after  所以第二次执行也是又执行了一边函数
+
+        // order('1')
+        // oredr500.after(order200)()
+        // order()执行after返回的函数 return  "success"  得以让 order200这个函数执行
+        // 又因为order200也是一个函数并且order200后面有一个.after
+        // 所以会先去执行第二个after里面返回的函数体 (注意：此时再order还没调用时两个after就已经执行过了)
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Function.prototype.call = function (...args) {
+            const self = args.shift()
+            const obj = self == null ? window : Object(self)
+            obj.fn = this
+            const result = obj.fn(...args)
+            delete obj.fn
+            return result
+        }
+        let obj = { a: '123' }
+        function demo(a, b, c) {
+            console.log(this, a, b, c)
+        }
+        demo.call(obj, 1, 2, 3)
+    </script>
+</body>
+
+</html>

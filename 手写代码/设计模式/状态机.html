@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const Fsm = {
+            off: {
+                changeStatus() {
+                    console.log('关灯')
+                    this.button.innerHTML = '下一次按我是开灯'
+                    this.currentState = Fsm.on
+                }
+            },
+            on: {
+                changeStatus() {
+                    console.log('开灯')
+                    this.button.innerHTML = '下一次按我是关灯'
+                    this.currentState = Fsm.off
+                }
+            }
+        }
+        // js版本状态机
+        let Light = function () {
+            this.currentState = Fsm.off;
+            this.button = null;
+        }
+        Light.prototype.init = function () {
+            let buttom = document.createElement('buttom')
+            buttom.innerHTML = '已经关灯'
+            document.body.appendChild(buttom)
+            this.button = buttom
+            let self = this
+            this.button.onclick = function () {
+                self.currentState.changeStatus.call(self)
+            }
+        }
+
+        new Light().init()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let myArray = [1, 2, 1, 2, 3, 5, 4, 5, 3, 4, 4, 4, 4];
+        let obj = {}
+        let newArr = []
+        myArray.forEach(item => {
+            if (!obj[item]) {
+                obj[item] = true
+                newArr.push(item)
+            }
+        });
+        console.log(newArr)
+
+    //         // 去重
+    //         let obj = {};
+    //    const result = materialList.reduce((cur,next) => {
+    //        if(!obj[next.materialName]){
+    //          obj[next.materialName] = true
+    //          cur.push(next);
+    //        }
+    //        return cur;
+    //     },[])
+    </script>
+</body>
+
+</html>

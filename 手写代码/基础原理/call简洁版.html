@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Function.prototype.call = function (...args) {
+            const that = args.shift()
+            // 装箱
+            const context = args.length && that != null ? Object(that) : window
+            context.fn = this
+            const result = context.fn(...args) // args是一个数组，把数组展开
+            delete context.fn
+            return result
+        }
+
+        let obj = { a: 123 }
+        function fun(a, b) {
+            console.log(this, a, b)
+        }
+        fun.call(obj, 1, 2)
+        function fun2() {
+            console.log('执行')
+        }
+
+        // 这种最后执行的是fun2  因为每个函数上都有这个call方法  记住call是一个方法
+        // this改变值向后指向的就是它自己  context.fn = this, 最后执行的也就是fn2本身了
+        // 相当于 fun2.call()
+        // fun.call.call(fun2)
+    </script>
+</body>
+
+</html>

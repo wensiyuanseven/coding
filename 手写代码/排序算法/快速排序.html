@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 利用递归操作
+        function quickSort(arr) {
+            if (arr.length <= 1) {
+                return arr
+            }
+            let index = Math.floor(arr.length / 2)
+            let val = arr.splice(index, 1)[0]   //  为什么不用index?因为index不会改变原数组
+            let left = []
+            let right = []
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] < val) {
+                    left.push(arr[i])
+                } else {
+                    right.push(arr[i])
+                }
+            }
+            return quickSort(left).concat(val, quickSort(right))
+        }
+
+        console.log(quickSort([49, 20, 19, 12]))
+
+    </script>
+</body>
+
+</html>

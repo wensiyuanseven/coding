@@ -1,0 +1,44 @@
+问题记录
+￼设计弹框动画时遮罩层为什么要和内容区域分开？  看dam-dialog
+￼css三角形+箭头实现方式：
+https://www.jianshu.com/p/cf7d5920a7ed
+https://juejin.cn/post/697251578526878928
+
+3. 倍图是相对于谁定义的？375还是750？
+
+4. css 去除标签中最后一个子元素的margin?
+
+使用line-height
+https://blog.csdn.net/m54584mnkj/article/details/1066061
+5. GET请求如何传递数组？
+https://juejin.cn/post/7087073910243459079   //node服务端模拟一下
+
+6. GET请求可以有 body 吗?
+https://zhuanlan.zhihu.com/p/456921996
+
+7. 如何有也得捕获async await
+https://libin1991.github.io/2019/01/25/async-await%E4%BC%98%E9%9B%85%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/ 
+
+8. event.target.value = event.target.value.replace(/[^0-9]/g, "") 可以限制输入的值
+
+9. 字符串true转布尔true
+  方法1 JSON.parse('true') 
+  方法2  (/^true$/i).test(value) 正则
+
+10. 为什么 img/parse.png
+ https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+纯字符串形式的数据用JSON.parse()解析会报错 需要：JSON.parse('"foo"') // "foo"
+场景：
+接口返回纯字符串形式的数据用JSON.parse()解析会报错
+原因是因为 字符串没有加 '' 单引号包裹  （代码不能模拟，因为接口返回的字符串有双引号需要转义） 所以需要用JSON.stringify() 转换一下
+即 JSON.parse(JSON.stringify(res))
+原因是因为 字符串没有加 '' 单引号包裹  （代码不能模拟，因为接口返回的字符串有双引号需要转义） 所以需要用JSON.stringify() 转换一下
+即 JSON.parse(JSON.stringify(res))
+
+11. flex布局
+
+12. 报错记录
+
+Uncaught SyntaxError: Unexpected token &lt； 错误完美解决
+
+https://blog.csdn.net/qiuyu6958334/article/details/88735197

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let a = new Set([1, 2, 3]);
+        let b = new Set([4, 3, 2]);
+
+        // // 并集
+        // let union = new Set([...a, ...b]);
+        // // Set {1, 2, 3, 4}
+
+        // 交集
+        // let intersect = [...a].filter(x => b.has(x))
+        // console.log(intersect, '---')
+        // set {2, 3}
+
+        // // （ a 相对于 b 的 ）差集
+        // let difference = new Set([...a].filter(x => !b.has(x)));
+        // Set {1}
+
+        let a = [1, 2, 3, 1111]
+        let b = [4, 3, 2, 23]
+
+        let result = a.reduce((all, item) => {
+            if (b.includes(item)) {
+                all.push(item)
+            }
+            return all
+        }, [])
+
+        console.log(result)
+
+    </script>
+</body>
+
+</html>

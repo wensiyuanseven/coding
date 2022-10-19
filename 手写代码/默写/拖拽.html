@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div {
+            width: 200px;
+            height: 200px;
+            border: 2px solid seagreen;
+            position: absolute;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div"></div>
+    <script>
+        let fingerTarger = null;  //手指坐标
+        let eleTarger = null; //元素坐标
+
+        div.addEventListener('touchstart', event => {
+            fingerTarger = event.changedTouches[0].pageX
+            eleTarger = parseFloat(getComputedStyle(div).left)
+        })
+        div.addEventListener('touchmove', event => {
+            currentTarget = event.changedTouches[0].pageX
+            div.style.left = (eleTarger + currentTarget - fingerTarger) + 'px'
+        })
+
+    </script>
+</body>
+
+</html>

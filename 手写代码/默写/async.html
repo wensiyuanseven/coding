@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- then -->
+        <button onclick="abc()">点击</button>
+        <script>
+            function faceRecognition() {
+                let tims = 0;
+                return async function (params) {
+                    if (tims >= 3) {
+                        debugger;
+                        return true;
+                    }
+                    const isContinue = await getUserInfo(); //通过  true
+
+                    if (isContinue) {
+                        // 人脸识别
+                        const isSuccess = await startLiveness(params);
+                        if (isSuccess) {
+                            return true;
+                            tims = 0;
+                        } else {
+                            tims++;
+                            return false;
+                        }
+                    } else {
+                        // 版本低
+                        return false;
+                    }
+                };
+            }
+            // 开始识别
+            function startLiveness(params) {
+                return new Promise((resolve, reject) => {
+                    resolve(false);
+                    // reject(false);
+                });
+            }
+
+            function getUserInfo() {
+                return new Promise((resolve, reject) => {
+                    resolve(true);
+                    // reject(false);
+                });
+            }
+            let result = faceRecognition();
+            function abc() {
+                result()
+                    .then((res) => {
+                        debugger;
+                    })
+                    .catch((err) => {
+                        // 可能是版本过低，
+                        // 直接跳过
+                        debugger;
+                    });
+            }
+        </script>
+    </body>
+</html>

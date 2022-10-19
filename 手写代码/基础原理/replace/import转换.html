@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            let text =
+                /[const|let|var]\s+.+\s*=\s*\(\s*\)\s*=>\s*import\s*\(['"](.+)['"]\)/g.test(
+                    "const index = () => import ('@/pages/apply-module/index.vue') "
+                );
+            console.log(text);
+
+            // import changePassword from '@/pages/user-module/change-password.vue'
+            let str =
+                "let index = () => import('@/pages/apply-module/index.vue') //首次报名const joinRequest = () => import('@/pages/apply-module/join-request.vue') //加盟要求 const personalInfo = () => import('@/pages/apply-module/personal-info.vue') //个人信息 const drivingLicenseInfo = () => import('@/pages/apply-module/driving-license-info.vue') //驾照信息";
+            let abc = str.replace(
+                /(const|let|var)\s+(\w+)\s*=\s*\(\s*\)\s*=>\s*import\s*\(['"](@[/-\w]+\.vue)['"]\)/g,
+                ($0, $1, $2,$3) => {
+                    const result = `
+                    import ${$2} from "${$3}"
+                    `;
+                    return result;
+                }
+            );
+            console.log(abc);
+        </script>
+    </body>
+</html>

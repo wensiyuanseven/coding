@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完整版</title>
+</head>
+
+<body>
+    <script>
+        // new obj.constructor 的理解
+        // 如果不这样写 那么需要判断是否是对象还是数组  new obj.constructor生成一个新的对象或数组 更方便
+        function deepClone(obj, hash = new WeakMap()) {
+            if (obj == null) return obj //如果是null或者undefined就不进行拷贝操作
+            if (obj instanceof Date) return new Date(obj)  // 如果obj是Date或RegExp就返回对应的新实例
+            if (obj instanceof RegExp) return new RegExp(obj)
+            if (typeof obj !== 'object') return obj // 函数或者普通的值直接返回 不需要深拷贝 因为函数是用来调用的
+            // 为什么return之后引用也会被切断？ weakMap中存储的值能够切断栈中的联系 重新分配地址
+            if (hash.has(obj)) return hash.get(obj)
+            let cloneObj = new obj.constructor  // 创建一个新实例temp，并保存进map
+            hash.set(obj, cloneObj)
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    // hash存储时有引用关系
+                    cloneObj[key] = deepClone(obj[key], hash)
+                }
+            }
+            return cloneObj
+        }
+
+        // let date = new Date()
+        // let newObj = deepClone(date)
+
+        let obj = {
+            a: [1, 2, 3],
+            b: {
+                c: 2,
+                d: 3
+            },
+            data: new Date(),
+            c: undefined,
+            d: function () { },
+            r: Symbol()
+        }
+        obj.b.c = obj.b
+        let newObj = deepClone(obj)
+        console.log(newObj, obj) // 2
+        newObj.b.c.b = '我是'
+
+    </script>
+</body>
+
+</html>

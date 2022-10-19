@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // mvvm思想
+        class Dep {
+            constructor() {
+                this.watchers = []
+            }
+            reject(watcher) {
+                this.watchers.push(watcher)
+            }
+            dispatch() {
+                for (let i = 0; i < this.watchers.length; i++) {
+                    this.watchers[i].update()
+                }
+            }
+        }
+        class Watcher {
+            update() {
+                console.log('触发')
+            }
+        }
+
+        let watcher1 = new Watcher()
+        let watcher2 = new Watcher()
+        let watcher3 = new Watcher()
+
+        let dep = new Dep()
+        dep.reject(watcher1)
+        dep.reject(watcher2)
+        dep.reject(watcher3)
+
+        dep.dispatch()
+    </script>
+</body>
+
+</html>

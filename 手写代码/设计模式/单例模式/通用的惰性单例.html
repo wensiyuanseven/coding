@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let single = (() => {
+        //     let instance;
+        //     return function (...args) {
+        //         instance ? instance : instance = args.shift().apply(this, args)
+        //     }
+        // })()
+
+        // function createDiv() {
+        //     let div = document.createElement('div')
+        //     div.innerHTML = '我是弹框'
+        //     document.body.appendChild(div)
+        // }
+        // new single(createDiv)
+
+        // 惰性单例意思是指 在需要的时候才去创建对象实例，并且只创建唯一一个
+        let single = function (fn) {
+            let instance;
+            return function () {
+                console.log(instance)
+                // instance ? instance : instance = fn.apply(this, arguments)
+                return instance || (instance = fn.apply(this, arguments))
+            }
+        }
+
+        function createDiv() {
+            let div = document.createElement('div')
+            div.innerHTML = '我是弹框'
+            document.body.appendChild(div)
+            return div
+        }
+
+        let createSingle = single(createDiv)
+        new createSingle()
+        new createSingle()
+        new createSingle()
+        // console.log(new createSingle() === new createSingle())
+
+    </script>
+</body>
+
+</html>

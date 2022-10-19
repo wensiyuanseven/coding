@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        Function.prototype.apply = function (...args) {
+            const that = args.shift()
+            const context = args.length && that != null ? Object(that) : window
+            context.fn = this
+            const result = args.length ? context.fn(...args[0]) : context.fn()
+            delete context.fn
+            return result
+        }
+
+        let obj = { a: 123 }
+
+        function fun(a, b) {
+            console.log(this, a, b)
+        }
+
+        fun.apply(obj, [1, 2])
+
+    </script>
+</body>
+
+</html>

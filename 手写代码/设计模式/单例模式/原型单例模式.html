@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function single(params) {
+            // todo
+        }
+        single.prototype.alert = function () {
+            alert('abc')
+        }
+        single.createDiv = (function () {
+            let instance = null
+            return function () {
+                if (instance) {
+                    return instance
+                } else {
+                    return instance = new single()
+                }
+            }
+        })();
+        let getSingle = single.createDiv()
+
+        getSingle.alert()
+    </script>
+</body>
+
+</html>

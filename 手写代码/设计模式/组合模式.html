@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 都是相同的对象
+        const closeDoor = {
+            dispatch: function () {
+                console.log('关门')
+            }
+        }
+        const openPc = {
+            dispatch: function () {
+                console.log('开电脑')
+            }
+        }
+
+        const openTv = {
+            dispatch: function () {
+                console.log('看电视')
+            }
+        }
+
+        const sleep = {
+            dispatch: function () {
+                console.log('睡觉')
+            }
+        }
+
+        let command = function () {
+            return {
+                cache: [],
+                add: function (command) {
+                    this.cache.push(command)
+                },
+                dispatch: function () {
+                    for (let i = 0, item; item = this.cache[i++];) {
+                        item.dispatch()
+                    }
+                }
+            }
+        }
+
+        let initCommand1 = command()
+        initCommand1.add(closeDoor)
+        initCommand1.add(openPc)
+
+        let initCommand2 = command()
+        initCommand2.add(openTv)
+        initCommand2.add(sleep)
+
+        // 把commit1和commit2添加到commit3上面
+
+        let initCommand3 = command()
+
+        initCommand3.add(initCommand1)
+        initCommand3.add(initCommand2)
+
+        // [{cache:[{dispatch:(){console.log('睡觉')}}, {dispatch:(){console.log('睡觉')}], dispatch:fn]
+
+        // 递归操作会去处理自己的数组
+        // 添加进去的是两个对象
+        console.log(initCommand3, 'catch')
+
+        //  先调用两个对象中的dispatch 然后再调用 每个item的dispatch 而每个item又是一个对象 所以会去触发dispatch函数
+        initCommand3.dispatch()
+    </script>
+</body>
+
+</html>

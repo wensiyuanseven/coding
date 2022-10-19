@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 驼峰转换下划线
+        function toLine(name) {
+            return name.replace(/[A-Z]/g, $0 => {
+                console.log($0)
+                return '_' + $0.toLowerCase()
+            })
+        }
+
+        let b = 'aBdaNf';
+        console.log(toLine(b));
+    </script>
+</body>
+
+</html>

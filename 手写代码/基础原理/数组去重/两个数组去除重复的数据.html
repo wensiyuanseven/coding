@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            let list = ["a", "g", "b", "c", "d", "hh"];
+            let frontList = ["c", "d", "b", "f", "g"];
+            let abc = list.reduce((accumulator, currentValue) => {
+                if (frontList.findIndex((item) => item == currentValue) == -1) {
+                    accumulator.push(currentValue);
+                }
+                return accumulator;
+            }, []);
+            console.log(abc, frontList);
+            // 方法2
+            var arr1 = [a, b, c];
+            var arr2 = [a, b, c, d];
+            let list = arr2.filter((items) => {
+                if (!arr1.includes(items)) return items;
+            });
+            console.log(list);
+        </script>
+    </body>
+</html>

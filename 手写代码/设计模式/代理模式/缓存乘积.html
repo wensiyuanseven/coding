@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 传入一个通用的加减函数
+        function add(...args) {
+            let result = 0
+            for (let i = 0, item; item = args[i++];) {
+                result += item
+            }
+            return result
+        }
+
+        function createProxFactory(fn) {
+            let cache = {}
+            return function (...args) {
+                let str = args.join()
+                if (str in cache) {
+                    return cache[str]
+                }
+                return cache[str] = fn.apply(this, args)
+            }
+        }
+        let computedAdd = createProxFactory(add)
+        console.log(computedAdd(1, 2, 3))
+        console.log(computedAdd(1, 2, 3))
+    </script>
+</body>
+
+</html>

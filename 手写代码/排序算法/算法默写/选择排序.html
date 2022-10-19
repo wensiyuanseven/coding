@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function sort(arr) {
+            for (let i = 0; i < arr.length - 1; i++) {
+                let minIndex = i
+                let minVal = arr[minIndex]
+                for (let j = i; j < arr.length; j++) {
+                    if (minVal > arr[j]) {
+                        minIndex = j
+                    }
+                }
+                if (i !== minIndex) {
+                    // 交换元素
+                    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
+                }
+
+            }
+            return arr
+        }
+        console.log(sort([8, 3, 1, 2, 10, 1, 1, 45, -10]))
+    </script>
+</body>
+
+</html>

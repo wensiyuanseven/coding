@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const toolFactory = (function () {
+            const pool = []
+            return {
+                create() {
+                    if (pool.length === 0) {   // 如果对象池为空，返回div
+                        let div = document.createElement('div')
+                        document.body.appendChild(div)
+                        return div
+                    } else {  // 取出来
+                        console.log(pool)
+                        return pool.shift()
+                    }
+                },
+                recover(dom) {
+                    return pool.push(dom)
+                }
+            }
+
+        })()
+
+        const ary = []
+
+        // 第一次创建
+        for (let i = 0, str; str = ['A', 'B'][i++];) {
+            let div = toolFactory.create()
+            div.innerHTML = str
+            ary.push(div)
+        }
+
+        // 回收   此时对象池中有两个节点
+        for (let i = 0, div; div = ary[i++];) {
+            toolFactory.recover(div)
+        }
+
+        // 再用
+        for (let i = 0, str; str = ['S', 'G', 'C', 'D'][i++];) {
+            // 前两个可以复用，后面的都会重新创建
+            let div = toolFactory.create()
+            div.innerHTML = str
+        }
+
+        // 用完之后可以再回收
+        // todo
+
+
+    </script>
+</body>
+
+</html>

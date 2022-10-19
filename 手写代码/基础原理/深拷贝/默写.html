@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>完整版</title>
+</head>
+
+<body>
+    <script>
+        function deepClone(obj, hash = new WeakMap()) {
+            if (obj == null || typeof obj !== 'object') return obj
+            if (obj instanceof Date) return new Date(obj)
+            if (obj instanceof RegExp) return new RegExp(obj)
+            if (hash.has(obj)) return hash.get(obj)
+            let cloneObj = Array.isArray() ? [] : {}
+            hash.set(obj, cloneObj)
+            Reflect.ownKeys(obj).forEach(key => {
+                cloneObj[key] = deepClone(obj[key], hash)
+            })
+            return cloneObj
+        }
+        let obj = {
+            a: [1, 2, 3],
+            b: {
+                c: 2,
+                d: 3
+            },
+            data: new Date(),
+            c: undefined,
+            d: function () { },
+            [Symbol('a')]: 'localSymbol',
+        }
+
+        obj.b.c = obj.b
+        let newObj = deepClone(obj)
+        console.log(newObj, obj)  // 2
+        newObj.b.c.b = '我是'
+
+    </script>
+</body>
+
+</html>

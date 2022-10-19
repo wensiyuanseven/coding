@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app"><span v-html="attack"></span></div>
+
+    <!-- 不执行原因https://developer.mozilla.org/zh-CN/docs/Web/API/Element/innerHTML#%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98 -->
+    <script>
+        // new Vue({
+        //     el: '#app',
+        //     data: {
+        //         attack: "<script> alert('123')<\/script>"
+        //     }
+        // })
+
+        let a = {
+            toString: function () {
+                return 'abc'
+            }
+        }
+        console.log(a.toString())
+    </script>
+</body>
+
+</html>

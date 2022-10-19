@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 案例
+        // const googleMap = {
+        //     show: function () {
+        //         console.log('开始渲染谷歌地图')
+        //     }
+        // }
+        // const baiduMap = {
+        //     show: function () {
+        //         console.log('开始渲染百度地图')
+        //     }
+        // }
+
+        // const renderMap = function (map) {
+        //     if (map.show) {
+        //         map.show()
+        //     }
+        // }
+        // renderMap(googleMap)
+        // renderMap(baiduMap)
+        // ----------------------------------------------------------------------------
+
+        const googleMap = {
+            show: function () {
+                console.log('开始渲染谷歌地图')
+            }
+        }
+        const baiduMap = {
+            display: function () {
+                console.log('开始渲染百度地图')
+            }
+        }
+        //为白度地图做适配
+        const baiduMapAdapter = {
+            show: function () {
+                return baiduMap.display()
+            }
+        }
+        const renderMap = function (map) {
+            if (map.show) {
+                map.show()
+            }
+        }
+        renderMap(googleMap)
+        renderMap(baiduMapAdapter)
+
+    </script>
+</body>
+
+</html>

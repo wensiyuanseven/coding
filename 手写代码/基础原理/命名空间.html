@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let obj = {}
+        function nameSpace(name) {
+            let args = name.split('.')
+            let current = obj
+            // 循环对象
+            for (let i = 0, item; item = args[i++];) {
+                if (!current[item]) {
+                    current[item] = {}
+                }
+                current = current[item]
+            }
+        }
+        nameSpace('event')
+        nameSpace('dom.style')
+        console.log(obj)
+    </script>
+</body>
+
+</html>

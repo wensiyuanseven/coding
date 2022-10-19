@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>加载可视区内容</title>
+    <style>
+        #ul1 {
+            margin: 100px auto 0;
+            padding: 0;
+        }
+
+        li {
+            float: left;
+            margin: 0 0 10px 10px;
+            list-style: none;
+            border: 1px solid black;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+            line-height: 300px;
+        }
+
+        img {
+            width: 290px;
+            height: 200px;
+            display: block;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            var oUl = document.getElementById('ul1');
+            var aLi = document.getElementsByTagName('li');
+
+            showImage();
+
+            window.onscroll = showImage;
+
+            function showImage() {
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                for (var i = 0; i < aLi.length; i++) {
+                    //判断是否进入可视区
+                    // 元素距离页面顶部的距离+自身高度-滚动的距离>0
+                    if (getTop(aLi[i]) + aLi[i].offsetHeight - scrollTop > 0 && getTop(aLi[i]) < scrollTop + document.documentElement.clientHeight) {
+                        aLi[i].innerHTML = '渲染内容'
+                    } else {
+                        aLi[i].innerHTML = ''
+                    }
+                }
+            }
+            function getTop(obj) {
+                var iTop = 0;
+                while (obj) {
+                    iTop += obj.offsetTop;
+                    obj = obj.offsetParent;
+                }
+                return iTop;
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <ul id="ul1">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>

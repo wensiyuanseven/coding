@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const closeDoor = {
+            dispatch: function () {
+                console.log('关门')
+            }
+        }
+        const openPc = {
+            dispatch: function () {
+                console.log('开电脑')
+            }
+        }
+        let command = function () {
+            return {
+                cache: [],
+                add: function (command) {
+                    this.cache.push(command)
+                },
+                dispatch: function () {
+                    for (let i = 0, item; item = this.cache[i++];) {
+                        item.dispatch()
+                    }
+                }
+            }
+        }
+        let initCommand = command()
+        initCommand.add(closeDoor)
+        initCommand.add(openPc)
+        initCommand.dispatch()
+    </script>
+</body>
+
+</html>

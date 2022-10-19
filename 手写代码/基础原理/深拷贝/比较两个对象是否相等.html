@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- 参考 https://juejin.cn/post/6844903802298974221 -->
+
+<body>
+    <!-- 两个Object类型对象，即使拥有相同属性、相同值，当使用 == 或 === 进行比较时，也不认为他们相等。
+    这就是因为他们是通过引用（内存里的位置）比较的，不像基本类型是通过值比较的。 -->
+    <script>
+        /**
+         * 1. 实现一个函数，判断两个变量值是否相等
+         *
+         * 注意
+         * - 数据类型不限于示例，尽可能考虑边界
+         * - function 引用相等即可
+         */
+        const foo1 = {
+            a: 1,
+            b: "1",
+            c: 0,
+            c: NaN,
+            d: [
+                {
+                    a: 1,
+                    b: 2,
+                },
+            ],
+            f: {
+                a: 1,
+            },
+            g: null,
+        };
+
+        const foo2 = {
+            c: 0,
+            a: 1,
+            b: "1",
+            c: NaN,
+            d: [
+                {
+                    a: 1,
+                    b: 2,
+                },
+            ],
+            f: {
+                a: 1,
+            },
+            g: null,
+        };
+
+        /*
+        * @param x {Object} 对象1
+        * @param y {Object} 对象2
+        * @return  {Boolean} true 为相等，false 为不等
+        */
+
+        const deepEqual = (x, y) => {
+            // 指向同一内存时
+            if (x === y) {
+                return true;
+            } else if ((typeof x == "object" && x != null) && (typeof y == "object" && y != null)) {
+                // 长度不同，返回false
+                if (Object.keys(x).length !== Object.keys(y).length) {
+                    return false;
+                }
+                for (let prop in x) {
+                    // 对象Y里面存在对象x的属性
+                    if (y.hasOwnProperty(prop)) {
+                        // 递归
+                        if (!deepEqual(x[prop], y[prop])) return false;
+                    } else {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                // 比较NaN
+                if (Object.is(x, y)) {
+                    return true
+                } else {
+                    return false;
+                }
+            }
+        }
+        console.log(deepEqual(foo1, foo2))
+
+    </script>
+</body>
+
+</html>

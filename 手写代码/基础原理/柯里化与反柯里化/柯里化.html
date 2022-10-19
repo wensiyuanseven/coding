@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 通用的柯里化函数
+        function currying(fn) {
+            let result = []
+            return function (...args) {
+                if (args.length === 0) {
+                    // 交给cost函数去累加
+                    return fn.apply(this, result)
+                } else {
+                    // Array.prototype.push.apply(result, args)
+                    // result = result.concat(args)
+                    result = [...result, ...args]
+                }
+            }
+        }
+        let cost = function (...args) {
+            let money = 0
+            args.forEach(item => {
+                money += item
+            })
+            return money
+        }
+        let result = currying(cost)
+        result(1)
+        result(2)
+        result(3)
+        console.log(result())
+    </script>
+</body>
+
+</html>

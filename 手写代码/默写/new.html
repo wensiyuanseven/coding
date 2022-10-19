@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function demo(a, b, c) {
+            console.log(a, b, c, this)
+        }
+        function New(...args) {
+            const fn = args.shift()
+            // 创建一个对象
+            const obj = {}
+            // 更改this指向
+            const result = fn.apply(obj, args)
+            // 关联原型链
+            obj.__proto__ = fn.prototype
+            return result instanceof Object ? result : obj
+        }
+        New(demo, 1, 2, 3)
+    </script>
+</body>
+
+</html>

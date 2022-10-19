@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 也可以根据某个字段{a：123}去重
+        let myArray = [1, 2, 1, 2, 3, 5, 4, 5, 3, 4, 4, 4, 4];
+        let set = new Set()
+        let newArr = []
+        myArray.forEach(item => {
+            if (!set.has(item)) {
+                set.add(item)
+                newArr.push(item)
+            }
+        });
+        console.log(newArr)
+    </script>
+</body>
+
+</html>

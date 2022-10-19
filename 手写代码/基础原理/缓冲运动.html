@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: slategray;
+            position: absolute;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id='btn'>点击</button>
+    <div id="div">
+
+    </div>
+    <script>
+        // 缓冲运动   速度=（目标点-此刻的距离）*一个系数
+        // 距离=当前的距离+=速度
+        btn.addEventListener('click', startMove)
+        function startMove() {
+            let interval = null;
+            (function move() {
+                if (parseFloat(div.style.left) === 500) {
+                    cancelAnimationFrame(interval)
+                } else {
+                    interval = requestAnimationFrame(move)
+                }
+                let speed = Math.ceil((500 - div.offsetLeft) * 0.1)
+                div.style.left = div.offsetLeft + speed + 'px'
+            })()
+        }
+
+        // 但是运动完成并未到达目标点 此问题与js解析有关系
+        // 因为 offsetWidth/offsetHeight/offsetLeft 获取到的值是一个四舍五入的值
+        // 假设 width = 10.4px offsetWidth计算后的值10 width = 10.7px offsetWidth计算后的值为11
+    </script>
+</body>
+
+</html>

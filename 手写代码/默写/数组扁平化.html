@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr = [1, [1, 2]]
+
+        function handleArr(arr) {
+            return arr.reduce((result, item) => {
+                return result.concat(Array.isArray(item) ? handleArr(item) : item)
+            }, [])
+        }
+        console.log(handleArr(arr))
+
+    </script>
+</body>
+
+</html>

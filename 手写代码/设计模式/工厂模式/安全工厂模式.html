@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 注意会执行两遍
+        function Factory() {
+            // 会执行两遍
+            if (!(this instanceof Factory)) {
+                return new Factory()
+            }
+        }
+        console.log(Factory())
+        // new Factory()
+    </script>
+</body>
+
+</html>

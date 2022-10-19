@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            class Event {
+                constructor() {
+                    this.object = {};
+                }
+                inject(name, fn) {
+                    if (typeof fn === "function") {
+                        if (this.object[name]) {
+                            this.object[name].push(fn);
+                        } else {
+                            this.object[name] = [fn];
+                        }
+                    }
+                }
+                dispatch(...args) {
+                    const eventList = this.object[args.shift()];
+                    if (eventList && eventList.length) {
+                        eventList.forEach((fn) => {
+                            fn.apply(this, args);
+                        });
+                    }
+                }
+                delete(name, fn) {
+                    if (this.object[name] instanceof Array) {
+                        this.object[name].forEach((item, index) => {
+                            if (item === fn) {
+                                this.object[name].splice(index, 1);
+                            }
+                        });
+                    }
+                }
+            }
+            let event = new Event();
+            let fn = function () {
+                console.log(123);
+            };
+            event.inject("text", fn);
+            event.inject("text", function () {
+                console.log(789);
+            });
+            event.inject("text", function (abc) {
+                console.log(this);
+                console.log(abc);
+            });
+            // event.delete("text", fn);
+            event.dispatch("text",'我是');
+        </script>
+    </body>
+</html>

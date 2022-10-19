@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二叉树搜索树</title>
+</head>
+
+<body>
+    <script>
+        // 在左侧存储比父节点小的值，在右侧存储比父节点大的值
+        // 表示某个节点
+        class Node {
+            constructor(key) {
+                this.key = key
+                this.left = null
+                this.right = null
+            }
+        }
+        // 二叉搜索树
+        class SearchTree {
+            constructor() {
+                this.root = null
+            }
+            // 插入
+            insert(key) {
+                // 第一次插入
+                if (this.root == null) {
+                    this.root = new Node(key)
+                } else {
+                    // 递归
+                    this.insertNode(this.root, key)
+                }
+            }
+            insertNode(node, key) {
+                // 当前key小于节点key
+                if (key < node.key) {
+                    // 叶节点
+                    if (node.left == null) {
+                        node.left = new Node(key)
+                    } else {
+                        // 递归循环左侧值
+                        this.insertNode(node.left, key)
+                    }
+                } else {
+                    if (node.right == null) {
+                        // 叶节点
+                        node.right = new Node(key)
+                    } else {
+                        // 递归循环右侧值
+                        this.insertNode(node.right, key)
+                    }
+                }
+            }
+            // 中序遍历 从最小到最大的顺序访问所有节点
+            // 应用 可以对树进行排序操作
+            zhongXu(callback) {
+                this.zhongXuNode(this.root, callback)
+            }
+            zhongXuNode(node, callback) {
+                if (node != null) {
+                    this.zhongXuNode(node.left, callback)
+                    callback(node.key)
+                    this.zhongXuNode(node.right, callback)
+                }
+            }
+            // 先序遍历 先访问父节点 再访问子节点
+            // 应用: 打印一个结构化文档
+            xianXu(callback) {
+                this.xianXuNode(this.root, callback)
+            }
+            xianXuNode(node, callback) {
+                if (node != null) {
+                    callback(node.key)
+                    this.xianXuNode(node.left, callback)
+                    this.xianXuNode(node.right, callback)
+                }
+            }
+            // 后序遍历 先访问节点的后代节点 再访问节点本身
+            // 应用: 计算一个目录及其子目录中所有文件所占的空间大小
+            houXu(callback) {
+                this.houXuNode(this.root, callback)
+            }
+            houXuNode(node, callback) {
+                if (node != null) {
+                    this.houXuNode(node.left, callback)
+                    this.houXuNode(node.right, callback)
+                    callback(node.key)
+                }
+            }
+        }
+        let tree = new SearchTree()
+        tree.insert(11)
+        tree.insert(7)
+        tree.insert(15)
+        tree.insert(5)
+        tree.insert(3)
+        tree.insert(9)
+        tree.insert(8)
+        tree.insert(10)
+        tree.insert(13)
+        tree.insert(12)
+        tree.insert(14)
+        tree.insert(20)
+        tree.insert(18)
+        tree.insert(25)
+        tree.insert(6)
+        console.log(tree)
+
+        tree.zhongXu(ele => {
+            console.log(ele)
+        })
+
+        console.log('-------------')
+        tree.xianXu(ele => {
+            console.log(ele)
+        })
+        console.log('-------------')
+        tree.houXu(ele => {
+            console.log(ele)
+        })
+    </script>
+</body>
+
+</html>

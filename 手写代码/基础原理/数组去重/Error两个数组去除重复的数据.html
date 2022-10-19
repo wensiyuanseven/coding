@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- 千万不要去改变原数组！！！！！ -->
+        <!-- 错误示范1 -->
+        <script>
+            let list = ["a", "b", "g", "c", "d", "v"];
+            let frontList = ["c", "d", "v", "f", "g"];
+            for (let i = 0; i < list.length; i++) {
+                console.log(i);
+                for (let j = 0; j < frontList.length; j++) {
+                    console.log(list[i], "<===>", frontList[j], list);
+                    if (list[i] === frontList[j]) {
+                        // console.log(list[i], "===", frontList[j],true);
+                        list.splice(i, 1);
+                        // console.log(list.length,'list')
+                        // break;
+                    }
+                }
+            }
+            console.log(list, frontList);
+        </script>
+
+        <!-- 错误示范2 -->
+        <script>
+            let list = ["a", "b", "g", "c", "d", "v"];
+            let frontList = ["c", "d", "v", "f", "g"];
+            for (let i = 0; i < list.length; i++) {
+                console.log(i);
+                for (let j = 0; j < frontList.length; j++) {
+                    console.log(list[i], "<===>", frontList[j], list);
+                    if (list[i] === frontList[j]) {
+                        // console.log(list[i], "===", frontList[j],true);
+                        list.splice(i, 1);
+                        // console.log(list.length,'list')
+                        break;
+                    }
+                }
+            }
+            console.log(list, frontList);
+        </script>
+    </body>
+</html>

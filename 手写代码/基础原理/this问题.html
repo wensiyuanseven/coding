@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = 2
+        function foo() {
+            console.log(this.a)
+        }
+        let o = { a: 123, foo: foo }
+        let p = { a: 456 }
+
+        console.log((p.foo = o.foo))
+    </script>
+</body>
+
+</html>

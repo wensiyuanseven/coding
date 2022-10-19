@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Node {
+            constructor(key) {
+                this.key = key
+                this.left = null
+                this.right = null
+            }
+        }
+        let root = new Node('A')  //初始化
+        root.left = new Node('B')
+        root.right = new Node('C')
+
+
+        function text(node) {
+            // if (node.key === 'B') {
+
+            node = null // 相当于给node重新分配了内存
+            console.log(node)
+            // return
+            // }
+            // this.text(node.left)
+        }
+        text(root)
+        console.log(root)
+
+    </script>
+</body>
+
+</html>

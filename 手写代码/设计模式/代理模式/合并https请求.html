@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function sendAjax(cache) {
+            console.log(cache)
+        }
+        let proxySaveHttps = (function () {
+            let cache = []
+            let timer = null
+            return function () {
+                cache.push('A')
+                if (timer) {
+                    return
+                }
+                timer = setTimeout(() => {
+                    sendAjax(cache)
+                    clearTimeout(timer)
+                    timer = null
+                    cache = []
+                }, 2000)
+            }
+        })()
+        document.addEventListener('click', proxySaveHttps)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let Father = {
+            init: function (name) {
+                this.name = name
+            },
+            getName: function () {
+            }
+        }
+        let Son = Object.create(Father)
+        Son.init('温思远')
+        Father.init('哈哈哈')
+        // 委托不建议使用相同方法名
+        Son.getsONsSelfName = function () {
+            this.getName()
+        }
+        Son.getsONsSelfName()
+        // Son的init还是温思远
+        console.log(Son)
+    </script>
+</body>
+
+</html>

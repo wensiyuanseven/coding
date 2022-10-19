@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            function debounce(fn, { time = 500, immediate = false }) {
+                let interval = null;
+                return (...args) => {
+                    if (immediate) {
+                        fn.apply(this, args);
+                        return (immediate = false);
+                    }
+                    clearTimeout(interval);
+                    interval = setTimeout(() => {
+                        fn.apply(this, args);
+                    }, time);
+                };
+            }
+            window.onresize = debounce(
+                (event) => {
+                    console.log(event);
+                },
+                { time: 200, immediate: false }
+            );
+        </script>
+    </body>
+</html>
