@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>flex-demo</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            .app {
+                width: 300px;
+                height: 300px;
+                margin: 200px auto;
+                border: 2px solid salmon;
+                display: flex;
+            }
+            .app div {
+                /* flex-basis: 80px; */
+                border: 1px solid green;
+                /* overflow: auto; */
+                /* margin: 0 2px; */
+            }
+            .a {
+                flex: 1;
+                border: 1px solid green;
+                overflow: auto;
+            }
+            .b {
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <div class="a">22222222222222222222222222</div>
+            <!-- <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div> -->
+            <div class="b">99999999</div>
+        </div>
+    </body>
+</html>

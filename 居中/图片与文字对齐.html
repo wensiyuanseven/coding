@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        img {
-            width: 60px;
-            vertical-align: middle;
-        }
-
-        /* css世界128页 */
-    </style>
-</head>
-<!-- 如何上下对齐？ -->
-<body>
-    <p><span>abc</span><img src="./img/example.png" alt=""></p>
-</body>
-
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            img {
+                width: 60px;
+                vertical-align: middle;
+                
+            }
+            /* vertical-align 起作用是有前提条件的，这个前提条件就是:只能应用于内联元 素以及 display 值为 table-cell 的元素。
+换句话说，vertical-align 属性只能作用在 display 计算值为 inline、inline- block，inline-table 或 table-cell 的元素上 */
+            /* css世界128页 */
+        </style>
+    </head>
+    <!-- 如何上下对齐？ -->
+    <body>
+        <p><span>abc</span><img src="./img/example.png" alt="" /></p>
+    </body>
 </html>

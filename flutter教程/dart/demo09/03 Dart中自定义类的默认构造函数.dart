@@ -15,7 +15,7 @@
 // class Person{
 //   String name;
 //   int age;
-//   //默认构造函数
+//   默认构造函数
 //   Person(String name,int age){
 //       this.name=name;
 //       this.age=age;

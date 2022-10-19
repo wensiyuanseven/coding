@@ -20,7 +20,6 @@ export function initMixin(Vue) {
         }
     }
     Vue.prototype.$mount = function (el) { // 可能是字符串 也可以传入一个dom对象
-        debugger
         const vm = this;
         el = vm.$el = document.querySelector(el); // 获取el属性
 

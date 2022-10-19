@@ -22,6 +22,8 @@ export default {
     },
     methods: {
         input(event) {
+            // 只输入正整数
+            event.target.value = event.target.value.replace(/[^0-9]/g, "");
             this.$emit("input", event.target.value);
         },
     },

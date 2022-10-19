@@ -57,10 +57,7 @@ class MemoryCache<T> implements Cache<T>{
   }
 }
 void main(){
-
-
     // MemoryCache m=new MemoryCache<String>();
-
     //  m.setByKey('index', '首页数据');
      MemoryCache m=new MemoryCache<Map>();
 

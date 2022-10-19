@@ -1,28 +1,23 @@
-void main(){
-
-  /* ! 取反 */ 
+void main() {
+  /* ! 取反 */
 
   // bool flag=false;
   // print(!flag);   //取反
 
+  /* &&并且:全部为true的话值为true 否则值为false */
 
-
- /* &&并且:全部为true的话值为true 否则值为false */ 
-
+  // bool a=true;
   // bool a=true;
   // bool b=true;
 
   // print(a && b);
 
-
- /* ||或者：全为false的话值为false 否则值为true */ 
+  /* ||或者：全为false的话值为false 否则值为true */
 
   // bool a=false;
   // bool b=false;
 
   // print(a || b);
-
-
 
 //如果一个人的年龄是20 并且 sex是女的话我们打印这个人
 
@@ -38,22 +33,18 @@ void main(){
 
   // }
 
-
-
 //如果一个人的年龄是20 或者 sex是女的话我们打印这个人
 
-  int age=23;
-  String sex="女";
-  if(age==20 || sex=="女"){
-
+  int age = 23;
+  String sex = "女";
+  if (age == 20 || sex == "女") {
     print("$age --- $sex");
-
-  }else{
-
+  } else {
     print("不打印");
-
   }
 
+  int? a = 123;
+  int? b = 456;
 
-
+  print(a - b);
 }

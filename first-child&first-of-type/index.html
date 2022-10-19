@@ -21,6 +21,9 @@
             section .bill-item:first-of-type {
                 background: red;
             }
+            section .bill-item:first-child {
+                background: rgb(196, 169, 169);
+            }
         </style>
     </head>
     <body>
@@ -31,8 +34,24 @@
         </section>
         <!-- 能匹配 -->
         <section>
-            <div class="select-month">哈哈</div>
+            <div class="bill-item">哈哈</div>
+            <p>hahha1</p>
             <div class="bill-item">阿巴巴BB</div>
         </section>
     </body>
+
+    <!-- <style>
+        p:last-of-type {
+          color: #f00;
+        }
+        p:last-child {
+          color: #0f0;
+        }
+        </style>
+        <body>
+          <p>我是第一个段落</p>
+          <p>我是第二个段落</p>
+          <p>我是第三个段落</p>
+          <span>中出一个叛徒span</span>
+        </body> -->
 </html>

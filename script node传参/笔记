@@ -1,0 +1,17 @@
+cross-env的作用是什么？
+
+当我们使用 NODE_ENV = production 来设置环境变量的时候，大多数windows命令会提示将会阻塞或者异常，
+或者，windows不支持NODE_ENV=development的这样的设置方式，会报错。
+因此 cross-env 出现了。我们就可以使用 cross-env命令，这样我们就不必担心平台设置或使用环境变量了。也就是说 cross-env 能够提供一个设置环境变量的scripts，
+这样我们就能够以unix方式设置环境变量，然而在windows上也能够兼容的。
+
+注意点
+
+1. 设置环境变量必须在script命令开头， 否则不生效
+
+2. -- 后面设置的值是传递给另一个npm run 命令的参数
+
+3.  script脚本后面添加的值全是参数
+
+
+

@@ -12,38 +12,34 @@ Dart中的类的继承：
 
 class Person {
   String name;
-  num age; 
-  Person(this.name,this.age);
+  num age;
+  Person(this.name, this.age);
   void printInfo() {
-    print("${this.name}---${this.age}");  
+    print("${this.name}---${this.age}");
   }
 }
 
-
-class Web extends Person{
-  String sex="";
-  Web(String name, num age,String sex) : super(name, age){
-    this.sex=sex;
+class Web extends Person {
+  // String sex = "";
+  String name;
+  num age;
+  String country;
+  Web(this.name, this.age, {this.country = '中国'}) : super(name, age);
+  run() {
+    print("${this.name}---${this.age}--${this.country}");
   }
-  run(){
-   print("${this.name}---${this.age}--${this.sex}");  
-  }
-  
 }
 
-main(){ 
-
+main() {
   // Person p=new Person('李四',20);
   // p.printInfo();
 
   // Person p1=new Person('张三',20);
   // p1.printInfo();
 
-
-  Web w=new Web('张三', 12,"男");
+  Web w = new Web('张三', 12, country: "112");
 
   w.printInfo();
 
   w.run();
-
 }
